@@ -131,8 +131,6 @@
                 android:padding="8dp" />
 
 
-
-
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
