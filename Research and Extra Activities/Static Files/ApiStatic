@@ -17,3 +17,7 @@ public class ApiStatic {
     public static String getProductById(int productId) {
         return String.format("http://10.0.2.2:8080/kinMel/product/%d", productId);
     }
+
+     public static String getProductByCategory(int categoryId) {
+        return String.format("http://10.0.2.2:8080/kinMel/product?categoryId=%d", categoryId);
+    }
