@@ -1,0 +1,199 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".SignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/my_primary"
+        android:alpha="0.7" />
+
+    <!-- Centered logo and app name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_above="@id/card_view"
+        android:padding="28dp">
+    </LinearLayout>
+
+    <!-- Card view containing the signup form -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="28dp"
+        android:layout_marginBottom="-20dp"
+        android:id="@+id/card_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <!-- Sign Up header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seller Sign Up"
+                android:textColor="@color/my_primary"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create a new seller account"
+                android:alpha="0.7" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+
+            <!-- Company Name input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company Name"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter company name" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <!-- Owner's Name input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Owner's Name"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter owner's name" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <!-- Address input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter address" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <!-- Phone Number input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="Enter phone number" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <!-- Document details input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Document Details"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter document details" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <!-- Payment Method input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Method"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/payment_method_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/payment_methods" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+
+            <!-- Checkbox for agreeing to terms -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I agree to the terms and conditions"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:id="@+id/checkbox_terms" />
+            </RelativeLayout>
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <!-- Sign Up button -->
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Sign Up as Seller"
+                app:cornerRadius="32dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
