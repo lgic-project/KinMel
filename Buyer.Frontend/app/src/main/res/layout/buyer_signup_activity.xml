@@ -7,14 +7,13 @@
     android:background="@drawable/bg"
     tools:context=".SignUpActivity">
 
-    <!-- Translucent background overlay -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/my_primary"
         android:alpha="0.7" />
 
-    <!-- Centered logo and app name -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,20 +21,6 @@
         android:gravity="center"
         android:layout_above="@id/card_view"
         android:padding="28dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/shopping_iconwhite" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KinMel"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="32sp"
-            android:textColor="@color/white" />
     </LinearLayout>
 
     <!-- Card view containing the signup form -->
@@ -90,51 +75,45 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="20dp" />
+            <!-- Name input -->
 
-            <!-- Role selection -->
+            <!-- Address input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Role"
-                android:alpha="0.7"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/spinner_role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/role_options"
-                android:prompt="Select your role" />
-
-            <!-- Space between elements -->
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
-
-            <!-- Date of Birth input -->
-            <!-- Date of Birth input -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date of Birth"
+                android:text="Address"
                 android:alpha="0.7"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Select Date of Birth"
-                android:focusable="false"
-                android:clickable="true"
-                android:background="@drawable/edit_text_background"
-                android:padding="8dp" />
-
+                android:hint="Enter your address" />
 
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="20dp" />
+
+            <!-- Phone Number input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="Enter your phone number" />
+
+            <!-- Space between elements -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
 
             <!-- Email Address input -->
             <TextView
@@ -149,6 +128,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:drawableEnd="@drawable/done_icon" />
+
+
 
             <!-- Space between elements -->
             <View
