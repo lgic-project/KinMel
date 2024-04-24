@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".SignUpActivity">
+    tools:context=".BuyerSignUp">
 
 
     <RelativeLayout
@@ -74,7 +74,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
             <!-- Name input -->
 
             <!-- Address input -->
@@ -93,7 +93,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
 
             <!-- Phone Number input -->
             <TextView
@@ -112,7 +112,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
 
 
             <!-- Email Address input -->
@@ -134,7 +134,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
 
             <!-- Password input -->
             <TextView
@@ -164,11 +164,6 @@
                 android:inputType="textPassword"
                 android:drawableEnd="@drawable/password_icon" />
 
-            <!-- Space between elements -->
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
-
             <!-- Checkbox for agreeing to terms -->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -195,6 +190,20 @@
                 android:text="Sign Up"
                 app:cornerRadius="32dp" />
 
+            <!-- Sign In button -->
+            <Button
+                android:id="@+id/btn_go_to_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Sign in"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"/>
+
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

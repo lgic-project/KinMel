@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_above="@id/card_view"
-        android:padding="28dp">
+        android:padding="28dp">2
     </LinearLayout>
 
     <!-- Card view containing the signup form -->

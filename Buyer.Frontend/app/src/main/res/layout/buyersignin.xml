@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".MainLogin">
+    tools:context=".BuyerSignIn">
 
 
     <RelativeLayout
@@ -126,15 +126,43 @@
                 android:layout_height="10dp"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Login"
                 app:cornerRadius="32dp"/>
 
 
+
+
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end|bottom"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don't have an account?"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign up here"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
