@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <include layout="@layout/my_cart_template" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="-7dp"
+        android:layout_marginTop="141dp"
+        android:layout_marginEnd="356dp"
+        android:layout_marginBottom="526dp" />
+
+    <ImageView
+        android:id="@+id/productImageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg" />
+
+    <TextView
+        android:id="@+id/productNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="182dp"
+        android:layout_marginTop="88dp"
+        android:text="Product Name"
+        android:textColor="@color/my_primary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/productDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/productNameTextView"
+        android:layout_toEndOf="@id/productImageView"
+        android:layout_marginTop="8dp"
+        android:text="Product Description"
+        android:textColor="@color/my_secondary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/productPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/productDescriptionTextView"
+        android:layout_toEndOf="@id/productImageView"
+        android:layout_marginTop="8dp"
+        android:text="$19.99"
+        android:textColor="@color/my_primary"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/quantitySelectorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/productPriceTextView"
+        android:layout_toEndOf="@id/productImageView">
+
+        <Button
+            android:id="@+id/decrementButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@color/my_primary"
+            android:padding="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="16sp"
+            android:textColor="@color/my_primary"
+            android:paddingHorizontal="8dp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/incrementButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@color/my_primary"
+            android:padding="8dp"
+            android:layout_marginLeft="8dp"/>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/my_cart_bottom_template"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>
+
