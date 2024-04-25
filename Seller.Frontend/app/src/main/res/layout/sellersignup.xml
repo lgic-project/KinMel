@@ -185,12 +185,13 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="10dp" />
+                android:layout_height="14dp" />
 
             <!-- Sign Up button -->
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:backgroundTint="@color/my_primary"
                 android:text="Sign Up as Seller"
                 app:cornerRadius="32dp" />
 

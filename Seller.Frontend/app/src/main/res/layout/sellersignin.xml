@@ -128,6 +128,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:backgroundTint="@color/my_primary"
                 android:text="Login as Seller"
                 app:cornerRadius="32dp"/>
 
