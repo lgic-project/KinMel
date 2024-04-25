@@ -5,7 +5,7 @@
     android:background="@color/my_primary"
     tools:context=".MainActivity">
 
-    <!-- Search Box -->
+
     <EditText
         android:id="@+id/search_box"
         android:layout_width="match_parent"
@@ -17,15 +17,14 @@
         android:background="@drawable/edittext_border"
         android:textColor="@android:color/black" />
 
-    <!-- Orange Gap between Search Box and Offers Section -->
+
     <View
         android:id="@+id/orange_gap_search_offers"
         android:layout_below="@id/search_box"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/my_primary" /> <!-- Orange color -->
+        android:background="@color/my_primary" />
 
-    <!-- Offers Section -->
     <TextView
         android:id="@+id/offers_header"
         android:layout_below="@id/orange_gap_search_offers"
@@ -46,7 +45,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
-    <!-- Gap between offers and categories using primary color -->
     <View
         android:id="@+id/gap_offers_categories"
         android:layout_below="@id/offers_recyclerview"
@@ -54,7 +52,6 @@
         android:layout_height="10dp"
         android:background="@color/my_primary" />
 
-    <!-- Categories Section -->
     <TextView
         android:id="@+id/categories_header"
         android:layout_below="@id/gap_offers_categories"
@@ -75,7 +72,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
-    <!-- Bottom Navigation -->
     <include
         layout="@layout/bottom_navigation"
         android:layout_alignParentBottom="true"
