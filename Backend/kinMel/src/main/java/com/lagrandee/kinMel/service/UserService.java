@@ -11,7 +11,7 @@ public interface UserService {
 
 Users getSpecificUserById(int id);
 
-List<Users> getAllUsers();
+    List<Users> getAllUsers();
 
     Users addOrUpdateUser(Users users);
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -34,7 +34,6 @@ public class Users implements UserDetails {
     @Column(name = "password", length = 256)
     private String password;
 
-
     @Column(name = "address", length = 50)
     private String address;
 
@@ -44,6 +43,14 @@ public class Users implements UserDetails {
     @Column(name = "profile_photo", length = 300)
     private String profilePhoto;
 
+    @Column(name = "otp")
+    private String otp;
+
+    @Column(name = "otp_generated_time")
+    private LocalDateTime otpGeneratedTime;
+
+    @Column(name = "active")
+    private Integer active;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -52,12 +59,6 @@ public class Users implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null;
-//    }
-//
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

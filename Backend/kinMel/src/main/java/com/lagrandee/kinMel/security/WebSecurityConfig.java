@@ -32,8 +32,9 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -43,6 +44,9 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/kinMel/verify-account").permitAll()
+                .requestMatchers("/kinMel/regenerate-otp").permitAll()
+                .requestMatchers("/auth/users/register").permitAll()
                 .requestMatchers("/kinMel/users").permitAll()
                 .requestMatchers("/kinMel/users/**").permitAll()
                 .anyRequest().authenticated());

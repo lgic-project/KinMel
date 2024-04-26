@@ -1,11 +1,13 @@
 package com.lagrandee.kinMel.controllers;
 
 
+import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.request.LoginRequest;
 import com.lagrandee.kinMel.bean.response.JwtResponse;
 import com.lagrandee.kinMel.entity.Users;
 import com.lagrandee.kinMel.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 public class AuthController {
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
+    private final UsersRepository usersRepository;
     @GetMapping("/admin")
     @PreAuthorize("hasRole('Admin')")
     public String adminPage() {
@@ -35,12 +38,19 @@ public class AuthController {
     }
     @GetMapping("/auth/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
-        Users userDetails = (Users) authentication.getPrincipal();
-        String jwt = jwtUtils.generateJwtToken(userDetails.getUsername());
-        List<String>roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        String userId = userDetails.getEmail();
-        String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());
-        return ResponseEntity.ok(new JwtResponse(jwt, refreshToken, userId, roles));
+        Users users=usersRepository.findByEmail(loginRequest.getUserName());
+        if (users.getActive()==1) {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
+            Users userDetails = (Users) authentication.getPrincipal();
+            String jwt = jwtUtils.generateJwtToken(userDetails.getUsername());
+            List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+            String userId = userDetails.getEmail();
+            String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());
+
+            return ResponseEntity.ok(new JwtResponse(jwt, refreshToken, userId, roles));
+        }
+        else {
+            return new ResponseEntity<>("Account is blocked or not verified",HttpStatus.FORBIDDEN);
+        }
     }
 }

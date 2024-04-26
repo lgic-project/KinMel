@@ -2,16 +2,25 @@ package com.lagrandee.kinMel.service.implementation;
 
 import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.UserDetail;
+import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
+import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
+import com.lagrandee.kinMel.helper.emailhelper.EmailUtil;
+import com.lagrandee.kinMel.helper.emailhelper.OtpGenerate;
 import com.lagrandee.kinMel.service.UserService;
+import jakarta.mail.MessagingException;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImplementation implements UserService {
 
     private final UsersRepository usersRepository;
@@ -20,11 +29,11 @@ public class UserServiceImplementation implements UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImplementation(UsersRepository usersRepository, JdbcTemplate jdbcTemplate, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.usersRepository = usersRepository;
-        this.jdbcTemplate = jdbcTemplate;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    private final OtpGenerate otpGenerate;
+
+    private EmailUtil emailUtil;
+
+
 
     @Override
     public Users getSpecificUserById(int id) {
@@ -46,6 +55,48 @@ public class UserServiceImplementation implements UserService {
     public Users addOrUpdateUser(Users users) {
        users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
         return usersRepository.save(users);
+    }
+
+
+    public String registerUser(UsersRegisterDTO usersRegisterDTO)  {
+        String otp = otpGenerate.generateOTP();
+        String mail=usersRegisterDTO.getEmail();
+        try {
+            emailUtil.sendOtpInMail(mail,otp);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Unable to send otp.Please try again");
+        }
+        Users users=new Users();
+        users.setId(0);
+        users.setFirstName(usersRegisterDTO.getFirstName());
+        users.setLastName(usersRegisterDTO.getLastName());
+        users.setEmail(usersRegisterDTO.getEmail());
+        users.setPassword(bCryptPasswordEncoder.encode(usersRegisterDTO.getPassword()));
+        users.setAddress(usersRegisterDTO.getAddress());
+        users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
+        users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
+        users.setOtp(otp);
+        users.setOtpGeneratedTime(LocalDateTime.now());
+        users.setActive(0);
+        Set<Role> roles = new HashSet<>();
+        Role role=new Role();
+        role.setId(usersRegisterDTO.getRole());
+        if (usersRegisterDTO.getRole()==1){
+            role.setName("Admin");
+            role.setDescription("Manages Everything");
+        }
+        if (usersRegisterDTO.getRole()==2){
+            role.setName("Customer");
+            role.setDescription("Buys Product");
+        }
+        if (usersRegisterDTO.getRole()==3){
+            role.setName("Seller");
+            role.setDescription("Sells Product");
+        }
+        roles.add(role);
+        users.setRoles(roles);
+        usersRepository.save(users);
+return "User Registration successful";
     }
 
     @Override
@@ -75,4 +126,29 @@ public class UserServiceImplementation implements UserService {
           return usersWithRoles;
        },argumentList.toArray());
     }
+
+    public String verifyAccount(String email, String otp) {
+        Users byEmail = usersRepository.findByEmail(email);
+        if (byEmail.getOtp().equals(otp) && Duration.between(byEmail.getOtpGeneratedTime(),LocalDateTime.now()).getSeconds()<(5*60)){
+            byEmail.setActive(1);
+            usersRepository.save(byEmail);
+    return "OTP verified.Now you can login";
+        }
+        return "Please regenerate otp and try again";
+    }
+
+    public String regenerateOTP(String email) {
+        Users users=usersRepository.findByEmail(email);
+        String newOtp = otpGenerate.generateOTP();
+        try {
+            emailUtil.sendOtpInMail(email,newOtp);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Unable to send otp.Please try again");
+        }
+        users.setOtp(newOtp);
+        users.setOtpGeneratedTime(LocalDateTime.now());
+        usersRepository.save(users);
+        return "Email sent...Please verify your account";
+    }
+
 }

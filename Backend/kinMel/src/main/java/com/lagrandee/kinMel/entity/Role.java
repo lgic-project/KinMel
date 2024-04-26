@@ -15,10 +15,10 @@ public class Role {
     @Column(name = "role_id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name",  length = 50)
     private String name;
 
-    @Column(name = "description", nullable = false, length = 250)
+    @Column(name = "description", length = 250)
     private String description;
 
     public Role() {

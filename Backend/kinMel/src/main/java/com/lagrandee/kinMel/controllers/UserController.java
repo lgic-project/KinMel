@@ -2,10 +2,14 @@ package com.lagrandee.kinMel.controllers;
 
 
 import com.lagrandee.kinMel.bean.UserDetail;
+import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
 import com.lagrandee.kinMel.service.implementation.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
@@ -42,10 +46,29 @@ public class UserController {
         return userWithRole;
     }
 
+//    @PostMapping("/users/register")
+//    public Users addOrUpdateStudent(@RequestBody UsersRegisterDTO users){
+////        users.setId(0);
+////        return userServiceImplementation.addOrUpdateUser(users);
+//        return new Users();
+//    }
+
+    @PreAuthorize("hasAnyRole()")
     @PostMapping("/users/register")
-    public Users addOrUpdateStudent(@RequestBody Users users){
-        users.setId(0);
-        return userServiceImplementation.addOrUpdateUser(users);
+    public ResponseEntity<String> register(@RequestBody UsersRegisterDTO usersRegisterDTO){
+    return new ResponseEntity<>(userServiceImplementation.registerUser(usersRegisterDTO),HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole()")
+    @PutMapping("/verify-account" )
+    public ResponseEntity<String> verifyAccount(@RequestParam String email,@RequestParam String otp){
+        return new ResponseEntity<>(userServiceImplementation.verifyAccount(email,otp),HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole()")
+    @PutMapping("/regenerate-otp" )
+    public ResponseEntity<String> regenerateOTP(@RequestParam String email){
+        return new ResponseEntity<>(userServiceImplementation.regenerateOTP(email),HttpStatus.OK);
     }
 
 }
