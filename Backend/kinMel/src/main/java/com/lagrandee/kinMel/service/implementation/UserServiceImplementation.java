@@ -5,16 +5,22 @@ import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
+import com.lagrandee.kinMel.exception.UserAlreadyExistsException;
+import com.lagrandee.kinMel.helper.Image.ImageUtils;
+import com.lagrandee.kinMel.helper.StaticPaths;
 import com.lagrandee.kinMel.helper.emailhelper.EmailUtil;
 import com.lagrandee.kinMel.helper.emailhelper.OtpGenerate;
 import com.lagrandee.kinMel.service.UserService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -59,6 +65,10 @@ public class UserServiceImplementation implements UserService {
 
 
     public String registerUser(UsersRegisterDTO usersRegisterDTO)  {
+        Users checkEmail = usersRepository.findByEmail(usersRegisterDTO.getEmail());
+        if (checkEmail!=null){
+            throw new UserAlreadyExistsException("User already exists with email ");
+        }
         String otp = otpGenerate.generateOTP();
         String mail=usersRegisterDTO.getEmail();
         try {
@@ -75,6 +85,26 @@ public class UserServiceImplementation implements UserService {
         users.setAddress(usersRegisterDTO.getAddress());
         users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
         users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
+
+        //Practise
+        String profilePhoto = usersRegisterDTO.getProfilePhoto();
+//        String imageUploadPath="C:\\Users\\bisha\\OneDrive\\Desktop\\KinMel\\Backend\\kinMel\\images";
+        String imageUploadPath= StaticPaths.profilePath;
+        String savedImagePath = null;
+
+        if (profilePhoto != null && !profilePhoto.isEmpty()) {
+            try {
+                savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath,usersRegisterDTO.getImageFormat());
+            } catch (IOException e) {
+                throw new RuntimeException("Image cannot be saved");
+            }
+        }
+
+        if (savedImagePath != null) {
+            users.setProfilePhoto(savedImagePath);
+        } else {
+            users.setProfilePhoto("/images/default.png");
+        }
         users.setOtp(otp);
         users.setOtpGeneratedTime(LocalDateTime.now());
         users.setActive(0);
