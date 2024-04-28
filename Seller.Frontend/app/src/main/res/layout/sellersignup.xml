@@ -156,11 +156,11 @@
                 android:alpha="0.7"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/payment_method_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/payment_methods" />
+<!--            <Spinner-->
+<!--                android:id="@+id/payment_method_spinner"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:entries="@array/payment_methods" />-->
 
             <!-- Space between elements -->
             <View
