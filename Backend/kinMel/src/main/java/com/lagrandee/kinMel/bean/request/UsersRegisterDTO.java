@@ -20,7 +20,7 @@ public class UsersRegisterDTO {
     private Long phoneNumber;
     private Integer role;
     private String profilePhoto;
-
+    private String imageFormat;
 
 
 }
