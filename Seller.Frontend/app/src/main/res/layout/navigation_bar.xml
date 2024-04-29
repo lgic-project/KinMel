@@ -34,5 +34,14 @@
         android:background="?android:attr/selectableItemBackground"
         android:padding="16dp"
         android:contentDescription="@string/list_product" />
+    <ImageButton
+        android:id="@+id/btnSetting"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_setting"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp"
+        android:contentDescription="@string/list_product" />
 
 </LinearLayout>
