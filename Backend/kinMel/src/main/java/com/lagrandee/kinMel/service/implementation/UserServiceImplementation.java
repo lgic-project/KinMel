@@ -1,10 +1,12 @@
 package com.lagrandee.kinMel.service.implementation;
 
+import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
+import com.lagrandee.kinMel.exception.UnableToSendMailException;
 import com.lagrandee.kinMel.exception.UserAlreadyExistsException;
 import com.lagrandee.kinMel.helper.Image.ImageUtils;
 import com.lagrandee.kinMel.helper.StaticPaths;
@@ -15,6 +17,7 @@ import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -62,9 +65,8 @@ public class UserServiceImplementation implements UserService {
        users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
         return usersRepository.save(users);
     }
-
-
-    public String registerUser(UsersRegisterDTO usersRegisterDTO)  {
+    @Override
+    public ResponseEntity<?> registerUser(UsersRegisterDTO usersRegisterDTO)  {
         Users checkEmail = usersRepository.findByEmail(usersRegisterDTO.getEmail());
         if (checkEmail!=null){
             throw new UserAlreadyExistsException("User already exists with email ");
@@ -74,22 +76,19 @@ public class UserServiceImplementation implements UserService {
         try {
             emailUtil.sendOtpInMail(mail,otp);
         } catch (MessagingException e) {
-            throw new RuntimeException("Unable to send otp.Please try again");
+            throw new UnableToSendMailException("Unable to send otp.Please try again");
         }
         Users users=new Users();
         users.setId(0);
         users.setFirstName(usersRegisterDTO.getFirstName());
         users.setLastName(usersRegisterDTO.getLastName());
-        users.setEmail(usersRegisterDTO.getEmail());
+        users.setEmail(mail);
         users.setPassword(bCryptPasswordEncoder.encode(usersRegisterDTO.getPassword()));
         users.setAddress(usersRegisterDTO.getAddress());
         users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
         users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
-
-        //Practise
         String profilePhoto = usersRegisterDTO.getProfilePhoto();
-//        String imageUploadPath="C:\\Users\\bisha\\OneDrive\\Desktop\\KinMel\\Backend\\kinMel\\images";
-        String imageUploadPath= StaticPaths.profilePath;
+         String imageUploadPath= StaticPaths.profilePath;
         String savedImagePath = null;
 
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
@@ -126,7 +125,42 @@ public class UserServiceImplementation implements UserService {
         roles.add(role);
         users.setRoles(roles);
         usersRepository.save(users);
-return "User Registration successful";
+        KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.OK.value(),"User Registration successful",System.currentTimeMillis());
+        return new ResponseEntity<>(customMessage, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> updateUser(UsersRegisterDTO usersRegisterDTO) {
+        Optional<Users> usersOptional = usersRepository.findById(usersRegisterDTO.getId());
+        if (usersOptional.isPresent()) {
+            Users users = usersOptional.get();
+            users.setFirstName(usersRegisterDTO.getFirstName());
+            users.setLastName(usersRegisterDTO.getLastName());
+            users.setPassword(bCryptPasswordEncoder.encode(usersRegisterDTO.getPassword()));
+            users.setAddress(usersRegisterDTO.getAddress());
+            users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
+            users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
+            String profilePhoto = usersRegisterDTO.getProfilePhoto();
+            String imageUploadPath = StaticPaths.profilePath;
+            String savedImagePath = null;
+
+            if (profilePhoto != null && !profilePhoto.isEmpty()) {
+                try {
+                    savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath, usersRegisterDTO.getImageFormat());
+                } catch (IOException e) {
+                    throw new RuntimeException("Image cannot be saved");
+                }
+            }
+
+            if (savedImagePath != null) {
+                users.setProfilePhoto(savedImagePath);
+            } else {
+                users.setProfilePhoto("/images/default.png");
+            }
+            usersRepository.save(users);
+            KinMelCustomMessage customMessage = new KinMelCustomMessage(HttpStatus.OK.value(), "User successfully edited", System.currentTimeMillis());
+            return new ResponseEntity<KinMelCustomMessage>(customMessage, HttpStatus.OK);
+        }
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -178,7 +212,7 @@ return "User Registration successful";
         users.setOtp(newOtp);
         users.setOtpGeneratedTime(LocalDateTime.now());
         usersRepository.save(users);
-        return "Email sent...Please verify your account";
+        return "New OTP Send Successfully";
     }
 
 }

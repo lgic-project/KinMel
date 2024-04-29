@@ -1,6 +1,7 @@
 package com.lagrandee.kinMel.controllers;
 
 
+import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.entity.Role;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -55,8 +57,16 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole()")
     @PostMapping("/users/register")
-    public ResponseEntity<String> register(@RequestBody UsersRegisterDTO usersRegisterDTO){
+    public ResponseEntity<?> register(@RequestBody UsersRegisterDTO usersRegisterDTO){
     return new ResponseEntity<>(userServiceImplementation.registerUser(usersRegisterDTO),HttpStatus.OK);
+    }
+
+
+    //for update
+    @PreAuthorize("hasAnyRole()")
+    @PutMapping("/users")
+    public ResponseEntity<?> update(@RequestBody UsersRegisterDTO usersRegisterDTO){
+        return new ResponseEntity<>(userServiceImplementation.updateUser(usersRegisterDTO),HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole()")

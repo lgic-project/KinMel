@@ -1,8 +1,10 @@
 package com.lagrandee.kinMel.service;
 
 import com.lagrandee.kinMel.bean.UserDetail;
+import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ Users getSpecificUserById(int id);
 
     void removeUser(int id);
 
-
+    ResponseEntity<?> registerUser(UsersRegisterDTO usersRegisterDTO);
     UserDetail getUserWithRole(int id);
 
 }

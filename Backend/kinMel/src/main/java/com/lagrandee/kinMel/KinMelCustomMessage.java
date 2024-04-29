@@ -10,9 +10,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KinMelCustomException {
+public class KinMelCustomMessage {
     private int status;
     private String message;
     private long timeStamp;
 
+    public KinMelCustomMessage(String message, long timeStamp) {
+        this.message = message;
+        this.timeStamp = timeStamp;
+    }
 }
