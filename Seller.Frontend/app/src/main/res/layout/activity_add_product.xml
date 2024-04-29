@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Add_Product">
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/my_primary"
+        android:text="Add Product"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvTitle"
+        android:layout_above="@id/navigation_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/btnAddImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_add_image"
+                android:contentDescription="Add Image" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Product Image"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+            <EditText
+                android:id="@+id/etProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Name" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+
+            <EditText
+                android:id="@+id/etProductCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Cost" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+
+            <EditText
+                android:id="@+id/etProductDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Detail" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+
+            <EditText
+                android:id="@+id/etDiscountPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Discount Price" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerDiscountOption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Category"
+                android:layout_marginTop="16dp"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
+
+
+            <Button
+                android:id="@+id/btnAddProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/my_secondary"
+                android:text="Add Product"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/navigation_bar"
+        layout="@layout/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

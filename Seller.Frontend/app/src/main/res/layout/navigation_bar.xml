@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/my_primary">
+
+    <ImageButton
+        android:id="@+id/btnAddProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_add_product"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp"
+        android:contentDescription="@string/add_product" />
+
+    <ImageButton
+        android:id="@+id/btnAddCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_add_category"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp"
+        android:contentDescription="@string/add_category" />
+
+    <ImageButton
+        android:id="@+id/btnListProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_list_product"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp"
+        android:contentDescription="@string/list_product" />
+
+</LinearLayout>

@@ -7,6 +7,6 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="my_primary">#f85606</color>
-    <color name="my_secondary">#f88a06</color>
+    <color name="my_primary">#FF018786</color>
+    <color name="my_secondary">#06B1B0</color>
 </resources>

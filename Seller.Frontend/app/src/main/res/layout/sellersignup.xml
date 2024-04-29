@@ -55,7 +55,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:layout_height="20dp" />
 
             <!-- Company Name input -->
             <TextView
@@ -73,7 +73,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="15dp" />
 
             <!-- Owner's Name input -->
             <TextView
@@ -91,7 +91,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="15dp" />
 
             <!-- Address input -->
             <TextView
@@ -109,7 +109,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="15dp" />
 
             <!-- Phone Number input -->
             <TextView
@@ -128,7 +128,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="15dp" />
 
             <!-- Document details input -->
             <TextView
@@ -146,7 +146,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="15dp" />
 
             <!-- Payment Method input -->
             <TextView
@@ -165,7 +165,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="15dp" />
 
 
             <!-- Checkbox for agreeing to terms -->
@@ -185,7 +185,7 @@
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="14dp" />
+                android:layout_height="15dp" />
 
             <!-- Sign Up button -->
             <com.google.android.material.button.MaterialButton
@@ -194,6 +194,19 @@
                 android:backgroundTint="@color/my_primary"
                 android:text="Sign Up as Seller"
                 app:cornerRadius="32dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/my_primary"
+                    android:text="Already have an Account? SignIn"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
