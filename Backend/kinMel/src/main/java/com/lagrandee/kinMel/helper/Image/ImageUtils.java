@@ -4,6 +4,8 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -28,5 +30,11 @@ public class ImageUtils {
 
         return filePath;
     }
+
+    public static String encodeImageToBase64(String imagePath) throws IOException {
+        byte[] fileContent = Files.readAllBytes(Paths.get(imagePath));
+        return Base64.getEncoder().encodeToString(fileContent);
+    }
+
 
 }

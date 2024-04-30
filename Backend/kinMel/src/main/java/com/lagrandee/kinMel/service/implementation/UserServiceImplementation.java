@@ -28,6 +28,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.lagrandee.kinMel.helper.Image.ImageUtils.encodeImageToBase64;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImplementation implements UserService {
@@ -129,8 +131,8 @@ public class UserServiceImplementation implements UserService {
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> updateUser(UsersRegisterDTO usersRegisterDTO) {
-        Optional<Users> usersOptional = usersRepository.findById(usersRegisterDTO.getId());
+    public ResponseEntity<?> updateUser(int userId,UsersRegisterDTO usersRegisterDTO) {
+        Optional<Users> usersOptional = usersRepository.findById(userId);
         if (usersOptional.isPresent()) {
             Users users = usersOptional.get();
             users.setFirstName(usersRegisterDTO.getFirstName());
@@ -183,9 +185,17 @@ public class UserServiceImplementation implements UserService {
           usersWithRoles.setLast_name(rs.getString("last_name"));
           usersWithRoles.setRoles(jdbcTemplate.queryForList("select roles.name from roles inner join roles_Assigned on roles_Assigned.role_id=roles.role_id where roles_Assigned.user_id=?",String.class,id));
           usersWithRoles.setEmail(rs.getString("email"));
-          usersWithRoles.setEmail(rs.getString("address"));
+          usersWithRoles.setAddress(rs.getString("address"));
           usersWithRoles.setPhoneNumber(rs.getString("phone_number"));
-          usersWithRoles.setImage(rs.getString("profile_photo"));
+           String imagePath = rs.getString("profile_photo");
+           String imageBase64 = null;
+           try {
+               imageBase64 = encodeImageToBase64(imagePath);
+           } catch (IOException e) {
+               throw new RuntimeException(e);
+           }
+           usersWithRoles.setProfilePicture(imageBase64);
+//          usersWithRoles.setImage(rs.getString("profile_photo"));
 
           return usersWithRoles;
        },argumentList.toArray());

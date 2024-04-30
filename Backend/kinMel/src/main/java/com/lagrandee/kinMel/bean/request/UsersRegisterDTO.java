@@ -11,7 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class UsersRegisterDTO {
-    private Integer id;
     private String firstName;
     private String lastName;
     private String email;

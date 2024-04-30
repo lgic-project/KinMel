@@ -8,6 +8,7 @@ import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
 import com.lagrandee.kinMel.service.implementation.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,9 +65,9 @@ public class UserController {
 
     //for update
     @PreAuthorize("hasAnyRole()")
-    @PutMapping("/users")
-    public ResponseEntity<?> update(@RequestBody UsersRegisterDTO usersRegisterDTO){
-        return new ResponseEntity<>(userServiceImplementation.updateUser(usersRegisterDTO),HttpStatus.OK);
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<?> update(@PathVariable int userId, @RequestBody UsersRegisterDTO usersRegisterDTO){
+        return new ResponseEntity<>(userServiceImplementation.updateUser(userId,usersRegisterDTO),HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole()")
