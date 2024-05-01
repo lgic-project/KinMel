@@ -132,45 +132,42 @@
                 android:text="Login"
                 app:cornerRadius="32dp"/>
 
-
-
-
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="end|bottom"
-                android:padding="16dp">
-
+                android:layout_height="wrap_content">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Don't have an account?"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"/>
-
-                <Button
                     android:id="@+id/sign_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign up here"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:background="@android:color/transparent"/>
-            </LinearLayout>
+                    android:text="Don't have an Account? Signup"
+                    android:alpha="0.7"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
 
-
+            </RelativeLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Or Login with"
-                android:layout_gravity="center"
-                android:alpha="0.7"/>
-
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

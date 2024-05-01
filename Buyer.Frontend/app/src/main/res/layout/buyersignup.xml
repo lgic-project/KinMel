@@ -23,7 +23,6 @@
         android:padding="28dp">
     </LinearLayout>
 
-    <!-- Card view containing the signup form -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,8 +36,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="28dp">
-
-            <!-- Sign Up header -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,12 +50,10 @@
                 android:text="Create a new account"
                 android:alpha="0.7" />
 
-            <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:layout_height="15dp" />
 
-            <!-- Name input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,17 +63,15 @@
 
             <EditText
                 android:layout_width="match_parent"
+                android:imeOptions="actionNext"
                 android:id="@+id/nameEditText"
                 android:layout_height="wrap_content"
                 android:hint="Enter your name" />
-
-            <!-- Space between elements -->
+            
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="10dp" />
-            <!-- Name input -->
+                android:layout_height="15dp" />
 
-            <!-- Address input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,12 +85,10 @@
                 android:id="@+id/addressEditText"
                 android:hint="Enter your address" />
 
-            <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="10dp" />
+                android:layout_height="15dp" />
 
-            <!-- Phone Number input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,13 +103,10 @@
                 android:id="@+id/phoneEditText"
                 android:hint="Enter your phone number" />
 
-            <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="10dp" />
 
-
-            <!-- Email Address input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,14 +121,10 @@
                 android:id="@+id/emailEditText"
                 android:drawableEnd="@drawable/done_icon" />
 
-
-
-            <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="10dp" />
 
-            <!-- Password input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -163,7 +147,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Confirm Password input -->
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -186,7 +170,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Checkbox for agreeing to terms -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -194,6 +178,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:text="I agree to the terms and conditions"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
@@ -201,29 +186,31 @@
 
             </RelativeLayout>
 
-            <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
-            <!-- Sign Up button -->
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:text="Sign Up"
                 app:cornerRadius="32dp"
                 android:id="@+id/signUpButton" />
 
-            <!-- Sign In button -->
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already have an account? Sign in"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:background="@android:color/transparent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an Account? Login"
+                    android:alpha="0.7"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
 
 
         </LinearLayout>

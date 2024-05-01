@@ -138,14 +138,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <com.google.android.material.button.MaterialButton
+                <TextView
+                    android:id="@+id/sign_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/my_primary"
-                    android:text="Create Account?"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:text="Don't have an Account? Signup"
+                    android:alpha="0.7"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
 
             </RelativeLayout>
             <View

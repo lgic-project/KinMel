@@ -12,7 +12,6 @@
         android:background="@color/my_primary"
         android:alpha="0.7" />
 
-    <!-- Centered logo and app name -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,25 +69,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter company name" />
 
-            <!-- Space between elements -->
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="15dp" />
 
-            <!-- Owner's Name input -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Owner's Name"
-                android:alpha="0.7"
-                android:textStyle="bold" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter owner's name" />
-
-            <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="15dp" />
@@ -125,28 +106,56 @@
                 android:inputType="phone"
                 android:hint="Enter phone number" />
 
-            <!-- Space between elements -->
+
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="15dp" />
-
-            <!-- Document details input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Document Details"
+                android:text="Password"
                 android:alpha="0.7"
                 android:textStyle="bold" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter document details" />
+                app:passwordToggleEnabled="true"
+                >
 
-            <!-- Space between elements -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:id="@+id/passwordEditText"
+                    android:hint="Password" />
+
+            </com.google.android.material.textfield.TextInputLayout>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:id="@+id/passwordEditText"
+                    android:hint="Re-enter Password" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Payment Method input -->
             <TextView
@@ -176,6 +185,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:text="I agree to the terms and conditions"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
@@ -197,14 +207,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <com.google.android.material.button.MaterialButton
+                <TextView
+                    android:id="@+id/sign_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/my_primary"
-                    android:text="Already have an Account? SignIn"
+                    android:text="Already have an Account? Login"
+                    android:alpha="0.7"
+                    android:textStyle="bold"
+                    android:clickable="true"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"/>
 
             </RelativeLayout>
 
