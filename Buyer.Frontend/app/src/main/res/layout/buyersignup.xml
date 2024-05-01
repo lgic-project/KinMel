@@ -68,6 +68,7 @@
 
             <EditText
                 android:layout_width="match_parent"
+                android:id="@+id/nameEditText"
                 android:layout_height="wrap_content"
                 android:hint="Enter your name" />
 
@@ -88,6 +89,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/addressEditText"
                 android:hint="Enter your address" />
 
             <!-- Space between elements -->
@@ -107,6 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
+                android:id="@+id/phoneEditText"
                 android:hint="Enter your phone number" />
 
             <!-- Space between elements -->
@@ -127,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:id="@+id/emailEditText"
                 android:drawableEnd="@drawable/done_icon" />
 
 
@@ -144,13 +148,23 @@
                 android:alpha="0.7"
                 android:textStyle="bold" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/password_icon" />
+                app:passwordToggleEnabled="true"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:id="@+id/passwordEditText"
+                    android:hint="Password" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Confirm Password input -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,11 +172,19 @@
                 android:alpha="0.7"
                 android:textStyle="bold" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/password_icon" />
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:id="@+id/confirmPasswordEditText"
+                    android:hint="Confirm Password" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Checkbox for agreeing to terms -->
             <RelativeLayout
@@ -176,6 +198,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:id="@+id/checkbox_terms" />
+
             </RelativeLayout>
 
             <!-- Space between elements -->
@@ -188,11 +211,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Sign Up"
-                app:cornerRadius="32dp" />
+                app:cornerRadius="32dp"
+                android:id="@+id/signUpButton" />
 
             <!-- Sign In button -->
             <Button
-                android:id="@+id/btn_go_to_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Already have an account? Sign in"
