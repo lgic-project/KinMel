@@ -13,7 +13,7 @@ public interface UserService {
 
 Users getSpecificUserById(int id);
 
-    List<Users> getAllUsers();
+    List<UserDetail> getAllUsers();
 
     Users addOrUpdateUser(Users users);
 

@@ -1,21 +1,14 @@
 package com.lagrandee.kinMel.controllers;
 
 
-import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
-import com.lagrandee.kinMel.entity.Role;
-import com.lagrandee.kinMel.entity.Users;
 import com.lagrandee.kinMel.service.implementation.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.ResultSet;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -31,7 +24,7 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public List<Users> getAllUsers(){
+    public List<UserDetail> getAllUsers(){
     return  userServiceImplementation.getAllUsers();
 
     }
@@ -41,20 +34,12 @@ public class UserController {
 //        UsersWithRoles userWithRole = userServiceImplementation.getUserWithRole(userId);
 //        return userWithRole;
 //    }
-
     @GetMapping("/users/{userId}")
     public UserDetail getUserById(@PathVariable int userId){
         UserDetail userWithRole = userServiceImplementation.getUserWithRole(userId);
 //        Users userWithRole = userServiceImplementation.getSpecificUserById(userId);
         return userWithRole;
     }
-
-//    @PostMapping("/users/register")
-//    public Users addOrUpdateStudent(@RequestBody UsersRegisterDTO users){
-////        users.setId(0);
-////        return userServiceImplementation.addOrUpdateUser(users);
-//        return new Users();
-//    }
 
     @PreAuthorize("hasAnyRole()")
     @PostMapping("/users/register")

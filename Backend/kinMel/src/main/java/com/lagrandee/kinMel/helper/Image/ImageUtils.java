@@ -32,8 +32,12 @@ public class ImageUtils {
     }
 
     public static String encodeImageToBase64(String imagePath) throws IOException {
-        byte[] fileContent = Files.readAllBytes(Paths.get(imagePath));
-        return Base64.getEncoder().encodeToString(fileContent);
+        try {
+            byte[] fileContent = Files.readAllBytes(Paths.get(imagePath));
+            return Base64.getEncoder().encodeToString(fileContent);
+        } catch (IOException e) {
+            return "No Image Found";
+        }
     }
 
 

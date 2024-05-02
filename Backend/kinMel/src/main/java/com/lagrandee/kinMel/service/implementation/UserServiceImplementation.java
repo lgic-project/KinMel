@@ -15,14 +15,13 @@ import com.lagrandee.kinMel.helper.emailhelper.OtpGenerate;
 import com.lagrandee.kinMel.service.UserService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -52,12 +51,7 @@ public class UserServiceImplementation implements UserService {
         if (result.isPresent()){
             return result.get();
         }
-        return null; //Throw error if not user
-    }
-
-    @Override
-    public List<Users> getAllUsers() {
-        return usersRepository.findAll();
+        throw new UsernameNotFoundException("User doesn't exist");
     }
 
 
@@ -67,6 +61,7 @@ public class UserServiceImplementation implements UserService {
        users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
         return usersRepository.save(users);
     }
+
     @Override
     public ResponseEntity<?> registerUser(UsersRegisterDTO usersRegisterDTO)  {
         Users checkEmail = usersRepository.findByEmail(usersRegisterDTO.getEmail());
@@ -104,7 +99,7 @@ public class UserServiceImplementation implements UserService {
         if (savedImagePath != null) {
             users.setProfilePhoto(savedImagePath);
         } else {
-            users.setProfilePhoto("/images/default.png");
+            users.setProfilePhoto(StaticPaths.defaultPath);
         }
         users.setOtp(otp);
         users.setOtpGeneratedTime(LocalDateTime.now());
@@ -130,7 +125,6 @@ public class UserServiceImplementation implements UserService {
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.OK.value(),"User Registration successful",System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
     }
-
     public ResponseEntity<?> updateUser(int userId,UsersRegisterDTO usersRegisterDTO) {
         Optional<Users> usersOptional = usersRepository.findById(userId);
         if (usersOptional.isPresent()) {
@@ -169,7 +163,6 @@ public class UserServiceImplementation implements UserService {
     public void removeUser(int id) {
         usersRepository.deleteById(id);
     }
-
     @Override
     public UserDetail getUserWithRole(int id) {
        List<Object> argumentList =new ArrayList<>();
@@ -223,6 +216,47 @@ public class UserServiceImplementation implements UserService {
         users.setOtpGeneratedTime(LocalDateTime.now());
         usersRepository.save(users);
         return "New OTP Send Successfully";
+    }
+
+    @Override
+    public List<UserDetail> getAllUsers() {
+        List<UserDetail> userDetails = new ArrayList<>();
+        List<Users> users = usersRepository.findAll();
+
+        for (Users user : users) {
+            UserDetail userDetail = new UserDetail();
+            userDetail.setFirst_name(user.getFirstName());
+            userDetail.setLast_name(user.getLastName());
+            userDetail.setEmail(user.getEmail());
+            userDetail.setUserId(user.getId());
+            userDetail.setAddress(user.getAddress());
+            userDetail.setPhoneNumber(String.valueOf(user.getPhoneNumber()));
+            String profilePhoto = user.getProfilePhoto();
+            String imageBase64 ;
+            try {
+                imageBase64 = encodeImageToBase64(profilePhoto);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            userDetail.setProfilePicture(imageBase64);
+            List<String> roleNames = new ArrayList<>();
+
+            // Get the set of roles for the user
+            Set<Role> roles = user.getRoles();
+
+            // Iterate through the roles and add the role names to the list
+            for (Role role : roles) {
+                roleNames.add(role.getName());
+            }
+
+            // Set the list of role names to the UserDetail object
+            userDetail.setRoles(roleNames);
+            // Set other fields as needed
+            userDetails.add(userDetail);
+        }
+
+        return userDetails;
     }
 
 }
