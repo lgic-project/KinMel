@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- res/layout/bottom_navigation.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,7 +6,6 @@
     android:background="@color/my_secondary"
     android:padding="8dp">
 
-    <!-- Home Button -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,7 +29,6 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <!-- Message Button -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,7 +52,6 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <!-- Cart Button -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -79,7 +75,6 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <!-- Account Button -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

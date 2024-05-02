@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Left Section with Radio Buttons -->
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
@@ -18,7 +17,6 @@
             android:text="All" />
     </RadioGroup>
 
-    <!-- Center Section with Total -->
     <TextView
         android:id="@+id/totalTextView"
         android:layout_width="wrap_content"
@@ -29,7 +27,6 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Right Section with Checkout Button -->
     <Button
         android:id="@+id/checkoutButton"
         android:layout_width="wrap_content"
