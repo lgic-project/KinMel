@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class BuyerSignIn extends Activity {
     @Override
@@ -12,7 +13,7 @@ public class BuyerSignIn extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buyersignin);
 
-        Button signUpButton = findViewById(R.id.sign_up);
+        TextView signUpButton = findViewById(R.id.sign_up);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
