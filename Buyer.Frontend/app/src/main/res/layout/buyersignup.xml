@@ -21,6 +21,11 @@
         android:gravity="center"
         android:layout_above="@id/card_view"
         android:padding="28dp">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

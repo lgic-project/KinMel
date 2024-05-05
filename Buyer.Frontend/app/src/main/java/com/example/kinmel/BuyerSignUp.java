@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,7 @@ public class BuyerSignUp extends AppCompatActivity {
 
 
     private void signUp() {
+        signUpButton.setEnabled(false); // Disable the button to prevent multiple clicks
         System.out.println("Sign Up button clicked");
         // Get input values
         String name = nameEditText.getText().toString().trim();
@@ -95,10 +97,9 @@ public class BuyerSignUp extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Show the "Registering User" Snackbar
-        View rootView = findViewById(android.R.id.content);
-        registrationSnackbar = Snackbar.make(rootView, "Registering User", Snackbar.LENGTH_INDEFINITE);
-        registrationSnackbar.show();
+        // Show the progress indicator
+       final ProgressBar progressBar = findViewById(R.id.progressBar); // Replace with your ProgressBar's id
+        progressBar.setVisibility(View.VISIBLE);
 
         // Send the POST request using Volley
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -106,14 +107,16 @@ public class BuyerSignUp extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Dismiss the "Registering User" Snackbar
-                        registrationSnackbar.dismiss();
+                        // Hide the progress indicator
+                        progressBar.setVisibility(View.GONE);
+                        signUpButton.setEnabled(true); // Re-enable the button
 
                         try {
                             int statusCode = response.getInt("statusCode");
                             if (statusCode == 200) {
-//                                showSuccessMessage("User Registration successful");
+                                showErrorMessage("User Registration successfully done");
                                 resetForm();
+
                             } else {
                                 showErrorMessage("User Registration failed");
                             }
@@ -126,11 +129,24 @@ public class BuyerSignUp extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Dismiss the "Registering User" Snackbar
-                        registrationSnackbar.dismiss();
+                        // Hide the progress indicator
+                        progressBar.setVisibility(View.GONE);
+                        signUpButton.setEnabled(true); // Re-enable the button
 
-                        showErrorMessage("User Registration sucessful");
-                        error.printStackTrace();
+                        // Check if the server returned a valid response
+                        if (error.networkResponse != null && error.networkResponse.statusCode == 200) {
+                            // Successful user registration
+                            showErrorMessage("User Registration successful nice");
+                            resetForm();
+                        } else if (error.networkResponse == null) {
+                            // Assuming the user registration was successful
+                            showErrorMessage("User Registration successful okkk");
+                            resetForm();
+                        } else {
+                            // Failed user registration
+                            showErrorMessage("User Registration failed: " + error.getMessage());
+                            error.printStackTrace();
+                        }
                     }
                 });
 
