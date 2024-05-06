@@ -150,7 +150,7 @@ public class UserServiceImplementation implements UserService {
             if (savedImagePath != null) {
                 users.setProfilePhoto(savedImagePath);
             } else {
-                users.setProfilePhoto("/images/default.png");
+                users.setProfilePhoto(StaticPaths.defaultPath);
             }
             usersRepository.save(users);
             KinMelCustomMessage customMessage = new KinMelCustomMessage(HttpStatus.OK.value(), "User successfully edited", System.currentTimeMillis());

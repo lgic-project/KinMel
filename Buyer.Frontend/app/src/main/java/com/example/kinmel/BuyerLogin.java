@@ -13,8 +13,8 @@ public class BuyerLogin extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buyerlogin);
 
-        TextView signUpButton = findViewById(R.id.sign_up);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        TextView gotoSignInPage = findViewById(R.id.sign_up);
+        gotoSignInPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start BuyerSignUp activity
