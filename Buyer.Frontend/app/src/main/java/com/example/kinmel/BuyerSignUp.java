@@ -1,7 +1,5 @@
 package com.example.kinmel;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,9 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.kinmel.StaticFiles.ApiStatic;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +52,10 @@ public class BuyerSignUp extends AppCompatActivity {
 
     }
 
-
     private void signUp() {
         signUpButton.setEnabled(false); // Disable the button to prevent multiple clicks
         System.out.println("Sign Up button clicked");
+        Log.d("checker", "Sign Up button clicked");
         // Get input values
         String name = nameEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
@@ -70,16 +67,19 @@ public class BuyerSignUp extends AppCompatActivity {
         // Perform form validation
         if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showErrorMessage("Please fill in all fields");
+            signUpButton.setEnabled(true);
             return;
         }
 
         if (!password.equals(confirmPassword)) {
             showErrorMessage("Passwords do not match");
+            signUpButton.setEnabled(true);
             return;
         }
 
         if (!termsCheckBox.isChecked()) {
             showErrorMessage("Please agree to the terms and conditions");
+            signUpButton.setEnabled(true);
             return;
         }
 
@@ -104,6 +104,7 @@ public class BuyerSignUp extends AppCompatActivity {
         // Send the POST request using Volley
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiStatic.USER_REGISTRATION_API, requestBody,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -115,14 +116,17 @@ public class BuyerSignUp extends AppCompatActivity {
                             int statusCode = response.getInt("statusCode");
                             if (statusCode == 200) {
                                 showErrorMessage("User Registration successfully done");
+                                signUpButton.setEnabled(true);
                                 resetForm();
 
                             } else {
                                 showErrorMessage("User Registration failed");
+                                signUpButton.setEnabled(true);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            showErrorMessage("User Registration failed");
+                            showErrorMessage("User Registration failed ok comes herererere");
+                            signUpButton.setEnabled(true);
                         }
                     }
                 },
@@ -137,19 +141,25 @@ public class BuyerSignUp extends AppCompatActivity {
                         if (error.networkResponse != null && error.networkResponse.statusCode == 200) {
                             // Successful user registration
                             showErrorMessage("User Registration successful nice");
+                            signUpButton.setEnabled(true);
                             resetForm();
                         } else if (error.networkResponse == null) {
                             // Assuming the user registration was successful
                             showErrorMessage("User Registration successful okkk");
+                            signUpButton.setEnabled(true);
                             resetForm();
                         } else {
                             // Failed user registration
-                            showErrorMessage("User Registration failed: " + error.getMessage());
+                            showErrorMessage("User Registration failed:zz " + error.getMessage());
                             error.printStackTrace();
+                            signUpButton.setEnabled(true);
                         }
                     }
                 });
-
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(jsonObjectRequest);
     }
     private void showErrorMessage(String message) {
