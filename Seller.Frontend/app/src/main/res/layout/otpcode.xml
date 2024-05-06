@@ -9,7 +9,7 @@
         android:id="@+id/imageViewLogo"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/kinmels"
+        android:src="@drawable/sellerapp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:contentDescription="Logo"/>
