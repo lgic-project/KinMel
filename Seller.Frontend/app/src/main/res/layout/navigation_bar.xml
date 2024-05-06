@@ -13,7 +13,7 @@
         android:src="@drawable/ic_add_product"
         android:background="?android:attr/selectableItemBackground"
         android:padding="16dp"
-        android:contentDescription="@string/add_product" />
+         />
 
     <ImageButton
         android:id="@+id/btnAddCategory"
@@ -23,7 +23,7 @@
         android:src="@drawable/ic_add_category"
         android:background="?android:attr/selectableItemBackground"
         android:padding="16dp"
-        android:contentDescription="@string/add_category" />
+       />
 
     <ImageButton
         android:id="@+id/btnListProduct"
@@ -33,7 +33,7 @@
         android:src="@drawable/ic_list_product"
         android:background="?android:attr/selectableItemBackground"
         android:padding="16dp"
-        android:contentDescription="@string/list_product" />
+        />
     <ImageButton
         android:id="@+id/btnSetting"
         android:layout_width="0dp"
@@ -42,6 +42,6 @@
         android:src="@drawable/ic_setting"
         android:background="?android:attr/selectableItemBackground"
         android:padding="16dp"
-        android:contentDescription="@string/list_product" />
+         />
 
 </LinearLayout>
