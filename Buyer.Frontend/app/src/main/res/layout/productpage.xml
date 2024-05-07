@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:background="@color/my_primary">
 
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
             android:textSize="24sp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:padding="16dp"/>
+            android:padding="16dp" />
 
     </RelativeLayout>
 
@@ -30,9 +29,11 @@
         android:id="@+id/imgItem"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:src="@drawable/images"
         android:scaleType="centerCrop"
-        android:layout_below="@id/headerLayout"/>
+        android:layout_below="@id/headerLayout" />
 
     <LinearLayout
         android:id="@+id/detailsLayout"
@@ -41,14 +42,21 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_below="@id/imgItem">
-
+        <TextView
+            android:id="@+id/tvCategoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goldstar"
+            android:textColor="@color/product_name"
+            android:textStyle="bold"
+            android:textSize="18sp" />
         <TextView
             android:id="@+id/tvItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GoldStar"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:text="Lofer 18-Size 14 Lfx04"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvItemPrice"
@@ -56,7 +64,8 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="Price: $50"
-            android:textSize="16sp"/>
+            android:textColor="@color/product_price"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvItemDiscountPrice"
@@ -65,7 +74,8 @@
             android:text="Discount Price: $40"
             android:textSize="16sp"
             android:textColor="@color/red"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/tvItemTotalPrice"
             android:layout_width="wrap_content"
@@ -73,7 +83,15 @@
             android:textStyle="bold"
             android:text="Total Price: $10"
             android:textColor="@color/my_secondary"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvItemStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In Stock: 100"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/tvItemDescription"
@@ -81,7 +99,7 @@
             android:layout_height="wrap_content"
             android:text="Item Description Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             android:textSize="16sp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <Button
             android:id="@+id/btnAddToCart"
@@ -90,8 +108,42 @@
             android:text="Add to Cart"
             android:textColor="@android:color/white"
             android:background="@color/my_primary"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
 
+        <!-- Review Section -->
+        <TextView
+            android:id="@+id/tvReviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Reviews"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Write your review here..."
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnSubmitReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Review"
+            android:textColor="@android:color/white"
+            android:background="@color/my_primary"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
@@ -100,6 +152,5 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 </RelativeLayout>
