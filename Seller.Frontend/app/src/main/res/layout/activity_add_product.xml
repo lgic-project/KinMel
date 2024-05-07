@@ -40,7 +40,7 @@
                 android:contentDescription="Add Image" />
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="15dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
             </RelativeLayout>
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="15dp"/>
             <EditText
                 android:id="@+id/etProductName"
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                 android:hint="Product Name" />
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="15dp"/>
 
             <EditText
                 android:id="@+id/etProductCost"
@@ -71,7 +71,7 @@
                 android:hint="Product Cost" />
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="15dp"/>
 
             <EditText
                 android:id="@+id/etProductDetail"
@@ -80,7 +80,7 @@
                 android:hint="Product Detail" />
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="15dp"/>
 
             <EditText
                 android:id="@+id/etDiscountPrice"
@@ -91,24 +91,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"/>
 
+            <EditText
+                android:id="@+id/etProductStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Stock" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
             <Spinner
                 android:id="@+id/spinnerDiscountOption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select Category"
                 android:layout_marginTop="16dp"/>
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"/>
-
-
+            
             <Button
                 android:id="@+id/btnAddProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/my_secondary"
                 android:text="Add Product"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
     </ScrollView>
