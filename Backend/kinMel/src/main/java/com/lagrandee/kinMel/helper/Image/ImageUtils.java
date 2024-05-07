@@ -1,6 +1,7 @@
 package com.lagrandee.kinMel.helper.Image;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.util.StopWatch;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 public class ImageUtils {
     public static String saveDecodedImage(String base64Image, String imageUploadPath,String imageFormat) throws IOException {
+
         if (base64Image == null || base64Image.isEmpty()) {
             return null; // Handle case of no image provided
         }
@@ -27,7 +29,6 @@ public class ImageUtils {
         // Save decoded image to the file system
         File imageFile = new File(filePath);
         FileUtils.writeByteArrayToFile(imageFile, decodedBytes);
-
         return filePath;
     }
 

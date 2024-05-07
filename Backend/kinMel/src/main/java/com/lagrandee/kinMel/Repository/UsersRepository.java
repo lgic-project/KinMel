@@ -1,5 +1,6 @@
 package com.lagrandee.kinMel.Repository;
 
+import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -44,6 +44,8 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/kinMel/categories").permitAll()
+                .requestMatchers("/kinMel/products").permitAll()
                 .requestMatchers("/kinMel/verify-account").permitAll()
                 .requestMatchers("/kinMel/regenerate-otp").permitAll()
                 .requestMatchers("/auth/users/register").permitAll()

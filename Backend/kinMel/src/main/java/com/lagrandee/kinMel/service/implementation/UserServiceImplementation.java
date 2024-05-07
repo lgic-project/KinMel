@@ -55,13 +55,6 @@ public class UserServiceImplementation implements UserService {
     }
 
 
-
-    @Override
-    public Users addOrUpdateUser(Users users) {
-       users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
-        return usersRepository.save(users);
-    }
-
     @Override
     public ResponseEntity<?> registerUser(UsersRegisterDTO usersRegisterDTO)  {
         Users checkEmail = usersRepository.findByEmail(usersRegisterDTO.getEmail());
@@ -121,6 +114,8 @@ public class UserServiceImplementation implements UserService {
         }
         roles.add(role);
         users.setRoles(roles);
+        roles.add(role);
+        users.setRoles(roles);
         usersRepository.save(users);
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.OK.value(),"User Registration successful",System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
@@ -159,10 +154,7 @@ public class UserServiceImplementation implements UserService {
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public void removeUser(int id) {
-        usersRepository.deleteById(id);
-    }
+
     @Override
     public UserDetail getUserWithRole(int id) {
        List<Object> argumentList =new ArrayList<>();

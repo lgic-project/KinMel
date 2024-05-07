@@ -40,7 +40,7 @@ public class UserException {
     @ExceptionHandler
     public ResponseEntity<KinMelCustomMessage> handleException(NotInsertedException exc){
         KinMelCustomMessage error = new KinMelCustomMessage();
-        error.setStatus(HttpStatus.NOT_IMPLEMENTED.value());
+        error.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
         error.setMessage(exc.getMessage());
         error.setTimeStamp(System.currentTimeMillis());
 
