@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Category"
                 android:layout_marginTop="16dp"/>
-            
+
             <Button
                 android:id="@+id/btnAddProduct"
                 android:layout_width="match_parent"
