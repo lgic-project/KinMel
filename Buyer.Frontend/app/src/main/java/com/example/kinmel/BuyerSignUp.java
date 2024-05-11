@@ -1,5 +1,6 @@
 package com.example.kinmel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,7 @@ public class BuyerSignUp extends AppCompatActivity {
         signUpButton.setEnabled(false); // Disable the button to prevent multiple clicks
         System.out.println("Sign Up button clicked");
         Log.d("checker", "Sign Up button clicked");
+
         // Get input values
         String name = nameEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
@@ -98,13 +100,12 @@ public class BuyerSignUp extends AppCompatActivity {
         }
 
         // Show the progress indicator
-       final ProgressBar progressBar = findViewById(R.id.progressBar); // Replace with your ProgressBar's id
+        final ProgressBar progressBar = findViewById(R.id.progressBar); // Replace with your ProgressBar's id
         progressBar.setVisibility(View.VISIBLE);
 
         // Send the POST request using Volley
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiStatic.USER_REGISTRATION_API, requestBody,
-
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -113,19 +114,30 @@ public class BuyerSignUp extends AppCompatActivity {
                         signUpButton.setEnabled(true); // Re-enable the button
 
                         try {
-                            int statusCode = response.getInt("statusCode");
-                            if (statusCode == 200) {
-                                showErrorMessage("User Registration successfully done");
+                            JSONObject bodyObject = response.getJSONObject("body");
+                            int status = bodyObject.getInt("status");
+                            if (status == 200) {
+                                String message = response.optString("message", "User Registration successful");
+                                // Retrieve the email from the request body
+                                String email = requestBody.getString("email");
+                                Log.d("qwerty", email);
+                                Log.d("qwerty", status+"");
+
+                                // Start the OTPPage activity with the email as a parameter
+                                Intent intent2 = new Intent(BuyerSignUp.this, OTPPage.class);
+                                intent2.putExtra("email", email);
+                                startActivity(intent2);
+                                finish();
+                                showErrorMessage(message); // Show the success message
                                 signUpButton.setEnabled(true);
                                 resetForm();
-
                             } else {
-                                showErrorMessage("User Registration failed");
+                                showErrorMessage("User Registration failed 1");
                                 signUpButton.setEnabled(true);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            showErrorMessage("User Registration failed ok comes herererere");
+                            showErrorMessage("User Registration failed 2");
                             signUpButton.setEnabled(true);
                         }
                     }
@@ -137,25 +149,11 @@ public class BuyerSignUp extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         signUpButton.setEnabled(true); // Re-enable the button
 
-                        // Check if the server returned a valid response
-                        if (error.networkResponse != null && error.networkResponse.statusCode == 200) {
-                            // Successful user registration
-                            showErrorMessage("User Registration successful nice");
-                            signUpButton.setEnabled(true);
-                            resetForm();
-                        } else if (error.networkResponse == null) {
-                            // Assuming the user registration was successful
-                            showErrorMessage("User Registration successful okkk");
-                            signUpButton.setEnabled(true);
-                            resetForm();
-                        } else {
-                            // Failed user registration
-                            showErrorMessage("User Registration failed:zz " + error.getMessage());
-                            error.printStackTrace();
-                            signUpButton.setEnabled(true);
-                        }
+                        showErrorMessage("User Registration failed 3: " + error.getMessage());
+                        error.printStackTrace();
                     }
                 });
+
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 30000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

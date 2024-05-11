@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BuyerSignUp" />
+        <activity android:name=".OTPPage" />
     </application>
 
 </manifest>
