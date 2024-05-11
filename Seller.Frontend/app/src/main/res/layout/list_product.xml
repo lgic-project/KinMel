@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ProductList">
 
-    <!-- Title Section -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
