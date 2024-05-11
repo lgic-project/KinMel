@@ -15,13 +15,13 @@
     <LinearLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/btnAddProduct"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:src="@drawable/ic_add_product"
             android:background="@color/my_primary"/>
@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/btnAddCategory"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:src="@drawable/ic_add_category"
             android:background="@color/my_primary"/>
@@ -37,7 +37,7 @@
         <ImageView
             android:id="@+id/btnListProduct"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:src="@drawable/ic_list_product"
             android:background="@color/my_primary"/>
@@ -45,10 +45,11 @@
         <ImageView
             android:id="@+id/btnSetting"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:src="@drawable/ic_setting"
-            android:background="@color/my_primary"/>
+            android:background="@color/my_primary"
+            />
     </LinearLayout>
 
 

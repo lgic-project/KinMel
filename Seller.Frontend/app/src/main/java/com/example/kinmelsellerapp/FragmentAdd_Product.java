@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Add_Product extends Fragment {
+public class FragmentAdd_Product extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
