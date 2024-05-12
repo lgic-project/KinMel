@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,11 +48,27 @@ public class BuyerSignUp extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         termsCheckBox = findViewById(R.id.checkbox_terms);
         signUpButton = findViewById(R.id.signUpButton);
+        TextView loginTextView = findViewById(R.id.btn_login);
+
 
         // Set click listener for the Sign Up button
         signUpButton.setOnClickListener(v -> signUp());
+        loginTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle click event here
+                navigateToNextPage(); // Call your method to navigate
+            }
+        });
+
 
     }
+    private void navigateToNextPage() {
+        Intent intent = new Intent(BuyerSignUp.this, BuyerLogin.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     private void signUp() {
         signUpButton.setEnabled(false); // Disable the button to prevent multiple clicks
@@ -163,6 +180,9 @@ public class BuyerSignUp extends AppCompatActivity {
     private void showErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+
+
 
     private void resetForm() {
         nameEditText.setText("");

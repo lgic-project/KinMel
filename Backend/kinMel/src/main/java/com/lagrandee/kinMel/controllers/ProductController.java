@@ -31,4 +31,6 @@ public class ProductController {
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.CREATED.value(),newProduct ,System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
     }
+
+
 }
