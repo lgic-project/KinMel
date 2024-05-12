@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="Profile Setting"
                 android:textSize="18sp"
+                android:clickable="true"
                 android:textStyle="bold"
                 android:padding="8dp"/>
             <TextView
