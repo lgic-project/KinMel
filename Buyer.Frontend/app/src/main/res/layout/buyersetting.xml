@@ -79,14 +79,16 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp"/>
 
         </LinearLayout>
     </ScrollView>
-
-    <include
-        layout="@layout/bottom_navigation"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>

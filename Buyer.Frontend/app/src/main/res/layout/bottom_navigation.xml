@@ -1,100 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/my_secondary"
-    android:padding="8dp">
+    android:layout_height="match_parent"
+    tools:context=".NavigationBar">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container"
+        android:layout_above="@+id/bottom_navigation"
+        />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
 
-        <ImageButton
-            android:id="@+id/home_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/white"
+        <ImageView
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:background="@android:color/transparent"
-            android:contentDescription="Home" />
+            android:background="@color/my_primary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <ImageButton
-            android:id="@+id/message_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/white"
+        <ImageView
+            android:id="@+id/btnMessage"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_message"
-            android:background="@android:color/transparent"
-            android:contentDescription="Messages" />
+            android:background="@color/my_primary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Messages"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <ImageButton
-            android:id="@+id/cart_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/white"
+        <ImageView
+            android:id="@+id/btnCart"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_cart"
-            android:background="@android:color/transparent"
-            android:contentDescription="Cart" />
+            android:background="@color/my_primary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cart"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <ImageButton
-            android:id="@+id/account_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/white"
+        <ImageView
+            android:id="@+id/btnAccount"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_account"
-            android:background="@android:color/transparent"
-            android:contentDescription="Account" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Account"
-            android:textColor="@color/white" />
+            android:background="@color/my_primary"
+            />
     </LinearLayout>
-</LinearLayout>
+
+
+</RelativeLayout>

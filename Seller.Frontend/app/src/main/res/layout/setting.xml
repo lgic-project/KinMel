@@ -34,6 +34,15 @@
                 android:layout_height="wrap_content"
                 android:text="Profile Setting"
                 android:textSize="18sp"
+                android:clickable="true"
+                android:textStyle="bold"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/btnUpdatePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Password"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
 
@@ -69,6 +78,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Request Account Deletion"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Logout"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
