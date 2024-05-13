@@ -1,43 +1,71 @@
 package com.example.kinmel;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavigationBar extends AppCompatActivity {
-    ImageView btnHome,btnMessage,btnCart,btnAccount;
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout frameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-        btnHome = findViewById(R.id.btnHome);
-        btnMessage = findViewById(R.id.btnMessage);
-        btnCart = findViewById(R.id.btnCart);
-        btnAccount = findViewById(R.id.btnAccount);
-        btnHome.setOnClickListener(v -> {
-            Fragment fragment = new HomeFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
+        bottomNavigationView = findViewById(R.id.buttomNavView);
+        frameLayout = findViewById(R.id.framelayout);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.navHome) {
+                    loadFragment(new HomeFragment(), false);
+
+                } else if (itemId == R.id.navMessage) {
+                    loadFragment(new MessageFragment(), false);
+
+                } else if (itemId == R.id.navCart) {
+                    loadFragment(new CartFragment(), false);
+
+                } else { //nav Profile
+                    loadFragment(new AccountFragment(), false);
+
+                }
+
+                return true;
+            }
         });
-        btnMessage.setOnClickListener(v -> {
-            Fragment fragment = new MessageFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
-        });
-        btnCart.setOnClickListener(v -> {
-            Fragment fragment = new CartFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
-        });
-        btnAccount.setOnClickListener(v -> {
-            Fragment fragment = new AccountFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
-        });
+
+        loadFragment(new HomeFragment(), true);
+
+    }
+
+    private void loadFragment(Fragment fragment, boolean isAppInitialized) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (isAppInitialized) {
+            fragmentTransaction.add(R.id.framelayout, fragment);
+        } else {
+            fragmentTransaction.replace(R.id.framelayout, fragment);
+        }
+
+
+        fragmentTransaction.replace(R.id.framelayout, fragment);
+        fragmentTransaction.commit();
+
     }
 }
