@@ -1,56 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NavigationBar">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
     <FrameLayout
+        android:id="@+id/framelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container"
-        android:layout_above="@+id/bottom_navigation"
-        />
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
 
-    <LinearLayout
-        android:id="@+id/bottom_navigation"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/buttomNavView"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true">
-
-        <ImageView
-            android:id="@+id/btnHome"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_home"
-            android:background="@color/my_primary"/>
-
-        <ImageView
-            android:id="@+id/btnMessage"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_message"
-            android:background="@color/my_primary"/>
-
-        <ImageView
-            android:id="@+id/btnCart"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_cart"
-            android:background="@color/my_primary"/>
-
-        <ImageView
-            android:id="@+id/btnAccount"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_account"
-            android:background="@color/my_primary"
-            />
-    </LinearLayout>
+        app:menu="@menu/bottom_nav_menu"
+        android:layout_height="wrap_content"/>
 
 
-</RelativeLayout>
+</LinearLayout>
