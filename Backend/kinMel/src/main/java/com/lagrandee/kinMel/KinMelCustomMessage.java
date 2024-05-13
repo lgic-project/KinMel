@@ -15,6 +15,11 @@ public class KinMelCustomMessage {
     private String message;
     private long timeStamp;
 
+    public KinMelCustomMessage(int status, long timeStamp) {
+        this.status = status;
+        this.timeStamp = timeStamp;
+    }
+
     public KinMelCustomMessage(String message, long timeStamp) {
         this.message = message;
         this.timeStamp = timeStamp;
