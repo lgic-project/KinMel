@@ -54,7 +54,7 @@ To run the KinMel Ecommerce App locally, follow these steps:
 
 This project was developed by:
 
-- Suman Devkota (@Suman8175)
-- Arpan Pokhrel (@arpan-asus)
-- Navina Budhathoki (@navinamagar)
+- [Suman Devkota](https://github.com/Suman8175) (@Suman8175)
+- [Arpan Pokhrel](https://github.com/arpan-asus) (@arpan-asus)
+- [Navina Budhathoki](https://github.com/navinamagar) (@navinamagar)
 
