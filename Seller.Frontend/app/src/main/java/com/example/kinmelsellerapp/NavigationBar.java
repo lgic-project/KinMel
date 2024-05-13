@@ -1,41 +1,70 @@
 package com.example.kinmelsellerapp;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavigationBar extends AppCompatActivity {
-    ImageView btnAddProduct,btnAddCategory,btnListProduct,btnSetting;
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout frameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_bar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAdd_Product()).commit();
 
-        btnAddProduct = findViewById(R.id.btnAddProduct);
-        btnAddCategory = findViewById(R.id.btnAddCategory);
-        btnListProduct = findViewById(R.id.btnListProduct);
-        btnSetting = findViewById(R.id.btnSetting);
-        btnAddProduct.setOnClickListener(v -> {
-            Fragment fragment = new FragmentAdd_Product();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
+        bottomNavigationView = findViewById(R.id.buttomNavView);
+        frameLayout = findViewById(R.id.framelayout);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.navAddProduct) {
+                    loadFragment(new FragmentAdd_Product(), false);
+
+                } else if (itemId == R.id.navAddCategory) {
+                    loadFragment(new FragmentRequestCategory(), false);
+
+                } else if (itemId == R.id.navListProduct) {
+                    loadFragment(new FragmentProductList(), false);
+
+                } else { //nav Profile
+                    loadFragment(new FragmentSettingsPage(), false);
+
+                }
+
+                return true;
+            }
         });
-        btnAddCategory.setOnClickListener(v -> {
-            Fragment fragment = new FragmentRequestCategory();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
-        });
-        btnListProduct.setOnClickListener(v -> {
-            Fragment fragment = new FragmentProductList();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
-        });
-        btnSetting.setOnClickListener(v -> {
-            Fragment fragment = new FragmentSettingsPage();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, fragment).commit();
-        });
+
+        loadFragment(new FragmentAdd_Product(), true);
+
+    }
+
+    private void loadFragment(Fragment fragment, boolean isAppInitialized) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (isAppInitialized) {
+            fragmentTransaction.add(R.id.framelayout, fragment);
+        } else {
+            fragmentTransaction.replace(R.id.framelayout, fragment);
+        }
+
+
+        fragmentTransaction.replace(R.id.framelayout, fragment);
+        fragmentTransaction.commit();
+
     }
 }

@@ -17,7 +17,6 @@
         android:background="@color/my_primary"
         android:textColor="@color/white"/>
 
-    <!-- Content Layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +27,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Table Header -->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
