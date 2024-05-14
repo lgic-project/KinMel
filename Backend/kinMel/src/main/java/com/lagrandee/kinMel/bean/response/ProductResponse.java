@@ -15,6 +15,7 @@ public class ProductResponse {
     private Long price;
     private Long discountedPrice;
     private Integer stockQuantity;
+    private Integer sellerId;
     private int productStatus;
     private Date createdAt;
     private Date updatedAt;

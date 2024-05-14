@@ -3,8 +3,8 @@ package com.lagrandee.kinMel.controllers;
 import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.bean.request.ProductRequest;
 import com.lagrandee.kinMel.bean.response.ProductResponse;
-import com.lagrandee.kinMel.bean.response.ProductResponseWithStatus;
-import com.lagrandee.kinMel.service.implementation.CategoryServiceImplementation;
+import com.lagrandee.kinMel.bean.response.ResponseWithStatus;
+import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.implementation.ProductServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ProductController {
     private final ProductServiceImplementation productServiceImplementation;
 
-    @PreAuthorize("")
+    @PreAuthorize("hasRole('Seller')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, value = "/products")
     public ResponseEntity<?> addProduct(
             @RequestPart("productDetails") ProductRequest productRequest,
@@ -32,7 +32,6 @@ public class ProductController {
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.CREATED.value(),newProduct ,System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
     }
-
     @PreAuthorize("")
     @GetMapping("/products")
     public ResponseEntity<?> getAllProduct( @RequestParam(required = false) String productName,
@@ -41,15 +40,17 @@ public class ProductController {
                                             @RequestParam(required = false) String categoryName,
                                             @RequestParam(required = false) Long maxPrice){
         List<ProductResponse> allProduct = productServiceImplementation.getAllProduct(productName, sortBy, categoryName, maxPrice, brandName);
-        ProductResponseWithStatus response = new ProductResponseWithStatus();
+        if (allProduct.isEmpty()){
+            SingleResponseWithStatus r = new SingleResponseWithStatus();
+            r.setStatus(HttpStatus.OK.value());
+            r.setStatusValue(HttpStatus.OK.name());
+            r.setData("No data found");
+            return new ResponseEntity<>(r, HttpStatus.OK);
+        }
+        ResponseWithStatus response = new ResponseWithStatus();
         response.setStatus(HttpStatus.OK.value());
         response.setStatusValue(HttpStatus.OK.name());
-        if (allProduct.isEmpty()){
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
-     }
-        response.setStatusValue(HttpStatus.OK.name());
-        response.setProducts(allProduct);
+        response.setData(allProduct);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }

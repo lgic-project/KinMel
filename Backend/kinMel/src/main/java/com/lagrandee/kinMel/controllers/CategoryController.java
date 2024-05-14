@@ -1,10 +1,10 @@
 package com.lagrandee.kinMel.controllers;
 
-import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.CategoryRequest;
 import com.lagrandee.kinMel.bean.response.CategoryResponse;
+import com.lagrandee.kinMel.bean.response.ResponseWithStatus;
+import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.implementation.CategoryServiceImplementation;
-import com.lagrandee.kinMel.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +33,20 @@ public class CategoryController {
     }
     @PreAuthorize("")
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryResponse>> getAllCategory(){
+    public ResponseEntity<?> getAllCategory(){
         List<CategoryResponse> categories = categoryServiceImplementation.getAllCategories();
-        return new ResponseEntity<>(categories, HttpStatus.OK);
+        if (categories.isEmpty()){
+            SingleResponseWithStatus r = new SingleResponseWithStatus();
+            r.setStatus(HttpStatus.OK.value());
+            r.setStatusValue(HttpStatus.OK.name());
+            r.setData("No data found");
+            return new ResponseEntity<>(r, HttpStatus.OK);
+        }
+        ResponseWithStatus response = new ResponseWithStatus();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(categories);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }

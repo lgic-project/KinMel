@@ -30,7 +30,7 @@ public class ProductServiceImplementation {
     }
 
     public String createNewProduct(ProductRequest productRequest, MultipartFile[] productImages) {
-        if (productRequest.getPrice() == null || productRequest.getProductName() == null || productRequest.getCategoryId() == null || productRequest.getStockQuantity() == null) {
+        if (productRequest.getPrice() == null || productRequest.getProductName() == null || productRequest.getCategoryId() == null || productRequest.getStockQuantity() == null || productRequest.getSellerId()==null) {
             throw new NotInsertedException("Fill all required fields");
         }
 
@@ -49,6 +49,7 @@ public class ProductServiceImplementation {
                         new SqlParameter("StockQuantity", Types.INTEGER),
                         new SqlParameter("ProductStatus", Types.INTEGER),
                         new SqlParameter("Featured", Types.INTEGER),
+                        new SqlParameter("SellerId", Types.INTEGER),
                         new SqlParameter("ProductImagePaths", Types.VARCHAR)
                 );
 
@@ -62,6 +63,7 @@ public class ProductServiceImplementation {
                 .addValue("StockQuantity", productRequest.getStockQuantity())
                 .addValue("ProductStatus", productRequest.getProductStatus())
                 .addValue("Featured", productRequest.getFeatured())
+                .addValue("SellerId", productRequest.getSellerId())
                 .addValue("ProductImagePaths", String.join(",", imagePaths));
 
         jdbcCall.execute(parameters);
@@ -102,6 +104,7 @@ public class ProductServiceImplementation {
             product.setPrice((Long) row.get("price"));
             product.setDiscountedPrice((Long) row.get("discounted_price"));
             product.setStockQuantity((Integer) row.get("stock_quantity"));
+            product.setSellerId((Integer) row.get("seller_id"));
             product.setProductStatus((Integer) row.get("product_status"));
             product.setFeatured((Integer) row.get("featured"));
             product.setCreatedAt((Date) row.get("created_at"));

@@ -11,6 +11,7 @@ public class ProductRequest {
     private Integer price;
     private Integer discountedPrice;
     private Integer stockQuantity;
-    private int productStatus;
+    private Integer productStatus;
     private int featured;
+    private Integer sellerId;
 }
