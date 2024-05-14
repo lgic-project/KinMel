@@ -14,7 +14,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:padding="16dp"
-        android:background="@color/my_primary"
+        android:background="?attr/colorPrimary"
         android:textColor="@color/white"/>
 
     <ScrollView

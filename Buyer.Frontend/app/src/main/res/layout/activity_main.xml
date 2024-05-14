@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/my_primary"
+    android:background="?attr/colorPrimary"
     tools:context=".MainActivity">
 
 
@@ -23,7 +23,7 @@
         android:layout_below="@id/search_box"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/my_primary" />
+        android:background="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/offers_header"
@@ -50,7 +50,7 @@
         android:layout_below="@id/offers_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/my_primary" />
+        android:background="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/categories_header"

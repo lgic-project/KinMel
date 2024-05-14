@@ -43,7 +43,7 @@
         android:layout_marginStart="182dp"
         android:layout_marginTop="88dp"
         android:text="Product Name"
-        android:textColor="@color/my_primary"
+        android:textColor="?attr/colorSecondary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
         android:layout_toEndOf="@id/productImageView"
         android:layout_marginTop="8dp"
         android:text="Product Description"
-        android:textColor="@color/my_secondary"
+        android:textColor="?attr/colorSecondary"
         android:textSize="14sp" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:layout_toEndOf="@id/productImageView"
         android:layout_marginTop="8dp"
         android:text="$19.99"
-        android:textColor="@color/my_primary"
+        android:textColor="?attr/colorSecondary"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:text="1"
             android:textSize="16sp"
-            android:textColor="@color/my_primary"
+            android:textColor="?attr/colorSecondary"
             android:paddingHorizontal="8dp"
             android:gravity="center"/>
 

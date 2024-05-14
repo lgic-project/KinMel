@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.KinMel" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <item name="colorPrimary">@color/my_primary</item>
-        <item name="colorPrimaryVariant">@color/my_primary</item>
-        <item name="colorSecondary">@color/my_secondary</item>
-        <item name="colorSecondaryVariant">@color/my_secondary</item>
-
-        <item name="android:statusBarColor">@color/my_primary</item>
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/my_primary_night</item>
+        <item name="colorSecondary">@color/my_secondary_night</item>
+        <item name="colorSecondaryVariant">@color/my_secondary_night</item>
+        <item name="android:statusBarColor">@color/my_primary_night</item>
+        <!-- Define other night mode attributes as needed -->
     </style>
+
+    <style name="Theme.KinMel" parent="Base.Theme.KinMel" />
 </resources>
