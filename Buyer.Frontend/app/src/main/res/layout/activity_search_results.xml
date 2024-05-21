@@ -43,7 +43,16 @@
             android:background="@drawable/edittext_border"
             android:textColor="@android:color/black" />
 
-        
+        <ImageView
+            android:id="@+id/filter_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:contentDescription="Filter"
+            android:src="@drawable/ic_filter_list"
+            android:clickable="true"
+            android:focusable="true" />
     </RelativeLayout>
 
     <GridView
