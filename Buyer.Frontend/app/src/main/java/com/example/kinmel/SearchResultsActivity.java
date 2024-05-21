@@ -61,8 +61,6 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             Product clickedProduct = filteredList.get(position);
-            // Handle product click event
-            // For example, you can start a new activity and pass the product details
         });
     }
 
