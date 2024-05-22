@@ -1,6 +1,5 @@
 package com.example.kinmel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,7 +43,19 @@ public class BuyerLogin extends AppCompatActivity {
         loginButton = findViewById(R.id.btn_login);
 
         requestQueue = Volley.newRequestQueue(this);
+
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", null);
+        if (token != null) {
+        Log.d("SavedToken", token );
+            // Token exists, navigate to HomeFragment
+            Intent intent = new Intent(BuyerLogin.this, NavigationBar.class);
+            startActivity(intent);
+            finish(); // To prevent the user from going back to the login screen
+        }
+        Log.d("SavedToken", "No Token Available" );
+
+
         gotoSignInPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,12 +66,15 @@ public class BuyerLogin extends AppCompatActivity {
         });
 
         loginButton.setOnClickListener(v -> {
+            loginButton.setEnabled(false);
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
             if (!email.isEmpty() && !password.isEmpty()) {
                 sendLoginRequest(email, password);
             } else {
                 // Handle empty fields
+                showErrorMessage("Please fill in all fields");
+                loginButton.setEnabled(true);
             }
         });
     }
@@ -72,6 +87,8 @@ public class BuyerLogin extends AppCompatActivity {
                 error -> {
                     if (error.networkResponse != null && error.networkResponse.statusCode == 403) {
                         Log.d("Unverified", "User not verified");
+                        showErrorMessage("Something went wrong. Please try again later.");
+                        loginButton.setEnabled(true);
                         // Handle user not verified (e.g., display error message, navigate to verification)
                     } else {
                         // Handle other errors (e.g., network issues, server errors)
@@ -81,7 +98,14 @@ public class BuyerLogin extends AppCompatActivity {
                         } else {
                             errorMessage = error.getMessage();
                         }
-                        Log.d("LoginError", errorMessage);
+                        showErrorMessage("Something went wrong. Please try again later.");
+                        loginButton.setEnabled(true);
+//                        Log.d("LoginError", errorMessage);
+                        if (errorMessage != null) {
+                            Log.d("LoginError", errorMessage);
+                        } else {
+                            Log.d("LoginError", "Error message is null");
+                        }
                     }
                 }); // Error listener (using lambda expression)
 
@@ -95,8 +119,11 @@ public class BuyerLogin extends AppCompatActivity {
 
             if (statusCode == 200) {
                 String token = response.getString("token");
-                //                saveTokenToSharedPreferences(token);
+                                saveTokenToSharedPreferences(token);
                 Log.d("Token", token);
+                loginButton.setEnabled(true);
+                Intent intent = new Intent(BuyerLogin.this, NavigationBar.class);
+                startActivity(intent);
                 // Navigate to the next activity or perform any other actions
             } else {
                 Log.d("Error", "An error occurred");
@@ -123,6 +150,11 @@ public class BuyerLogin extends AppCompatActivity {
         editor.putString("token", token);
         editor.apply();
     }
+    private void showErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+
 }
 
 

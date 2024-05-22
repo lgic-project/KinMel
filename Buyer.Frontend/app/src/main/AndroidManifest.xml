@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewAllActivity" />
+        <activity android:name=".NavigationBar" />
         <activity android:name=".UpdatePasswordActivity" />
         <activity android:name=".BuyerSignUp" /> <!-- <activity android:name=".BuyerLogin" /> -->
         <activity android:name=".OTPPage" />

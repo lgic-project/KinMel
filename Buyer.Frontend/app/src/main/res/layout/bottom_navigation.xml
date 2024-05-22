@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".NaigationBar">
+    tools:context=".NavigationBar">
 
     <FrameLayout
         android:id="@+id/framelayout"
