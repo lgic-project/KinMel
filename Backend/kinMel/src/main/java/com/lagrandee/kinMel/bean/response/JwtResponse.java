@@ -9,6 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtResponse {
+    int status;
 String token;
 String refreshToken;
 String email;

@@ -51,7 +51,7 @@ public class UserException {
     @ExceptionHandler
     public ResponseEntity<KinMelCustomMessage> handleException(UserNotVerified exc){
         KinMelCustomMessage error = new KinMelCustomMessage();
-        error.setStatus(HttpStatus.LOCKED.value());
+        error.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
         error.setMessage(exc.getMessage());
         error.setTimeStamp(System.currentTimeMillis());
 

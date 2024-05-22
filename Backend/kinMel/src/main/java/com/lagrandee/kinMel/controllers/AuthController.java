@@ -1,10 +1,9 @@
 package com.lagrandee.kinMel.controllers;
-
-
 import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.request.LoginRequest;
 import com.lagrandee.kinMel.bean.response.JwtResponse;
 import com.lagrandee.kinMel.entity.Users;
+import com.lagrandee.kinMel.exception.UserNotVerified;
 import com.lagrandee.kinMel.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,15 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
-@RestController
+@RestController()
 @RequiredArgsConstructor
 public class AuthController {
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
     private final UsersRepository usersRepository;
 
-    @GetMapping("/auth/login")
+    @GetMapping("/kinMel/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        System.out.println("A");
         Users users=usersRepository.findByEmail(loginRequest.getUserName());
         if (users.getActive()==1) {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
@@ -36,10 +36,10 @@ public class AuthController {
             String userId = userDetails.getEmail();
             String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());
 
-            return ResponseEntity.ok(new JwtResponse(jwt, refreshToken, userId, roles));
+            return ResponseEntity.ok(new JwtResponse(200,jwt, refreshToken, userId, roles));
         }
         else {
-            return new ResponseEntity<>("Account is blocked or not verified",HttpStatus.FORBIDDEN);
+            throw new UserNotVerified("User is not verified");
         }
     }
 }
