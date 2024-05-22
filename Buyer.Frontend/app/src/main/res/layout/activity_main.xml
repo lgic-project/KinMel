@@ -7,7 +7,16 @@
     android:background="#F4F4F4"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
+    <EditText
+        android:id="@+id/search_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Search..."
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:padding="8dp"
+        android:background="@drawable/edittext_border"
+        android:textColor="@android:color/black" />
     <!--Top Bar-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -64,7 +73,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:src="@drawable/lamp" />
 
