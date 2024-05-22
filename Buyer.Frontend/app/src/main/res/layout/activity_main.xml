@@ -23,15 +23,6 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/medium">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/grey_circular_border"
-            android:padding="12dp"
-            android:src="@drawable/square_icon" />
-
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,17 +41,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xsmall"
-                android:text="Deft accessoriesr"
+                android:text="Discounts and offers"
                 android:textSize="15sp" />
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/grey_circular_border"
-            android:padding="@dimen/small"
-            android:src="@drawable/heart" />
 
 
     </RelativeLayout>
@@ -75,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/lamp" />
+            android:src="@drawable/github" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -91,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TABLE LAMP"
+                    android:text="Github"
                     android:textColor="@color/textColor"
                     android:textSize="18sp" />
 
@@ -172,6 +155,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/viewall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -197,9 +181,9 @@
                         android:padding="12dp">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:src="@drawable/lamp2" />
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/images" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -210,7 +194,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Edison Table Lamp"
+                                android:text="Goldstar Shoes"
                                 android:textColor="@color/textColor"
                                 android:textSize="14sp" />
 
@@ -272,9 +256,9 @@
                         android:padding="12dp">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:src="@drawable/lamp3" />
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/images" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -285,7 +269,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Edison Table Lamp"
+                                android:text="Puma Shoes"
                                 android:textColor="@color/textColor"
                                 android:textSize="14sp" />
 
@@ -347,8 +331,8 @@
                         android:padding="12dp">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:src="@drawable/lamp3" />
 
                         <LinearLayout
