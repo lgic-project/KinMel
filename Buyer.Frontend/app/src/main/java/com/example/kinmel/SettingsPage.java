@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class SettingsPage extends Activity {
 
@@ -13,24 +14,24 @@ public class SettingsPage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buyersetting);
 
-        // Find the profile settings button and set an OnClickListener
-        Button profileSettingButton = findViewById(R.id.tvProfileSetting);
-        profileSettingButton.setOnClickListener(new View.OnClickListener() {
+        TextView profileSettingTextView = findViewById(R.id.tvProfileSetting);
+        profileSettingTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsPage.this, UpdateProfileActivity.class);
                 startActivity(intent);
+
             }
         });
 
-        // Find the update password button and set an OnClickListener
-        Button updatePasswordButton = findViewById(R.id.btnUpdatePassword);
-        updatePasswordButton.setOnClickListener(new View.OnClickListener() {
+        TextView updatePasswordTextView = findViewById(R.id.btnUpdatePassword);
+        updatePasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsPage.this, UpdatePasswordActivity.class);
                 startActivity(intent);
+
             }
         });
-    }
+   }
 }

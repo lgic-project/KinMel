@@ -23,8 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BuyerSignUp" />
-        <activity android:name=".OTPPage" />
+        <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".UpdatePasswordActivity" />
     </application>
 
 </manifest>
