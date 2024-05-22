@@ -72,6 +72,11 @@ public class Users implements UserDetails {
         return authorities;
     }
 
+
+    public Integer getUserId() {
+        return id;
+    }
+
     @Override
     public String getUsername() {
         return this.email;

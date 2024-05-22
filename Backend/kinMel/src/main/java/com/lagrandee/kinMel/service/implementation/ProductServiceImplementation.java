@@ -4,7 +4,12 @@ import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.bean.request.ProductRequest;
 import com.lagrandee.kinMel.bean.response.ProductResponse;
 import com.lagrandee.kinMel.exception.NotInsertedException;
+import com.lagrandee.kinMel.exception.UserNotVerified;
+import com.lagrandee.kinMel.security.JwtUtils;
+import com.lagrandee.kinMel.security.filter.AuthTokenFilter;
 import com.lagrandee.kinMel.service.fileupload.FileUploadService;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,27 +20,45 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Types;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImplementation {
 
-    private final FileUploadService fileUploadService;
     private final JdbcTemplate jdbcTemplate;
+    private final JwtUtils jwtTokenProvider;
 
-    public ProductServiceImplementation(FileUploadService fileUploadService, JdbcTemplate jdbcTemplate) {
-        this.fileUploadService = fileUploadService;
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private final AuthTokenFilter authTokenFilter;
+    private  final UserServiceImplementation userServiceImplementation;
 
-    public String createNewProduct(ProductRequest productRequest, MultipartFile[] productImages) {
-        if (productRequest.getPrice() == null || productRequest.getProductName() == null || productRequest.getCategoryId() == null || productRequest.getStockQuantity() == null || productRequest.getSellerId()==null) {
+//    public ProductServiceImplementation(JdbcTemplate jdbcTemplate, JwtUtils jwtTokenProvider, AuthTokenFilter authTokenFilter, UserServiceImplementation userServiceImplementation) {
+//        this.jdbcTemplate = jdbcTemplate;
+//        this.jwtTokenProvider = jwtTokenProvider;
+//        this.authTokenFilter = authTokenFilter;
+//        this.userServiceImplementation = userServiceImplementation;
+//    }
+
+    public String createNewProduct(ProductRequest productRequest, MultipartFile[] productImages, HttpServletRequest request) {
+        String token = authTokenFilter.parseJwt(request);
+        Integer sellerId = jwtTokenProvider.getUserIdFromJWT(token);
+        if (productRequest.getPrice() == null || productRequest.getProductName() == null || productRequest.getCategoryId() == null || productRequest.getStockQuantity() == null) {
             throw new NotInsertedException("Fill all required fields");
+        }
+        Integer activeValue = userServiceImplementation.isUserActive(sellerId);
+        if (activeValue == null || activeValue != 1) {
+            throw new UserNotVerified("User is not verified");
         }
 
         // Upload files to the server
-        List<String> imagePaths = fileUploadService.uploadFiles(productImages);
+        List<String> imagePaths = null;
+        try {
+            imagePaths = FileUploadService.saveMultipartImages(productImages);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("InsertProduct")
@@ -63,7 +86,7 @@ public class ProductServiceImplementation {
                 .addValue("StockQuantity", productRequest.getStockQuantity())
                 .addValue("ProductStatus", productRequest.getProductStatus())
                 .addValue("Featured", productRequest.getFeatured())
-                .addValue("SellerId", productRequest.getSellerId())
+                .addValue("SellerId", sellerId)
                 .addValue("ProductImagePaths", String.join(",", imagePaths));
 
         jdbcCall.execute(parameters);
