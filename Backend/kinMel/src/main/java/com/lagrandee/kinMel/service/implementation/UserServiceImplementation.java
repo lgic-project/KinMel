@@ -12,9 +12,15 @@ import com.lagrandee.kinMel.helper.Image.ImageUtils;
 import com.lagrandee.kinMel.helper.StaticPaths;
 import com.lagrandee.kinMel.helper.emailhelper.EmailUtil;
 import com.lagrandee.kinMel.helper.emailhelper.OtpGenerate;
+import com.lagrandee.kinMel.security.JwtUtils;
+import com.lagrandee.kinMel.security.WebSecurityConfig;
+import com.lagrandee.kinMel.security.filter.AuthTokenFilter;
 import com.lagrandee.kinMel.service.UserService;
+import com.lagrandee.kinMel.service.fileupload.FileUploadService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -43,6 +49,11 @@ public class UserServiceImplementation implements UserService {
 
     private EmailUtil emailUtil;
 
+    private final JwtUtils jwtTokenProvider;
+
+    private final AuthTokenFilter authTokenFilter;
+
+
 
 
     @Override
@@ -51,9 +62,14 @@ public class UserServiceImplementation implements UserService {
         if (result.isPresent()){
             return result.get();
         }
+
         throw new UsernameNotFoundException("User doesn't exist");
     }
 
+
+    public Integer isUserActive(Integer userId) {
+        return usersRepository.isUserVerified(userId);
+    }
 
     @Override
     public ResponseEntity<?> registerUser(UsersRegisterDTO usersRegisterDTO)  {
@@ -78,7 +94,12 @@ public class UserServiceImplementation implements UserService {
         users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
         users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
         String profilePhoto = usersRegisterDTO.getProfilePhoto();
-         String imageUploadPath= StaticPaths.profilePath;
+        String imageUploadPath= null;
+        try {
+            imageUploadPath = StaticPaths.getProfilePath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String savedImagePath = null;
 
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
@@ -92,8 +113,9 @@ public class UserServiceImplementation implements UserService {
         if (savedImagePath != null) {
             users.setProfilePhoto(savedImagePath);
         } else {
-            users.setProfilePhoto(StaticPaths.defaultPath);
+            users.setProfilePhoto(StaticPaths.getProfileDefaultPath());
         }
+
         users.setOtp(otp);
         users.setOtpGeneratedTime(LocalDateTime.now());
         users.setActive(0);
@@ -120,7 +142,9 @@ public class UserServiceImplementation implements UserService {
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.OK.value(),"User Registration successful",System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
     }
-    public ResponseEntity<?> updateUser(int userId,UsersRegisterDTO usersRegisterDTO) {
+    public ResponseEntity<?> updateUser(UsersRegisterDTO usersRegisterDTO, HttpServletRequest request) {
+        String token = authTokenFilter.parseJwt(request);
+        Integer userId = jwtTokenProvider.getUserIdFromJWT(token);
         Optional<Users> usersOptional = usersRepository.findById(userId);
         if (usersOptional.isPresent()) {
             Users users = usersOptional.get();
@@ -131,7 +155,12 @@ public class UserServiceImplementation implements UserService {
             users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
             users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
             String profilePhoto = usersRegisterDTO.getProfilePhoto();
-            String imageUploadPath = StaticPaths.profilePath;
+            String imageUploadPath = null;
+            try {
+                imageUploadPath = StaticPaths.getProfilePath();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             String savedImagePath = null;
 
             if (profilePhoto != null && !profilePhoto.isEmpty()) {
@@ -145,7 +174,7 @@ public class UserServiceImplementation implements UserService {
             if (savedImagePath != null) {
                 users.setProfilePhoto(savedImagePath);
             } else {
-                users.setProfilePhoto(StaticPaths.defaultPath);
+                    users.setProfilePhoto(StaticPaths.getProfileDefaultPath());
             }
             usersRepository.save(users);
             KinMelCustomMessage customMessage = new KinMelCustomMessage(HttpStatus.OK.value(), "User successfully edited", System.currentTimeMillis());

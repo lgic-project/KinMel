@@ -9,7 +9,6 @@ import com.lagrandee.kinMel.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,24 +24,14 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
     private final UsersRepository usersRepository;
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('Admin')")
-    public String adminPage() {
-        return "Admin Page";
-    }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('User')")
-    public String userPage() {
-        return "User Page";
-    }
     @GetMapping("/auth/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Users users=usersRepository.findByEmail(loginRequest.getUserName());
         if (users.getActive()==1) {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
             Users userDetails = (Users) authentication.getPrincipal();
-            String jwt = jwtUtils.generateJwtToken(userDetails.getUsername());
+            String jwt = jwtUtils.generateJwtToken(userDetails.getUsername(), userDetails.getUserId());
             List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             String userId = userDetails.getEmail();
             String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());

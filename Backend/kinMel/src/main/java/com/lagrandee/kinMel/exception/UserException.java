@@ -48,4 +48,14 @@ public class UserException {
         return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<KinMelCustomMessage> handleException(UserNotVerified exc){
+        KinMelCustomMessage error = new KinMelCustomMessage();
+        error.setStatus(HttpStatus.LOCKED.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        // return ResponseEntity
+        return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
 }

@@ -6,6 +6,7 @@ import com.lagrandee.kinMel.bean.response.ProductResponse;
 import com.lagrandee.kinMel.bean.response.ResponseWithStatus;
 import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.implementation.ProductServiceImplementation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,8 +28,9 @@ public class ProductController {
     public ResponseEntity<?> addProduct(
             @RequestPart("productDetails") ProductRequest productRequest,
             @RequestPart("productImages") MultipartFile[] productImages
+            , HttpServletRequest request
     ) {
-        String newProduct = productServiceImplementation.createNewProduct(productRequest, productImages);
+        String newProduct = productServiceImplementation.createNewProduct(productRequest, productImages,request);
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.CREATED.value(),newProduct ,System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
     }

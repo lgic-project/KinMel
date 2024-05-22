@@ -13,4 +13,7 @@ public interface UsersRepository extends JpaRepository<Users,Integer> {
 
     @Query(value = "select * from users where email=?1",nativeQuery = true)
    Users findByEmail(String email);
+
+    @Query(value = "select active from users where user_id=?1",nativeQuery = true)
+    Integer isUserVerified(Integer id);
 }
