@@ -2,7 +2,6 @@ package com.lagrandee.kinMel.security;
 
 import com.lagrandee.kinMel.security.filter.AuthTokenFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -41,7 +40,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/kinMel/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/kinMel/categories").permitAll()
                 .requestMatchers("/kinMel/products").permitAll()
                 .requestMatchers("/kinMel/verify-account").permitAll()
