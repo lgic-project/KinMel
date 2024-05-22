@@ -15,8 +15,9 @@
         android:theme="@style/Theme.KinMel"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
+<!--            android:name=".NavigationBar"-->
         <activity
-            android:name=".NavigationBar"
+             android:name=".BuyerLogin"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,9 @@
         </activity>
         <activity android:name=".ViewAllActivity" />
         <activity android:name=".UpdatePasswordActivity" />
-        <activity android:name=".ViewAllActivity" />
+        <activity android:name=".BuyerSignUp" />
+<!--        <activity android:name=".BuyerLogin" />-->
+        <activity android:name=".OTPPage" />
 
     </application>
 
