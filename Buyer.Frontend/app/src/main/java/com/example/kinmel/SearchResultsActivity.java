@@ -8,8 +8,6 @@ import android.text.TextWatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,24 +22,31 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
+        // Initialize Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // Enable title and back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Search Results");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         EditText searchBox = findViewById(R.id.search_box);
         gridView = findViewById(R.id.gridView);
 
+        // Populate product list
         productList = new ArrayList<>();
         productList.add(new Product("Product 1", "$10", R.drawable.images));
         productList.add(new Product("Product 2", "$20", R.drawable.images));
         productList.add(new Product("Product 3", "$30", R.drawable.images));
 
+        // Initialize filtered list and adapter
         filteredList = new ArrayList<>(productList);
         productAdapter = new ProductAdapter(this, filteredList);
         gridView.setAdapter(productAdapter);
 
+        // Add text watcher to search box
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -59,8 +64,10 @@ public class SearchResultsActivity extends AppCompatActivity {
             }
         });
 
+        // Handle grid item clicks
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             Product clickedProduct = filteredList.get(position);
+            // Handle item click
         });
     }
 

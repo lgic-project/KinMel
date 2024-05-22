@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
-            android:name=".BuyerLogin"
+            android:name=".NavigationBar"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewAllActivity" />
-        <activity android:name=".BuyerSignUp" />
-        <activity android:name=".OTPPage" />
         <activity android:name=".UpdatePasswordActivity" />
+        <activity android:name=".ViewAllActivity" />
+
     </application>
 
 </manifest>
