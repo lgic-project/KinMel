@@ -15,5 +15,10 @@
     <color name="red">#DF0008</color>
     <color name="product_name">#95948B</color>
     <color name="product_price">#9A9A96</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="textColor">#060606</color>
+    <color name="orange">#FA6B1B</color>
 
 </resources>
