@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,17 +26,16 @@ public class AuthController {
     private final UsersRepository usersRepository;
 
     @GetMapping("/kinMel/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestParam  String username,String password ) {
         System.out.println("A");
-        Users users=usersRepository.findByEmail(loginRequest.getUserName());
+        Users users=usersRepository.findByEmail(username);
         if (users.getActive()==1) {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             Users userDetails = (Users) authentication.getPrincipal();
             String jwt = jwtUtils.generateJwtToken(userDetails.getUsername(), userDetails.getUserId());
             List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             String userId = userDetails.getEmail();
             String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());
-
             return ResponseEntity.ok(new JwtResponse(200,jwt, refreshToken, userId, roles));
         }
         else {

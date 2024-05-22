@@ -1,6 +1,8 @@
 package com.example.kinmel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -96,10 +98,8 @@ public class OTPPage extends Activity {
                         verifyButton.setEnabled(true);
 
                         if (response.equalsIgnoreCase("OTP verified.Now you can login")) {
+                            showMessageDialog("Account verified successfully");
                             showMessage("Account verified successfully");
-                            Intent intent = new Intent(OTPPage.this, BuyerLogin.class);
-                            startActivity(intent);
-                            finish();
                             // Redirect to the next activity or perform any other actions
                         } else if (response.equalsIgnoreCase("Please regenerate otp and try again")) {
                             showMessage("OTP Timeout. Please regenerate OTP and try again");
@@ -122,6 +122,23 @@ public class OTPPage extends Activity {
         // Add the request to the RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    private void showMessageDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(OTPPage.this);
+        builder.setTitle("Verification Successful");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(OTPPage.this, BuyerLogin.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     private void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

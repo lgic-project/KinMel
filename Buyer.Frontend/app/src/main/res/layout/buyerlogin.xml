@@ -62,6 +62,7 @@
                 android:textStyle="bold"/>
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Please Login With Your Information"
@@ -79,6 +80,7 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/emailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -96,6 +98,7 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/passwordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
