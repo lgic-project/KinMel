@@ -12,7 +12,7 @@
     <color name="my_secondary">#06B1B0</color>
     <color name="my_primary_night">#000000</color>
     <color name="my_secondary_night">#FFFFFF</color>
-    <color name="red">#DF0008</color>
+    <color name="discountprice">#DF0008</color>
     <color name="product_name">#95948B</color>
     <color name="product_price">#939381</color>
     <color name="colorPrimary">#008577</color>
