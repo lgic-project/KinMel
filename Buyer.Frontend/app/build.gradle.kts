@@ -9,6 +9,7 @@ android {
     defaultConfig {
         applicationId = "com.example.kinmel"
         minSdk = 26
+
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -43,5 +44,6 @@ dependencies {
     implementation("com.google.android.material:material:1.7.0")
     implementation ("com.android.volley:volley:1.2.1")
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("androidx.core:core:1.7.0")
 
 }

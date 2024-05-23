@@ -18,6 +18,8 @@ public class ProductResponse {
     private int featured;
     private List<String> productImages;
 
+    private String imagepath;
+
     public int getProductId() {
         return productId;
     }
@@ -130,4 +132,18 @@ public class ProductResponse {
         this.productImages = productImages;
     }
 
+    public String getImagepath() {
+        return imagepath;
+    }
+
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
+    }
+
+    public ProductResponse(String productName, double price, double discountedPrice, String productImages) {
+        this.productName = productName;
+        this.price = price;
+        this.discountedPrice = discountedPrice;
+        this.imagepath = productImages;
+    }
 }

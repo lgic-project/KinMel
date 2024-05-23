@@ -5,7 +5,7 @@
     android:background="@drawable/white_circular_border"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="12dp">
+    android:padding="12dp" >
 
     <ImageView
         android:id="@+id/product_image"

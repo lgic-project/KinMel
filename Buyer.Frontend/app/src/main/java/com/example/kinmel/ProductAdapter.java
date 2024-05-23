@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.kinmel.response.ProductResponse;
+
 import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
@@ -49,7 +51,6 @@ public class ProductAdapter extends BaseAdapter {
         imageView.setImageResource(product.getImageResourceId());
         textViewName.setText(product.getName());
         textViewPrice.setText(product.getPrice());
-
         return convertView;
     }
 }
