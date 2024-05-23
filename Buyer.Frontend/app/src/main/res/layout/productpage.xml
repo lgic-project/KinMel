@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:text="Discount Price: $40"
                     android:textSize="16sp"
-                    android:textColor="@color/red"
+                    android:textColor="@color/orange"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp" />
 

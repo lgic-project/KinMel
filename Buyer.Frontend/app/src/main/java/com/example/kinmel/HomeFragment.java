@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.kinmel.StaticFiles.ApiStatic;
 import com.example.kinmel.adapter.MySingleton;
 import com.example.kinmel.adapter.ProductAdapterMain;
+import com.example.kinmel.adapter.SpaceItemDecoration;
 import com.example.kinmel.response.ProductResponse;
 
 import org.json.JSONArray;
@@ -42,6 +43,8 @@ public class HomeFragment extends Fragment {
         productContainer = view.findViewById(R.id.product_container);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         productContainer.setLayoutManager(layoutManager);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        productContainer.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
         productAdapter = new ProductAdapterMain(getActivity(), productList);
         productContainer.setAdapter(productAdapter);
@@ -62,6 +65,7 @@ public class HomeFragment extends Fragment {
                             JSONArray data = response.getJSONArray("data");
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject productObject = data.getJSONObject(i);
+                                Integer productId = productObject.getInt("productId");;
                                 String productName = productObject.getString("productName");
                                 Log.d("Product Name", productName);
                                 String productDescription = productObject.getString("productDescription");
@@ -73,7 +77,7 @@ public class HomeFragment extends Fragment {
                                 JSONArray productImages = productObject.getJSONArray("productImages");
                                 String imageUrl =ApiStatic.FETCH_PRODUCT_IMAGE_HOME_API+ productImages.getString(0); // Assuming the first image is the main image
 
-                                ProductResponse product = new ProductResponse(productName, price, discountedPrice, imageUrl);
+                                ProductResponse product = new ProductResponse(productName, price, discountedPrice, imageUrl,productId);
                                 productList.add(product);
                             }
 

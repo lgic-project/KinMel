@@ -1,6 +1,7 @@
 package com.example.kinmel.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.kinmel.Product;
 import com.example.kinmel.R;
 import com.example.kinmel.response.ProductResponse;
 import com.squareup.picasso.Picasso;
@@ -37,11 +37,25 @@ public class ProductAdapterMain extends RecyclerView.Adapter<ProductAdapterMain.
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         ProductResponse product = productList.get(position);
-        holder.productName.setText(product.getProductName());
+        String productName = product.getProductName();
+        if (productName.length() > 12) {
+            productName = productName.substring(0, 15) + "...";
+        }
+        holder.productName.setText(productName);
         holder.productPrice.setText(String.valueOf(product.getPrice()));
         holder.productDiscountedPrice.setText(String.valueOf(product.getDiscountedPrice()));
         Picasso.get().load(product.getImagepath()).into(holder.productImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve the productId of the clicked product
+                Integer productId = product.getProductId();
+                Log.d("Product ID", String.valueOf(productId));
+                // Do something with the productId (e.g., start a new activity and pass the productId as an extra)
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -56,6 +70,7 @@ public class ProductAdapterMain extends RecyclerView.Adapter<ProductAdapterMain.
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
+
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
             productDiscountedPrice = itemView.findViewById(R.id.product_discounted_price);

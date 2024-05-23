@@ -140,10 +140,11 @@ public class ProductResponse {
         this.imagepath = imagepath;
     }
 
-    public ProductResponse(String productName, double price, double discountedPrice, String productImages) {
+    public ProductResponse(String productName, double price, double discountedPrice, String productImages,int productId) {
         this.productName = productName;
         this.price = price;
         this.discountedPrice = discountedPrice;
         this.imagepath = productImages;
+        this.productId = productId;
     }
 }
