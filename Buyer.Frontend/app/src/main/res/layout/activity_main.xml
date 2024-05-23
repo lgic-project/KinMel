@@ -22,116 +22,127 @@
             android:background="@drawable/edittext_border"
             android:textColor="@android:color/black" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/medium">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="@dimen/medium">-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="KinMel"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="KinMel"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:textSize="20sp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/xsmall"
-                    android:text="Discounts and offers"
-                    android:textSize="15sp" />
-            </LinearLayout>
-        </RelativeLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/xsmall"-->
+<!--                    android:text="Discounts and offers"-->
+<!--                    android:textSize="15sp" />-->
+<!--            </LinearLayout>-->
+<!--        </RelativeLayout>-->
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            app:iss_auto_cycle="true"
+            app:iss_period="1000"
+            app:iss_delay="1000"
+            app:iss_text_align="CENTER"/>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/github" />
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="250dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/github" />-->
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/medium">
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="@dimen/medium">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/small">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="@dimen/small">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Github"
-                        android:textColor="@color/textColor"
-                        android:textSize="18sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Github"-->
+<!--                        android:textColor="@color/textColor"-->
+<!--                        android:textSize="18sp" />-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/small">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/small">-->
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="@dimen/xsmall"
-                            android:src="@drawable/star_clr" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:padding="@dimen/xsmall"-->
+<!--                            android:src="@drawable/star_clr" />-->
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="@dimen/xsmall"
-                            android:src="@drawable/star_clr" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:padding="@dimen/xsmall"-->
+<!--                            android:src="@drawable/star_clr" />-->
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="@dimen/xsmall"
-                            android:src="@drawable/star_clr" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:padding="@dimen/xsmall"-->
+<!--                            android:src="@drawable/star_clr" />-->
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="@dimen/xsmall"
-                            android:src="@drawable/star_clr" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:padding="@dimen/xsmall"-->
+<!--                            android:src="@drawable/star_clr" />-->
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="@dimen/xsmall"
-                            android:src="@drawable/star_grey" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:padding="@dimen/xsmall"-->
+<!--                            android:src="@drawable/star_grey" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="249 Review"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="249 Review"-->
+<!--                            android:textColor="@color/textColor"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="$90"
-                    android:textColor="@color/textColor"
-                    android:textSize="18sp" />
-            </RelativeLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:text="$90"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:textSize="18sp" />-->
+<!--            </RelativeLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,5 +183,9 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:background="#FF0000"/>
     </LinearLayout>
 </ScrollView>
