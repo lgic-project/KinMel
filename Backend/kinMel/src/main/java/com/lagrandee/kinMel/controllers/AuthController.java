@@ -27,7 +27,6 @@ public class AuthController {
 
     @GetMapping("/kinMel/login")
     public ResponseEntity<?> authenticateUser(@RequestParam  String username,String password ) {
-        System.out.println("A");
         Users users=usersRepository.findByEmail(username);
         if (users.getActive()==1) {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -35,7 +34,9 @@ public class AuthController {
             String jwt = jwtUtils.generateJwtToken(userDetails.getUsername(), userDetails.getUserId());
             List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             String userId = userDetails.getEmail();
+            System.out.println(jwt);
             String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());
+
             return ResponseEntity.ok(new JwtResponse(200,jwt, refreshToken, userId, roles));
         }
         else {
