@@ -27,6 +27,7 @@ public class AuthController {
 
     @GetMapping("/kinMel/login")
     public ResponseEntity<?> authenticateUser(@RequestParam  String username,String password ) {
+        System.out.println("A");
         Users users=usersRepository.findByEmail(username);
         if (users.getActive()==1) {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

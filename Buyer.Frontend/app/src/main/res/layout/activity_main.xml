@@ -17,11 +17,16 @@
         android:background="@drawable/edittext_border"
         android:textColor="@android:color/black" />
 
-    <ScrollView
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/search_box">-->
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search_box">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,12 +79,13 @@
                     android:orientation="horizontal">
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-
-            
-            <View
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_container_for_grid"
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
-                android:background="#FF0000"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
+<!--    </ScrollView>-->
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -147,4 +147,13 @@ public class ProductResponse {
         this.imagepath = productImages;
         this.productId = productId;
     }
+
+    public ProductResponse(int productId, String productName, String productDescription, double price, double discountedPrice, String imagepath) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+        this.discountedPrice = discountedPrice;
+        this.imagepath = imagepath;
+    }
 }
