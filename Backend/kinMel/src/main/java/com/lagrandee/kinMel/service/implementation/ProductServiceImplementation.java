@@ -2,6 +2,7 @@ package com.lagrandee.kinMel.service.implementation;
 
 import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.bean.request.ProductRequest;
+import com.lagrandee.kinMel.bean.response.CategoryResponse;
 import com.lagrandee.kinMel.bean.response.ProductResponse;
 import com.lagrandee.kinMel.exception.NotInsertedException;
 import com.lagrandee.kinMel.exception.UserNotVerified;
@@ -51,7 +52,6 @@ public class ProductServiceImplementation {
         if (activeValue == null || activeValue != 1) {
             throw new UserNotVerified("User is not verified");
         }
-
         // Upload files to the server
         List<String> imagePaths = null;
         try {
@@ -139,5 +139,35 @@ public class ProductServiceImplementation {
         }
         return products;
     }
+
+    public ProductResponse getProductById(int productId) {
+        String sql = "{CALL FindProductById(?)}";
+        return jdbcTemplate.queryForObject(sql, new Object[] { productId }, (rs, rowNum) -> {
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setProductId(rs.getInt("product_id"));
+            productResponse.setProductName(rs.getString("product_name"));
+            productResponse.setProductDescription(rs.getString("product_description"));
+            productResponse.setCategoryName(rs.getString("category_name"));
+            productResponse.setBrand(rs.getString("brand"));
+            productResponse.setPrice( rs.getLong("price"));
+            productResponse.setDiscountedPrice(rs.getLong("discounted_price"));
+            productResponse.setStockQuantity(rs.getInt("stock_quantity"));
+            productResponse.setProductStatus(rs.getInt("product_status"));
+            productResponse.setFeatured(rs.getInt("featured"));
+            productResponse.setSellerId(rs.getInt("seller_id"));
+            productResponse.setCreatedAt(rs.getDate("created_at"));
+            productResponse.setUpdatedAt(rs.getDate("updated_at"));
+            String imageString= rs.getString("product_Images");
+
+            String[] imagePaths = imageString.split(",");
+
+            List<String> productImages = new ArrayList<>(Arrays.asList(imagePaths));
+
+            // Set the productImages list in productResponse
+            productResponse.setProductImages(productImages);
+            return productResponse;
+        });
     }
+
+}
 

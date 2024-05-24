@@ -4,6 +4,7 @@ import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.bean.request.ProductRequest;
 import com.lagrandee.kinMel.bean.response.ProductResponse;
 import com.lagrandee.kinMel.bean.response.ResponseWithStatus;
+import com.lagrandee.kinMel.bean.response.SingleDataResponse;
 import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.implementation.ProductServiceImplementation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class ProductController {
             @RequestPart("productImages") MultipartFile[] productImages
             , HttpServletRequest request
     ) {
+        System.out.println("Hit");
         String newProduct = productServiceImplementation.createNewProduct(productRequest, productImages,request);
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.CREATED.value(),newProduct ,System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
@@ -55,4 +57,23 @@ public class ProductController {
         response.setData(allProduct);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PreAuthorize("")
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<?> getProductByProductId(@PathVariable int productId){
+        ProductResponse specificProduct = productServiceImplementation.getProductById(productId);
+        if (specificProduct==null){
+            SingleResponseWithStatus r = new SingleResponseWithStatus();
+            r.setStatus(HttpStatus.OK.value());
+            r.setStatusValue(HttpStatus.OK.name());
+            r.setData("No data found");
+            return new ResponseEntity<>(r, HttpStatus.OK);
+        }
+        SingleDataResponse<ProductResponse> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(specificProduct);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

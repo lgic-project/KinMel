@@ -55,13 +55,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf(AbstractHttpConfigurer::disable);
        http.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()));// Enable CORS
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/kinMel/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/kinMel/categories").permitAll()
-                .requestMatchers("/kinMel/products").permitAll()
+                .requestMatchers(HttpMethod.GET,"/kinMel/products").permitAll()
+                .requestMatchers("/kinMel/product/**").permitAll()
                 .requestMatchers("/kinMel/verify-account").permitAll()
                 .requestMatchers("/images/{id}").permitAll()
                 .requestMatchers("/product_images/{id}").permitAll()

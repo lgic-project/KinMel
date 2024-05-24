@@ -34,7 +34,6 @@ public class AuthController {
             String jwt = jwtUtils.generateJwtToken(userDetails.getUsername(), userDetails.getUserId());
             List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             String userId = userDetails.getEmail();
-            System.out.println(jwt);
             String refreshToken = jwtUtils.generateJwtRefreshToken(userDetails.getUsername());
 
             return ResponseEntity.ok(new JwtResponse(200,jwt, refreshToken, userId, roles));

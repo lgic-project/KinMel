@@ -30,6 +30,9 @@
         <activity android:name=".UpdatePasswordActivity" />
         <activity android:name=".BuyerSignUp" /> <!-- <activity android:name=".BuyerLogin" /> -->
         <activity android:name=".OTPPage" />
+        <activity android:name=".ProductPage"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
     </application>
 
 </manifest>

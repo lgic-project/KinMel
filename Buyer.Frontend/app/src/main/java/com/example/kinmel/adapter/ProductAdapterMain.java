@@ -39,7 +39,7 @@ public class ProductAdapterMain extends RecyclerView.Adapter<ProductAdapterMain.
         ProductResponse product = productList.get(position);
         String productName = product.getProductName();
         if (productName.length() > 12) {
-            productName = productName.substring(0, 15) + "...";
+            productName = productName.substring(0, 12) + "...";
         }
         holder.productName.setText(productName);
         holder.productPrice.setText(String.valueOf(product.getPrice()));

@@ -1,28 +1,19 @@
 package com.lagrandee.kinMel.service.fileupload;
 
-import com.lagrandee.kinMel.exception.NotInsertedException;
-import org.apache.commons.io.FileUtils;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class FileUploadService {
-//    private final String UPLOAD_DIR = "C:\\Users\\bisha\\OneDrive\\Desktop\\KinMel\\Backend\\kinMel\\productImages";
-
     public static List<String> saveMultipartImages(MultipartFile[] files) throws IOException {
         List<String> filePaths = new ArrayList<>();
 
@@ -60,8 +51,8 @@ public class FileUploadService {
     }
 
     public static String getProfilePath() throws IOException {
-        Resource resource = new ClassPathResource("static/product_images");
-        File file = resource.getFile();
-        return file.getAbsolutePath();
+        Path currentPath = Paths.get("").toAbsolutePath();
+        Path resourcePath = currentPath.resolve("src/main/resources/static/product_images");
+        return resourcePath.toFile().getAbsolutePath();
     }
 }
