@@ -71,13 +71,13 @@
                         android:textSize="16sp" />
                 </RelativeLayout>
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/product_container"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_marginTop="@dimen/small"
+                    android:orientation="horizontal" />
+
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/product_container_for_grid"
