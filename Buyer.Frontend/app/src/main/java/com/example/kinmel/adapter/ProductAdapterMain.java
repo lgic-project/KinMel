@@ -1,6 +1,7 @@
 package com.example.kinmel.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.kinmel.ProductPage;
 import com.example.kinmel.R;
 import com.example.kinmel.response.ProductResponse;
 import com.squareup.picasso.Picasso;
@@ -51,6 +53,9 @@ public class ProductAdapterMain extends RecyclerView.Adapter<ProductAdapterMain.
                 // Retrieve the productId of the clicked product
                 Integer productId = product.getProductId();
                 Log.d("Product ID", String.valueOf(productId));
+                Intent intent = new Intent(context, ProductPage.class);
+                intent.putExtra("productId", productId);
+                context.startActivity(intent);
                 // Do something with the productId (e.g., start a new activity and pass the productId as an extra)
             }
         });

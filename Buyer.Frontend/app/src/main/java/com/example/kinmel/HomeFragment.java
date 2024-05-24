@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
+
         productContainer = view.findViewById(R.id.product_container);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         productContainer.setLayoutManager(layoutManager);
@@ -125,9 +126,9 @@ public class HomeFragment extends Fragment {
         int imageResource = R.drawable.chatting; // replace 'your_image' with your image file name without extension
         String uri = "android.resource://" + getActivity().getPackageName() + "/" + imageResource;
 
-        imageList.add(new SlideModel(uri, "Big Sale", ScaleTypes.CENTER_CROP));
-        imageList.add(new SlideModel("https://bit.ly/2BteuF2",ScaleTypes.CENTER_CROP));
-        imageList.add(new SlideModel("https://bit.ly/3fLJf72",ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel("https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Big Sale", ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel("https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHNhbGV8ZW58MHx8MHx8fDA%3D",ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel("https://images.unsplash.com/photo-1647221598398-934ed5cb0e4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTR8fGVjb21tZXJjZSUyMGFkc3xlbnwwfDB8MHx8fDA%3D",ScaleTypes.CENTER_CROP));
 
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);

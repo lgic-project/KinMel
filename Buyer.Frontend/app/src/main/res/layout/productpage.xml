@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductPage">
@@ -24,16 +24,19 @@
             android:padding="16dp" />
 
     </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="10dp">
 
-    <ImageView
-        android:id="@+id/imgItem"
-        android:layout_width="match_parent"
+    </View>
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/product_slider"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/images"
-        android:scaleType="centerCrop"
-        android:layout_below="@id/headerLayout" />
+        app:iss_auto_cycle="true"
+        app:iss_period="1000"
+        app:iss_delay="1000"
+        app:iss_text_align="CENTER"/>
 
     <LinearLayout
         android:id="@+id/detailsLayout"
@@ -41,7 +44,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_below="@id/imgItem">
+        android:layout_below="@id/product_slider">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -56,16 +59,25 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCategoryName"
+                    android:id="@+id/categoryName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Goldstar"
+                    android:text="Fashion"
                     android:textColor="@color/product_name"
                     android:textStyle="bold"
                     android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/brandName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Brand: Lofer"
+                    android:textColor="@color/my_secondary"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/tvItemName"
+                    android:id="@+id/productName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lofer 18-Size 14 Lfx04"
@@ -74,7 +86,7 @@
                     android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/tvItemPrice"
+                    android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -84,7 +96,7 @@
                     android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/tvItemDiscountPrice"
+                    android:id="@+id/discountPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Discount Price: $40"
@@ -93,18 +105,10 @@
                     android:textStyle="bold"
                     android:layout_marginTop="8dp" />
 
-                <TextView
-                    android:id="@+id/tvItemTotalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="Total Price: $10"
-                    android:textColor="@color/my_secondary"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp" />
+
 
                 <TextView
-                    android:id="@+id/tvItemStock"
+                    android:id="@+id/stock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="In Stock: 100"
@@ -112,7 +116,7 @@
                     android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/tvItemDescription"
+                    android:id="@+id/productDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Item Description Lorem ipsum dolor sit amet, consectetur adipiscing elit."
