@@ -6,6 +6,7 @@ public class ApiStatic {
     public static final String VERIFY_ACCOUNT_API = "http://192.168.1.67:8080/kinMel/verify-account";
     public static final String LOGIN_ACCOUNT_API = "http://192.168.1.67:8080/kinMel/login";
     public static final String FETCH_PRODUCT_HOME_API = "http://192.168.1.67:8080/kinMel/products";
+    public static final String FETCH_USER_DETAIL = "http://192.168.1.67:8080/kinMel/user";
     public static String getProductById(int productId) {
         return String.format("http://192.168.1.67:8080/kinMel/product/%d", productId);
     }

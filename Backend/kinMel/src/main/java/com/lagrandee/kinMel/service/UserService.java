@@ -3,6 +3,7 @@ package com.lagrandee.kinMel.service;
 import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.entity.Users;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

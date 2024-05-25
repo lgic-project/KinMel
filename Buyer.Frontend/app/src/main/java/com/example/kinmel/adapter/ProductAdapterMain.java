@@ -2,6 +2,7 @@ package com.example.kinmel.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +45,8 @@ public class ProductAdapterMain extends RecyclerView.Adapter<ProductAdapterMain.
             productName = productName.substring(0, 12) + "...";
         }
         holder.productName.setText(productName);
-        holder.productPrice.setText(String.valueOf(product.getPrice()));
-        holder.productDiscountedPrice.setText(String.valueOf(product.getDiscountedPrice()));
+        holder.productPrice.setText("Rs. " +String.valueOf((int)product.getPrice()));
+        holder.productDiscountedPrice.setText("Rs. " +String.valueOf((int)product.getDiscountedPrice()));
         Picasso.get().load(product.getImagepath()).into(holder.productImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +79,7 @@ public class ProductAdapterMain extends RecyclerView.Adapter<ProductAdapterMain.
 
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
+            productPrice.setPaintFlags(productPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             productDiscountedPrice = itemView.findViewById(R.id.product_discounted_price);
             productImage = itemView.findViewById(R.id.product_image);
         }

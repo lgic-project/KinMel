@@ -1,6 +1,6 @@
 package com.example.kinmel;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,7 +23,6 @@ import com.example.kinmel.adapter.MySingleton;
 import com.example.kinmel.adapter.ProductAdapterMain;
 import com.example.kinmel.adapter.ProductGridAdapter;
 import com.example.kinmel.adapter.SpaceItemDecoration;
-import com.example.kinmel.khalti.MyPaymentManager;
 import com.example.kinmel.response.ProductResponse;
 
 import org.json.JSONArray;
@@ -35,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements MyPaymentManager.VolleyCallback{
+public class HomeFragment extends Fragment {
 
     private RecyclerView productContainer,productContainerForGrid;
     private List<ProductResponse> productList = new ArrayList<>();
@@ -71,17 +68,6 @@ public class HomeFragment extends Fragment implements MyPaymentManager.VolleyCal
         fetchProducts();
         fetchSlider(view);
         fetchProductsForGrid();
-
-        MyPaymentManager paymentManager = new MyPaymentManager();
-
-        String name = "Ram Bahadur";
-        String email = "test@khalti.com";
-        String phone = "9800000001";
-        int amount = 1000; // Amount in paisa
-        String returnUrl = ApiStatic.FETCH_PRODUCT_HOME_API;
-        String websiteUrl = ApiStatic.FETCH_PRODUCT_HOME_API;
-
-        paymentManager.initiateKhaltiPayment(getContext(), name, email, phone, amount, returnUrl, websiteUrl, this);
 
         return view;
     }
@@ -187,24 +173,4 @@ public class HomeFragment extends Fragment implements MyPaymentManager.VolleyCal
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
-    @Override
-    public void onSuccess(JSONObject response) {
-        try {
-            String pidx = response.getString("pidx");
-            Log.d("KhaltiPidx", pidx);
-            String paymentUrl = response.getString("payment_url");
-            Log.d("KhaltiPaymentUrl", paymentUrl);
-            long expiresIn = response.getLong("expires_in");
-            Log.d("KhaltiExpiresIn", String.valueOf(expiresIn));
-            // ... Use pidx and paymentUrl to initiate payment flow with Khalti library
-            // ... Handle expiration time (expiresIn) if needed
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onError(VolleyError error) {
-
-    }
 }

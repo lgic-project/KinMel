@@ -63,6 +63,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Users getSpecificUserById(int id) {
+
         Optional<Users> result = usersRepository.findById(id);
         if (result.isPresent()){
             return result.get();
@@ -303,4 +304,35 @@ public class UserServiceImplementation implements UserService {
         return userDetails;
     }
 
+    public UserDetail getUserWithRoleByToken(HttpServletRequest request) {
+        String token = authTokenFilter.parseJwt(request);
+        Integer id = jwtTokenProvider.getUserIdFromJWT(token);
+        List<Object> argumentList =new ArrayList<>();
+        StringBuilder sql=new StringBuilder();
+        sql.append("SELECT ").append(" users.user_id,users.first_name,users.last_name,users.email,users.address ,users.phone_number,users.profile_photo ");
+        sql.append(" FROM ").append("  users ")
+                .append(" where users.user_id = ?");
+        argumentList.add(id);
+        return jdbcTemplate.queryForObject(sql.toString(),(rs,rowName)->{
+            UserDetail usersWithRoles = new UserDetail();
+            usersWithRoles.setUserId(rs.getInt("user_id"));
+            usersWithRoles.setFirst_name(rs.getString("first_name"));
+            usersWithRoles.setLast_name(rs.getString("last_name"));
+            usersWithRoles.setRoles(jdbcTemplate.queryForList("select roles.name from roles inner join roles_Assigned on roles_Assigned.role_id=roles.role_id where roles_Assigned.user_id=?",String.class,id));
+            usersWithRoles.setEmail(rs.getString("email"));
+            usersWithRoles.setAddress(rs.getString("address"));
+            usersWithRoles.setPhoneNumber(rs.getString("phone_number"));
+            String imagePath = rs.getString("profile_photo");
+            String imageBase64 = null;
+            try {
+                imageBase64 = encodeImageToBase64(imagePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            usersWithRoles.setProfilePicture(imageBase64);
+//          usersWithRoles.setImage(rs.getString("profile_photo"));
+
+            return usersWithRoles;
+        },argumentList.toArray());
+    }
 }

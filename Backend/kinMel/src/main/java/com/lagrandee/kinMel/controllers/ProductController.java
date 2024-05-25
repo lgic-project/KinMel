@@ -31,7 +31,6 @@ public class ProductController {
             @RequestPart("productImages") MultipartFile[] productImages
             , HttpServletRequest request
     ) {
-        System.out.println("Hit");
         String newProduct = productServiceImplementation.createNewProduct(productRequest, productImages,request);
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.CREATED.value(),newProduct ,System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);

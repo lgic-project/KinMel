@@ -39,9 +39,18 @@ public class UserController {
 //        UsersWithRoles userWithRole = userServiceImplementation.getUserWithRole(userId);
 //        return userWithRole;
 //    }
-    @GetMapping("/users/{userId}")
+    @GetMapping("/user/{userId}")
     public UserDetail getUserById(@PathVariable int userId){
         UserDetail userWithRole = userServiceImplementation.getUserWithRole(userId);
+//        Users userWithRole = userServiceImplementation.getSpecificUserById(userId);
+
+        return userWithRole;
+    }
+
+    @GetMapping("/user")
+    public UserDetail getUserById(HttpServletRequest request){
+
+        UserDetail userWithRole = userServiceImplementation.getUserWithRoleByToken(request);
 //        Users userWithRole = userServiceImplementation.getSpecificUserById(userId);
 
         return userWithRole;

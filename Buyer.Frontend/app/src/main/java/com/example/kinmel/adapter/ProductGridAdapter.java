@@ -39,9 +39,9 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         ProductResponse product = products.get(position);
         String productName = product.getProductName();
         holder.productName.setText(productName);
-        holder.productPrice.setText(String.valueOf(product.getPrice()));
+        holder.productPrice.setText("Rs. " +String.valueOf((int)product.getPrice()));
         holder.productDescription.setText(product.getProductDescription());
-        holder.productDiscountedPrice.setText(String.valueOf(product.getDiscountedPrice()));
+        holder.productDiscountedPrice.setText("Rs. " +String.valueOf((int)product.getDiscountedPrice()));
         Picasso.get().load(product.getImagepath()).into(holder.productImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

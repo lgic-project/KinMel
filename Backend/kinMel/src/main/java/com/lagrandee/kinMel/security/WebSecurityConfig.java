@@ -69,7 +69,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/kinMel/regenerate-otp").permitAll()
                 .requestMatchers("/kinMel/users/register").permitAll()
                 .requestMatchers( "/kinMel/users").permitAll()
-                .requestMatchers( "/kinMel/users/**").permitAll()
+                .requestMatchers( "/kinMel/user/**").permitAll()
+                .requestMatchers( "/kinMel/user").permitAll()
 
 //                .requestMatchers("/kinMel/users/**").permitAll()
                 .anyRequest().authenticated());
