@@ -25,6 +25,7 @@ import com.example.kinmel.adapter.MySingleton;
 import com.example.kinmel.adapter.ProductAdapterMain;
 import com.example.kinmel.adapter.ProductGridAdapter;
 import com.example.kinmel.adapter.SpaceItemDecoration;
+import com.example.kinmel.khalti.MyPaymentManager;
 import com.example.kinmel.response.ProductResponse;
 
 import org.json.JSONArray;
@@ -34,7 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MyPaymentManager.VolleyCallback{
 
     private RecyclerView productContainer,productContainerForGrid;
     private List<ProductResponse> productList = new ArrayList<>();
@@ -70,8 +71,17 @@ public class HomeFragment extends Fragment {
         fetchProducts();
         fetchSlider(view);
         fetchProductsForGrid();
-        // Create image list
-        ArrayList<SlideModel> imageList = new ArrayList<>();
+
+        MyPaymentManager paymentManager = new MyPaymentManager();
+
+        String name = "Ram Bahadur";
+        String email = "test@khalti.com";
+        String phone = "9800000001";
+        int amount = 1000; // Amount in paisa
+        String returnUrl = ApiStatic.FETCH_PRODUCT_HOME_API;
+        String websiteUrl = ApiStatic.FETCH_PRODUCT_HOME_API;
+
+        paymentManager.initiateKhaltiPayment(getContext(), name, email, phone, amount, returnUrl, websiteUrl, this);
 
         return view;
     }
@@ -175,5 +185,26 @@ public class HomeFragment extends Fragment {
                 });
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    @Override
+    public void onSuccess(JSONObject response) {
+        try {
+            String pidx = response.getString("pidx");
+            Log.d("KhaltiPidx", pidx);
+            String paymentUrl = response.getString("payment_url");
+            Log.d("KhaltiPaymentUrl", paymentUrl);
+            long expiresIn = response.getLong("expires_in");
+            Log.d("KhaltiExpiresIn", String.valueOf(expiresIn));
+            // ... Use pidx and paymentUrl to initiate payment flow with Khalti library
+            // ... Handle expiration time (expiresIn) if needed
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onError(VolleyError error) {
+
     }
 }

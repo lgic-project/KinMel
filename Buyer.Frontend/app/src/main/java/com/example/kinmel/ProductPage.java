@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class ProductPage extends AppCompatActivity {
     private Integer productId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

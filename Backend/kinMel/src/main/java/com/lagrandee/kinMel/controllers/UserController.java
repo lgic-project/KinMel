@@ -54,6 +54,7 @@ public class UserController {
     }
 
 
+
     //for update
 //    @PreAuthorize("hasAnyRole()")
     @PreAuthorize("hasAnyRole()")

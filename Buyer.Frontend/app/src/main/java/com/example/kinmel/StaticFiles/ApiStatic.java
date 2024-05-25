@@ -12,4 +12,6 @@ public class ApiStatic {
     public static final String FETCH_PRODUCT_HOME_API_GRID = "http://192.168.1.67:8080/kinMel/products?sortBy=New";
     public static final String FETCH_PRODUCT_IMAGE_HOME_API = "http://192.168.1.67:8080/";
 
+    public static final String KHALTI_PRIVATE_KEY="test_secret_key_c75b125dff0f4ee588edc9851a279b23";
+
 }

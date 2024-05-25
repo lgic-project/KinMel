@@ -47,5 +47,6 @@ dependencies {
     implementation("androidx.core:core:1.7.0")
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation ("com.khalti:checkout-android:0.05.00")
 
 }

@@ -4,11 +4,15 @@ import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
+import com.lagrandee.kinMel.bean.response.KhaltiResponse;
 import com.lagrandee.kinMel.entity.Role;
 import com.lagrandee.kinMel.entity.Users;
+import com.lagrandee.kinMel.exception.KhaltiPaymentException;
 import com.lagrandee.kinMel.exception.UnableToSendMailException;
 import com.lagrandee.kinMel.exception.UserAlreadyExistsException;
 import com.lagrandee.kinMel.helper.Image.ImageUtils;
+import com.lagrandee.kinMel.helper.KhaltiPaymentRequest;
+import com.lagrandee.kinMel.helper.KhaltiPaymentService;
 import com.lagrandee.kinMel.helper.StaticPaths;
 import com.lagrandee.kinMel.helper.emailhelper.EmailUtil;
 import com.lagrandee.kinMel.helper.emailhelper.OtpGenerate;
@@ -52,6 +56,7 @@ public class UserServiceImplementation implements UserService {
     private final JwtUtils jwtTokenProvider;
 
     private final AuthTokenFilter authTokenFilter;
+    private final KhaltiPaymentService khaltiPaymentService;
 
 
 
@@ -130,7 +135,7 @@ public class UserServiceImplementation implements UserService {
             role.setName("Customer");
             role.setDescription("Buys Product");
         }
-        if (usersRegisterDTO.getRole()==3){
+        if (usersRegisterDTO.getRole()==3) {
             role.setName("Seller");
             role.setDescription("Sells Product");
         }
@@ -139,8 +144,26 @@ public class UserServiceImplementation implements UserService {
         roles.add(role);
         users.setRoles(roles);
         usersRepository.save(users);
+        if (usersRegisterDTO.getRole()==3) {
+
+            KhaltiPaymentRequest khaltiRequest = new KhaltiPaymentRequest();
+            khaltiRequest.setReturn_url("https://devkotasuman.com.np");
+            khaltiRequest.setWebsite_url("https://devkotasuman.com.np");
+            khaltiRequest.setAmount(1000);
+            khaltiRequest.setPurchase_order_id(String.valueOf(users.getId()));
+            khaltiRequest.setPurchase_order_name(users.getFirstName());
+            khaltiRequest.setCustomer_info(new KhaltiPaymentRequest.CustomerInfo(users.getFirstName(), "suman.yhhits@gmail.com", users.getPhoneNumber().toString()));
+            try {
+                KhaltiResponse khaltiResponse = khaltiPaymentService.initiatePayment(khaltiRequest);
+                return new ResponseEntity<>(khaltiResponse, HttpStatus.OK);
+            } catch (KhaltiPaymentException e) {
+                System.out.println("Khalti payment error: " + e.getMessage());
+                // Handle Khalti payment error
+            }
+        }
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.OK.value(),"User Registration successful",System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
+
     }
     public ResponseEntity<?> updateUser(UsersRegisterDTO usersRegisterDTO, HttpServletRequest request) {
         String token = authTokenFilter.parseJwt(request);
