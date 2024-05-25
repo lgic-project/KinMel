@@ -34,22 +34,44 @@
         android:clickable="true"
         android:focusable="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
         <EditText
             android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+        <TextView
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Email"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <EditText
             android:id="@+id/tvAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 
         <EditText
