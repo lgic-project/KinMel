@@ -53,7 +53,11 @@
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Email"/>
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="Email"
+            android:background="@color/product_name"/>
 
         <TextView
             android:layout_width="wrap_content"
