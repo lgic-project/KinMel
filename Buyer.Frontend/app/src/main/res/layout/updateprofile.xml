@@ -11,15 +11,14 @@
         android:layout_height="wrap_content"
         android:background="@color/my_secondary">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
             android:layout_width="120dp"
-            android:layout_height="150dp"
-            android:src="@drawable/facebook"
+            android:layout_height="120dp"
+            android:src="@drawable/chatting"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
-            android:background="@drawable/circle_background"/>
-
+            android:scaleType="centerCrop"/>
 
 
     </RelativeLayout>
