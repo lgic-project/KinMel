@@ -20,7 +20,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        // Initialize Toolbar (if needed)
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -37,6 +37,5 @@ public class SearchResultsActivity extends AppCompatActivity {
             }
         });
 
-        // Add any additional initialization code here
     }
 }
