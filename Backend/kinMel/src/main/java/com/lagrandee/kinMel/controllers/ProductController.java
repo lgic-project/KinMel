@@ -74,5 +74,4 @@ public class ProductController {
         response.setData(specificProduct);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }

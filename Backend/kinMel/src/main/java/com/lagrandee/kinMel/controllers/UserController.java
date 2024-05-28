@@ -2,7 +2,9 @@ package com.lagrandee.kinMel.controllers;
 
 
 import com.lagrandee.kinMel.bean.UserDetail;
+import com.lagrandee.kinMel.bean.request.PasswordRequest;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
+import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.fileupload.FileUploadService;
 import com.lagrandee.kinMel.service.implementation.UserServiceImplementation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -76,6 +78,16 @@ public class UserController {
     @PutMapping("/verify-account" )
     public ResponseEntity<String> verifyAccount(@RequestParam String email,@RequestParam String otp){
         return new ResponseEntity<>(userServiceImplementation.verifyAccount(email,otp),HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole()")
+    @PutMapping("/users/changepassword")
+    public ResponseEntity<?> updatePassword(@RequestBody PasswordRequest passwordRequest, HttpServletRequest request){
+        String returnType = userServiceImplementation.updatePassword(passwordRequest, request);
+        SingleResponseWithStatus response = new SingleResponseWithStatus();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(returnType);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole()")

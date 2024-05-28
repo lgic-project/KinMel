@@ -63,6 +63,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/kinMel/categories").permitAll()
                 .requestMatchers(HttpMethod.GET,"/kinMel/products").permitAll()
                 .requestMatchers("/kinMel/product/**").permitAll()
+//                .requestMatchers("/kinMel/users/changepassword").permitAll()
                 .requestMatchers("/kinMel/verify-account").permitAll()
                 .requestMatchers("/images/{id}").permitAll()
                 .requestMatchers("/product_images/{id}").permitAll()

@@ -3,6 +3,7 @@ package com.lagrandee.kinMel.service.implementation;
 import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.UserDetail;
+import com.lagrandee.kinMel.bean.request.PasswordRequest;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
 import com.lagrandee.kinMel.bean.response.KhaltiResponse;
 import com.lagrandee.kinMel.entity.Role;
@@ -10,6 +11,7 @@ import com.lagrandee.kinMel.entity.Users;
 import com.lagrandee.kinMel.exception.KhaltiPaymentException;
 import com.lagrandee.kinMel.exception.UnableToSendMailException;
 import com.lagrandee.kinMel.exception.UserAlreadyExistsException;
+import com.lagrandee.kinMel.exception.UserNotVerified;
 import com.lagrandee.kinMel.helper.Image.ImageUtils;
 import com.lagrandee.kinMel.helper.KhaltiPaymentRequest;
 import com.lagrandee.kinMel.helper.KhaltiPaymentService;
@@ -174,31 +176,33 @@ public class UserServiceImplementation implements UserService {
             Users users = usersOptional.get();
             users.setFirstName(usersRegisterDTO.getFirstName());
             users.setLastName(usersRegisterDTO.getLastName());
-            users.setPassword(bCryptPasswordEncoder.encode(usersRegisterDTO.getPassword()));
             users.setAddress(usersRegisterDTO.getAddress());
             users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
-            users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
-            String profilePhoto = usersRegisterDTO.getProfilePhoto();
-            String imageUploadPath = null;
-            try {
-                imageUploadPath = StaticPaths.getProfilePath();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            String savedImagePath = null;
-
-            if (profilePhoto != null && !profilePhoto.isEmpty()) {
+            System.out.println("User photo"+usersRegisterDTO.getProfilePhoto());
+            if(usersRegisterDTO.getProfilePhoto()!=null){
+                users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
+                String profilePhoto = usersRegisterDTO.getProfilePhoto();
+                String imageUploadPath = null;
                 try {
-                    savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath, usersRegisterDTO.getImageFormat());
+                    imageUploadPath = StaticPaths.getProfilePath();
                 } catch (IOException e) {
-                    throw new RuntimeException("Image cannot be saved");
+                    throw new RuntimeException(e);
                 }
-            }
+                String savedImagePath = null;
 
-            if (savedImagePath != null) {
-                users.setProfilePhoto(savedImagePath);
-            } else {
+                if (profilePhoto != null && !profilePhoto.isEmpty()) {
+                    try {
+                        savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath, usersRegisterDTO.getImageFormat());
+                    } catch (IOException e) {
+                        throw new RuntimeException("Image cannot be saved");
+                    }
+                }
+
+                if (savedImagePath != null) {
+                    users.setProfilePhoto(savedImagePath);
+                } else {
                     users.setProfilePhoto(StaticPaths.getProfileDefaultPath());
+                }
             }
             usersRepository.save(users);
             KinMelCustomMessage customMessage = new KinMelCustomMessage(HttpStatus.OK.value(), "User successfully edited", System.currentTimeMillis());
@@ -334,5 +338,23 @@ public class UserServiceImplementation implements UserService {
 
             return usersWithRoles;
         },argumentList.toArray());
+    }
+
+    public String updatePassword(PasswordRequest passwordRequest, HttpServletRequest request) {
+        String token = authTokenFilter.parseJwt(request);
+        Integer userId = jwtTokenProvider.getUserIdFromJWT(token);
+        Optional<Users> usersOptional = usersRepository.findById(userId);
+        if (usersOptional.isEmpty()) {
+            throw new UserNotVerified("User Not Found");
+        }
+        Users users = usersOptional.get();
+        if (bCryptPasswordEncoder.matches(passwordRequest.getOldPassword(), users.getPassword())) {
+            users.setPassword(bCryptPasswordEncoder.encode(passwordRequest.getNewPassword()));
+            usersRepository.save(users);
+            return "Password Changed";
+        }
+        else {
+        return "Password Don't Match";
+        }
     }
 }

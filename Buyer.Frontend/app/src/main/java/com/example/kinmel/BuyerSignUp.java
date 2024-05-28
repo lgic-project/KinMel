@@ -83,6 +83,16 @@ public class BuyerSignUp extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
+
+        if (password.length() < 6) {
+        showErrorMessage( "Password should be at least 6 characters long");
+            return;
+        }
+        if (!password.matches(".*\\d.*")) {
+            showErrorMessage( "Password should contain at least one number");
+            return;
+        }
+
         // Perform form validation
         if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showErrorMessage("Please fill in all fields");

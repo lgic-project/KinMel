@@ -15,9 +15,6 @@ import java.util.List;
 public class ViewAllActivity extends AppCompatActivity {
 
     private GridView gridView;
-    private ProductAdapter productAdapter;
-    private List<Product> productList;
-    private List<Product> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,64 +24,11 @@ public class ViewAllActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Enable title and back button
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("View All Products");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-        }
 
         EditText searchBox = findViewById(R.id.search_box);
         gridView = findViewById(R.id.gridView);
 
-        productList = new ArrayList<>();
-        productList.add(new Product("Product 1", "$10", R.drawable.github));
-        productList.add(new Product("Product 2", "$20", R.drawable.facebook));
-        productList.add(new Product("Product 3", "$30", R.drawable.google));
 
-        filteredList = new ArrayList<>(productList);
-        productAdapter = new ProductAdapter(this, filteredList);
-        gridView.setAdapter(productAdapter);
-
-        searchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterProducts(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Do nothing
-            }
-        });
-
-        gridView.setOnItemClickListener((parent, view, position, id) -> {
-            Product clickedProduct = filteredList.get(position);
-            // Handle item click
-        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void filterProducts(String query) {
-        filteredList.clear();
-        for (Product product : productList) {
-            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(product);
-            }
-        }
-        productAdapter.notifyDataSetChanged();
-    }
 }
