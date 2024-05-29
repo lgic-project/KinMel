@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".BuyerAddressActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:layout_margin="8dp"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
         <RelativeLayout
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/my_primary">
+            android:background="@color/my_primary"
+            android:paddingVertical="16dp">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -25,14 +33,16 @@
                 android:text="Add Address"
                 android:textSize="24sp"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:padding="16dp" />
+                android:textStyle="bold" />
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mobile Number"
-            android:layout_marginTop="16dp"/>
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/mobile_number"
@@ -40,11 +50,16 @@
             android:layout_height="wrap_content"
             android:hint="Enter Mobile Number"
             android:inputType="phone"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
             android:layout_marginBottom="16dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Area" />
+            android:text="Area"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/area"
@@ -52,11 +67,16 @@
             android:layout_height="wrap_content"
             android:hint="Enter Area"
             android:inputType="text"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
             android:layout_marginBottom="16dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address" />
+            android:text="Address"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/address"
@@ -64,11 +84,16 @@
             android:layout_height="wrap_content"
             android:hint="Enter Address"
             android:inputType="textPostalAddress"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
             android:layout_marginBottom="16dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Landmark (Optional)" />
+            android:text="Landmark (Optional)"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/landmark"
@@ -76,15 +101,21 @@
             android:layout_height="wrap_content"
             android:hint="Enter Landmark"
             android:inputType="text"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
             android:layout_marginBottom="16dp" />
         <Button
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Buy"
-            android:background="@color/purple_500"
+            android:backgroundTint="@color/my_primary"
             android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:elevation="2dp"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>
