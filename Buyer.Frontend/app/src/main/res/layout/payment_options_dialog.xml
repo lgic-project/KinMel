@@ -23,19 +23,26 @@
             android:textColor="@color/black"
             android:layout_marginBottom="16dp" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioCashOnDelivery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cash on Delivery"
-            android:layout_marginBottom="8dp" />
+        <RadioGroup
+            android:id="@+id/radioGroupPaymentOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioKhalti"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Khalti"
-            android:layout_marginBottom="16dp" />
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radioCashOnDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cash on Delivery"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radioKhalti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khalti"
+                android:layout_marginBottom="16dp" />
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/btnConfirmPayment"
