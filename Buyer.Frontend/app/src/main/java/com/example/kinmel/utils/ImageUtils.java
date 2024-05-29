@@ -17,9 +17,14 @@ public class ImageUtils {
             // Create a ByteArrayOutputStream to store the compressed image data
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-            // Get the Base64 encoded string from the ByteArrayOutputStream
+            // Compress the bitmap into the ByteArrayOutputStream
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+            // Convert the ByteArrayOutputStream to a byte array
             byte[] byteArray = byteArrayOutputStream.toByteArray();
-            String encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+            // Get the Base64 encoded string from the byte array
+            String encodedImage = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
             // Close the input stream and ByteArrayOutputStream
             inputStream.close();
