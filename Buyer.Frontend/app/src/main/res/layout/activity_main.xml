@@ -76,14 +76,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small"
                     app:shimmer_auto_start="false">
-
+                    <include layout="@layout/shimmer_for_multiple_swipper"/>
+                </com.facebook.shimmer.ShimmerFrameLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/product_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small"
                     android:orientation="horizontal" />
-                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout

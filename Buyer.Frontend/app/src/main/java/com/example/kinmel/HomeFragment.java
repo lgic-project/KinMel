@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
     private List<ProductResponse> productListForGrid = new ArrayList<>();
     private ProductAdapterMain productAdapter;
     private ProductGridAdapter productGridAdapter;
+    private ShimmerFrameLayout shimmerViewContainer;
     private ShimmerFrameLayout shimmerViewContainer1;
 
     @Override
@@ -47,12 +48,12 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
-//        shimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
+        shimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         shimmerViewContainer1 = view.findViewById(R.id.shimmer_view_container1);
 
 
         // Start shimmer effect when page starts
-//        shimmerViewContainer.startShimmer();
+        shimmerViewContainer.startShimmer();
         shimmerViewContainer1.startShimmer();
 
         productContainer = view.findViewById(R.id.product_container);
@@ -101,10 +102,10 @@ public class HomeFragment extends Fragment {
 
                                 ProductResponse product = new ProductResponse(productId1,productName1,productDescription1, price1, discountedPrice1, imageUrl1);
                                 productListForGrid.add(product); // Add the product to the new list
-                                shimmerViewContainer1.stopShimmer();
-                                shimmerViewContainer1.setVisibility(View.GONE);
-                            }
 
+                            }
+                            shimmerViewContainer.stopShimmer();
+                            shimmerViewContainer.setVisibility(View.GONE);
                             productGridAdapter.notifyDataSetChanged();
 
                         } catch (JSONException e) {
@@ -169,6 +170,8 @@ public class HomeFragment extends Fragment {
                             }
 
                             productAdapter.notifyDataSetChanged();
+                            shimmerViewContainer1.stopShimmer();
+                            shimmerViewContainer1.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
