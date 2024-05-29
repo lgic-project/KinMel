@@ -24,6 +24,7 @@ import com.example.kinmel.adapter.ProductAdapterMain;
 import com.example.kinmel.adapter.ProductGridAdapter;
 import com.example.kinmel.adapter.SpaceItemDecoration;
 import com.example.kinmel.response.ProductResponse;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,12 +40,20 @@ public class HomeFragment extends Fragment {
     private List<ProductResponse> productListForGrid = new ArrayList<>();
     private ProductAdapterMain productAdapter;
     private ProductGridAdapter productGridAdapter;
+    private ShimmerFrameLayout shimmerViewContainer1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
+//        shimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
+        shimmerViewContainer1 = view.findViewById(R.id.shimmer_view_container1);
+
+
+        // Start shimmer effect when page starts
+//        shimmerViewContainer.startShimmer();
+        shimmerViewContainer1.startShimmer();
 
         productContainer = view.findViewById(R.id.product_container);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -92,6 +101,8 @@ public class HomeFragment extends Fragment {
 
                                 ProductResponse product = new ProductResponse(productId1,productName1,productDescription1, price1, discountedPrice1, imageUrl1);
                                 productListForGrid.add(product); // Add the product to the new list
+                                shimmerViewContainer1.stopShimmer();
+                                shimmerViewContainer1.setVisibility(View.GONE);
                             }
 
                             productGridAdapter.notifyDataSetChanged();
@@ -154,6 +165,7 @@ public class HomeFragment extends Fragment {
 
                                 ProductResponse product = new ProductResponse(productName, price, discountedPrice, imageUrl,productId);
                                 productList.add(product);
+//                                shimmerViewContainer.stopShimmer();
                             }
 
                             productAdapter.notifyDataSetChanged();

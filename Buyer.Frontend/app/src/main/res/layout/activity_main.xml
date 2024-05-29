@@ -70,6 +70,12 @@
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </RelativeLayout>
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small"
+                    app:shimmer_auto_start="false">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/product_container"
@@ -77,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small"
                     android:orientation="horizontal" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -99,6 +106,17 @@
                     android:layout_marginTop="@dimen/small"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                app:shimmer_auto_start="false">
+                <include layout="@layout/shimmer_gird_multiple"/>
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/product_container_for_grid"
@@ -107,7 +125,9 @@
                 android:layout_marginTop="@dimen/small"
                 android:orientation="vertical">
             </androidx.recyclerview.widget.RecyclerView>
+
         </LinearLayout>
 <!--    </ScrollView>-->
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
+

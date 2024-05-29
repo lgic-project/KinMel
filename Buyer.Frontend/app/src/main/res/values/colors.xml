@@ -21,5 +21,6 @@
     <color name="textColor">#060606</color>
     <color name="orange">#FA6B1B</color>
     <color name="background">#DAD7D7</color>
+    <color name="shimmerColor">#DDDDDD</color>
 
 </resources>

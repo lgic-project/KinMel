@@ -49,4 +49,5 @@ dependencies {
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.khalti:checkout-android:0.05.00")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
 }
