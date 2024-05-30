@@ -24,6 +24,8 @@ public class AccountFragment extends Fragment {
         TextView tvProfileSetting = view.findViewById(R.id.tvProfileSetting);
         TextView logoutBtn = view.findViewById(R.id.tvLogout1);
         TextView passwordChange = view.findViewById(R.id.btnUpdatePassword);
+        TextView tvHelp = view.findViewById(R.id.tvHelp);
+
         Log.d("SettingsPage", "logoutBtn: " + logoutBtn);
 
 
@@ -58,7 +60,14 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        //help
+        tvHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HelpActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
     private void showMessageDialog(String title, String message) {
