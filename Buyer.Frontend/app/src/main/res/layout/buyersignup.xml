@@ -71,6 +71,7 @@
                 android:imeOptions="actionNext"
                 android:id="@+id/nameEditText"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:hint="Enter your name" />
             
             <View
@@ -88,7 +89,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/addressEditText"
-                android:hint="Enter your address" />
+                android:imeOptions="actionNext"
+                android:hint="Enter your address"
+                android:inputType="textPostalAddress"/>
 
             <View
                 android:layout_width="wrap_content"
@@ -106,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:id="@+id/phoneEditText"
+                android:imeOptions="actionNext"
                 android:hint="Enter your phone number" />
 
             <View
@@ -124,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:id="@+id/emailEditText"
+                android:imeOptions="actionNext"
                 android:drawableEnd="@drawable/done_icon" />
 
             <View
@@ -148,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:id="@+id/passwordEditText"
-                    android:hint="Password" />
+                    android:hint="Password"
+                    android:imeOptions="actionNext"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,12 +170,14 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:imeOptions="actionDone"
                     android:id="@+id/confirmPasswordEditText"
                     android:hint="Confirm Password" />
 

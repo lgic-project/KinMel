@@ -1,7 +1,9 @@
 package com.example.kinmel;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -65,6 +67,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updateprofile);
+        fetchUserData();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -90,24 +93,32 @@ public class UserProfileActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = tvName.getText().toString().split(" ")[0];
-                Log.d("UserDetail",firstName);
-                String lastName = tvName.getText().toString().split(" ")[1];
-                Log.d("UserDetail",lastName);
-                String address = tvAddress.getText().toString();
-                Log.d("UserDetail",address);
-                Long phoneNumber = Long.parseLong( tvPhoneNumber.getText().toString());
-                Log.d("UserDetail", String.valueOf(phoneNumber));
+                new AlertDialog.Builder(UserProfileActivity.this)
+                        .setTitle("Update Profile")
+                        .setMessage("Are you sure you want to update?")
+                        .setNegativeButton("Cancel", null)
+                        .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                JSONObject jsonBody = new JSONObject();
-                try {
-                    jsonBody.put("firstName", firstName);
-                    jsonBody.put("lastName", lastName);
-                    jsonBody.put("address", address);
-                    jsonBody.put("phoneNumber", phoneNumber);
-                    Log.d("ImageChangedCheck", String.valueOf(imageChanged));
-                    if (imageChanged) {
-                        try {
+                                String firstName = tvName.getText().toString().split(" ")[0];
+                                Log.d("UserDetail", firstName);
+                                String lastName = tvName.getText().toString().split(" ")[1];
+                                Log.d("UserDetail", lastName);
+                                String address = tvAddress.getText().toString();
+                                Log.d("UserDetail", address);
+                                Long phoneNumber = Long.parseLong(tvPhoneNumber.getText().toString());
+                                Log.d("UserDetail", String.valueOf(phoneNumber));
+
+                                JSONObject jsonBody = new JSONObject();
+                                try {
+                                    jsonBody.put("firstName", firstName);
+                                    jsonBody.put("lastName", lastName);
+                                    jsonBody.put("address", address);
+                                    jsonBody.put("phoneNumber", phoneNumber);
+                                    Log.d("ImageChangedCheck", String.valueOf(imageChanged));
+                                    if (imageChanged) {
+                                        try {
 //                            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
 //                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 //                            byte[] buffer = new byte[1024];
@@ -117,54 +128,52 @@ public class UserProfileActivity extends AppCompatActivity {
 //                            }
 //                            byte[] fileContent = byteArrayOutputStream.toByteArray();
 //                            String encodedImage = Base64.encodeToString(fileContent, Base64.DEFAULT);
-                            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
-                            String encodedImage = ImageUtils.encodeImageToBase64(inputStream);
-                           Log.d("EncodedImage", encodedImage);
-                            jsonBody.put("profilePhoto", encodedImage);
-                            String imageFormat = getMimeType(selectedImageUri);
-                            if (imageFormat != null && imageFormat.contains("/")) {
-                                imageFormat = imageFormat.substring(imageFormat.indexOf("/") + 1);
+                                            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                                            String encodedImage = ImageUtils.encodeImageToBase64(inputStream);
+                                            Log.d("EncodedImage", encodedImage);
+                                            jsonBody.put("profilePhoto", encodedImage);
+                                            String imageFormat = getMimeType(selectedImageUri);
+                                            if (imageFormat != null && imageFormat.contains("/")) {
+                                                imageFormat = imageFormat.substring(imageFormat.indexOf("/") + 1);
+                                            }
+                                            Log.d("ImageFormat", imageFormat);
+                                            jsonBody.put("imageFormat", imageFormat);
+                                        } catch (Exception e) {
+                                            Log.d("ImageError", e.getMessage());
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, ApiStatic.UPDATE_USER_PROFILE, jsonBody,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                // handle response
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // handle error
+                                    }
+                                }) {
+                                    @Override
+                                    public Map<String, String> getHeaders() {
+                                        Map<String, String> headers = new HashMap<>();
+                                        headers.put("Authorization", "Bearer " + token);
+                                        return headers;
+                                    }
+                                };
+
+                                Volley.newRequestQueue(UserProfileActivity.this).add(jsonObjectRequest);
                             }
-                            Log.d("ImageFormat", imageFormat);
-                            jsonBody.put("imageFormat", imageFormat);
-                        } catch (Exception e) {
-                            Log.d("ImageError", e.getMessage());
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }});
 
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT,ApiStatic.UPDATE_USER_PROFILE , jsonBody,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                // handle response
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // handle error
-                    }
-                }) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Authorization", "Bearer " + token);
-                        return headers;
-                    }
-                };
-
-                Volley.newRequestQueue(UserProfileActivity.this).add(jsonObjectRequest);
-            }
-        });
-
-
-
-
-
-        fetchUserData();
     }
 
     private void fetchUserData(){

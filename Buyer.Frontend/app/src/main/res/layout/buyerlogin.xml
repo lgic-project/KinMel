@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter your email"
-
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:drawableEnd="@drawable/done_icon"/>
 
@@ -105,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Enter your password"
+                android:imeOptions="actionDone"
                 android:drawableEnd="@drawable/password_icon"/>
 
 

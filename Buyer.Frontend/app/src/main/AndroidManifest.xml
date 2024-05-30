@@ -35,16 +35,16 @@
         <activity android:name=".BuyerLogin" />
         <activity
             android:name=".UpdatePasswordActivity"
-            android:theme="@style/UpdatePasswordTheme"></activity>
+            android:theme="@style/UpdatePasswordTheme"/>
         <activity android:name=".BuyerSignUp" /> <!-- <activity android:name=".BuyerLogin" /> -->
         <activity android:name=".OTPPage" />
         <activity android:name=".HelpActivity" />
         <activity
             android:name=".UserProfileActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity
             android:name=".ProductPage"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
     </application>
 
 </manifest>

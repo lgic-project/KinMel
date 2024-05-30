@@ -178,7 +178,6 @@ public class UserServiceImplementation implements UserService {
             users.setLastName(usersRegisterDTO.getLastName());
             users.setAddress(usersRegisterDTO.getAddress());
             users.setPhoneNumber(usersRegisterDTO.getPhoneNumber());
-            System.out.println("User photo"+usersRegisterDTO.getProfilePhoto());
             if(usersRegisterDTO.getProfilePhoto()!=null){
                 users.setProfilePhoto(usersRegisterDTO.getProfilePhoto());
                 String profilePhoto = usersRegisterDTO.getProfilePhoto();
