@@ -21,9 +21,9 @@ public class HelpActivity extends AppCompatActivity {
         cardContactUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement contact us action
+                //contact us action
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:+1234567890")); // Replace with actual contact number
+                intent.setData(Uri.parse("tel:+9779846789177")); // Replace with actual contact number
                 startActivity(intent);
             }
         });
@@ -31,7 +31,7 @@ public class HelpActivity extends AppCompatActivity {
         cardEmailUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement email us action
+                // email us action
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "Contact us","navinamogar888@gmail.com", null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Support Request");
@@ -42,7 +42,7 @@ public class HelpActivity extends AppCompatActivity {
         cardFAQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement FAQ action
+                // FAQ action
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.navinabudhathoki.com.np"));
                 startActivity(browserIntent);
             }
@@ -51,8 +51,8 @@ public class HelpActivity extends AppCompatActivity {
         cardFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement feedback action
-                Intent feedbackIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.navinabudhathoki.com.np/feedback"));
+                //feedback action
+                Intent feedbackIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.devkotasuman.com.np"));
                 startActivity(feedbackIntent);
             }
         });
