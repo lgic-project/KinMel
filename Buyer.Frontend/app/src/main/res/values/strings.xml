@@ -2,5 +2,26 @@
     <string name="app_name">KinMel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="date_filter_options">
+        <item>Last 7 days</item>
+        <item>Last 30 days</item>
+        <item>Last 6 months</item>
+        <item>Last year</item>
+    </string-array>
+
+    <string-array name="status_filter_options">
+        <item>All</item>
+        <item>Delivered</item>
+        <item>Pending</item>
+        <item>Cancelled</item>
+    </string-array>
+
+    <string-array name="price_filter_options">
+        <item>All</item>
+        <item>Below $50</item>
+        <item>$50 - $100</item>
+        <item>Above $100</item>
+    </string-array>
+    <string name="product_image">Product Image</string>
 
 </resources>
