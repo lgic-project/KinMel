@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,59 +20,15 @@
             android:gravity="center"
             android:padding="@dimen/medium"
             android:layout_marginBottom="@dimen/small"/>
-
-        <EditText
-            android:id="@+id/search_bar"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search orders"
-            android:padding="@dimen/small"
-            android:drawableLeft="@android:drawable/ic_menu_search"
-            android:background="@drawable/search_bar_background"
-            android:textColor="@color/white"
-            android:hintTextColor="@color/my_text_secondary"
-            android:layout_marginBottom="@dimen/medium"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:text="Welcome to your Order History!"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             android:paddingTop="@dimen/small"
-            android:layout_marginBottom="@dimen/medium">
-
-            <Spinner
-                android:id="@+id/date_filter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:entries="@array/date_filter_options"
-                android:padding="@dimen/small"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:popupBackground="@color/white"
-                android:textColor="@color/white"/>
-
-            <Spinner
-                android:id="@+id/status_filter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:entries="@array/status_filter_options"
-                android:padding="@dimen/small"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:popupBackground="@color/white"
-                android:textColor="@color/white"/>
-
-            <Spinner
-                android:id="@+id/price_filter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:entries="@array/price_filter_options"
-                android:padding="@dimen/small"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:popupBackground="@color/white"
-                android:textColor="@color/white"/>
-        </LinearLayout>
+            android:paddingBottom="@dimen/small"
+            android:textAlignment="center"/>
 
         <LinearLayout
             android:layout_width="match_parent"

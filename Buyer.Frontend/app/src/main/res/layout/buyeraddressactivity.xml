@@ -44,7 +44,7 @@
             android:textColor="@android:color/black"
             android:layout_marginTop="16dp" />
 
-        <EditText
+        <com.example.kinmel.CustomEditText
             android:id="@+id/mobile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,10 @@
             android:inputType="phone"
             android:background="@drawable/edittext_border"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:drawableEnd="@drawable/ic_contact"/>
+
+
 
         <TextView
             android:layout_width="wrap_content"
