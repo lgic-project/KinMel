@@ -50,4 +50,6 @@ dependencies {
     implementation ("com.khalti:checkout-android:0.05.00")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation ("androidx.cardview:cardview:1.0.0")
 }
