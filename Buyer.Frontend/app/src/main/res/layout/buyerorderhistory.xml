@@ -20,6 +20,7 @@
             android:gravity="center"
             android:padding="@dimen/medium"
             android:layout_marginBottom="@dimen/small"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +93,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!-- Repeat order item layout for each order -->
+            <!-- Repeat the above CardView for each order item -->
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

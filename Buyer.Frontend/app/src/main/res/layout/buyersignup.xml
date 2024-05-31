@@ -112,7 +112,10 @@
                         android:inputType="phone"
                         android:id="@+id/phoneEditText"
                         android:imeOptions="actionNext"
-                        android:hint="Enter your phone number" />
+                        android:hint="Enter your phone number"
+                        android:padding="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableEnd="@drawable/ic_contact"/>
 
                     <View
                         android:layout_width="wrap_content"
