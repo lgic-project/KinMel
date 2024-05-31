@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewAllActivity" />
-        <activity android:name=".FirstPageActivity" />
         <activity android:name=".NavigationBar" />
         <activity android:name=".BuyerLogin" />
         <activity
