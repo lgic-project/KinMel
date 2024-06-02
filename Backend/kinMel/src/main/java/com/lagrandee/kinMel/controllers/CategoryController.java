@@ -23,7 +23,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('Admin')")
     @PostMapping("/categories")
     public ResponseEntity<?> createCategory(@RequestBody CategoryRequest categoryRequest) {
-        return categoryServiceImplementation.insertNewCategory(categoryRequest.getCategoryName(), categoryRequest.getCategoryDescription());
+        return categoryServiceImplementation.insertNewCategory(categoryRequest.getCategoryName(), categoryRequest.getCategoryDescription(),categoryRequest.getCategoryImage(),categoryRequest.getImageFormat());
     }
 
     @PreAuthorize("hasRole('Admin')")

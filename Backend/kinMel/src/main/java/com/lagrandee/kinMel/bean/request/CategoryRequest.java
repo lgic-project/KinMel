@@ -7,4 +7,6 @@ public class CategoryRequest {
 
     private String categoryName;
     private String categoryDescription;
+    private String categoryImage;
+    private String imageFormat;
 }

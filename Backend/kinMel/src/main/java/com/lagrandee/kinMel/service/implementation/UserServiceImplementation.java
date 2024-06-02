@@ -112,7 +112,7 @@ public class UserServiceImplementation implements UserService {
 
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
             try {
-                savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath,usersRegisterDTO.getImageFormat());
+                savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath,usersRegisterDTO.getImageFormat(),"images/");
             } catch (IOException e) {
                 throw new RuntimeException("Image cannot be saved");
             }
@@ -191,7 +191,7 @@ public class UserServiceImplementation implements UserService {
 
                 if (profilePhoto != null && !profilePhoto.isEmpty()) {
                     try {
-                        savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath, usersRegisterDTO.getImageFormat());
+                        savedImagePath = ImageUtils.saveDecodedImage(profilePhoto, imageUploadPath, usersRegisterDTO.getImageFormat(),"images/");
                     } catch (IOException e) {
                         throw new RuntimeException("Image cannot be saved");
                     }

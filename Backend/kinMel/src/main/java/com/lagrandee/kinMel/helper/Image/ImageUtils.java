@@ -8,12 +8,13 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.UUID;
 
 public class ImageUtils {
-    public static String saveDecodedImage(String base64Image, String absoluteImagePath, String imageFormat) throws IOException {
+    public static String saveDecodedImage(String base64Image, String absoluteImagePath, String imageFormat,String returnPath) throws IOException {
         if (base64Image == null || base64Image.isEmpty()) {
             throw new IllegalArgumentException("Image data is null or empty");
         }
@@ -39,11 +40,12 @@ public class ImageUtils {
             FileUtils.writeByteArrayToFile(imageFile, decodedBytes);
 
             // Return the relative file path for further use (e.g., referencing in HTML)
-            return "images/" + fileName;
+            return returnPath + fileName;
         } catch (IOException e) {
             throw new NotInsertedException("Image cannot be saved", e);
         }
     }
+
 
 
     public static String encodeImageToBase64(String relativeImagePath) throws IOException {

@@ -67,6 +67,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/kinMel/verify-account").permitAll()
                 .requestMatchers("/images/{id}").permitAll()
                 .requestMatchers("/product_images/{id}").permitAll()
+                .requestMatchers("/category/{id}").permitAll()
                 .requestMatchers("/kinMel/regenerate-otp").permitAll()
                 .requestMatchers("/kinMel/users/register").permitAll()
                 .requestMatchers( "/kinMel/users").permitAll()

@@ -16,6 +16,15 @@ public static String getProfilePath() throws IOException {
     return file.getAbsolutePath();
 }
 
+    public static String getCategoryPath() throws IOException {
+        Resource resource = new ClassPathResource("static/category");
+        File file = resource.getFile();
+        System.out.println(file.getAbsolutePath());
+        return file.getAbsolutePath();
+    }
+
+
+
     public static String getProfileDefaultPath(){
         return "images/default.png";
     }

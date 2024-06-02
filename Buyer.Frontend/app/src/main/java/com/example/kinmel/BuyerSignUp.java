@@ -86,10 +86,12 @@ public class BuyerSignUp extends AppCompatActivity {
 
         if (password.length() < 6) {
         showErrorMessage( "Password should be at least 6 characters long");
+            signUpButton.setEnabled(true);
             return;
         }
         if (!password.matches(".*\\d.*")) {
             showErrorMessage( "Password should contain at least one number");
+            signUpButton.setEnabled(true);
             return;
         }
 

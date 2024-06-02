@@ -32,6 +32,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.kinmel.StaticFiles.ApiStatic;
 import com.example.kinmel.utils.ImageUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -119,15 +120,6 @@ public class UserProfileActivity extends AppCompatActivity {
                                     Log.d("ImageChangedCheck", String.valueOf(imageChanged));
                                     if (imageChanged) {
                                         try {
-//                            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
-//                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//                            byte[] buffer = new byte[1024];
-//                            int length;
-//                            while ((length = inputStream.read(buffer)) != -1) {
-//                                byteArrayOutputStream.write(buffer, 0, length);
-//                            }
-//                            byte[] fileContent = byteArrayOutputStream.toByteArray();
-//                            String encodedImage = Base64.encodeToString(fileContent, Base64.DEFAULT);
                                             InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
                                             String encodedImage = ImageUtils.encodeImageToBase64(inputStream);
                                             Log.d("EncodedImage", encodedImage);
@@ -151,7 +143,11 @@ public class UserProfileActivity extends AppCompatActivity {
                                         new Response.Listener<JSONObject>() {
                                             @Override
                                             public void onResponse(JSONObject response) {
-                                                // handle response
+                                                tvName.clearFocus();
+                                                tvName1.clearFocus();
+                                                tvEmail.clearFocus();
+                                                tvAddress.clearFocus();
+                                                tvPhoneNumber.clearFocus();
                                             }
                                         }, new Response.ErrorListener() {
                                     @Override
@@ -172,6 +168,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+                Snackbar.make(findViewById(R.id.updateProfileLayout), "Profile Updated", Snackbar.LENGTH_SHORT).show();
             }});
 
     }
