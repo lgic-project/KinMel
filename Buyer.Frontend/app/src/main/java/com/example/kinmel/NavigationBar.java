@@ -33,8 +33,8 @@ public class NavigationBar extends AppCompatActivity {
                 if (itemId == R.id.navHome) {
                     loadFragment(new HomeFragment(), false);
 
-                } else if (itemId == R.id.navMessage) {
-                    loadFragment(new MessageFragment(), false);
+                } else if (itemId == R.id.navOrderHistory) {
+                    loadFragment(new OrderHistory(), false);
 
                 } else if (itemId == R.id.navCart) {
                     loadFragment(new CartFragment(), false);
