@@ -24,6 +24,7 @@ public class AccountFragment extends Fragment {
         TextView tvProfileSetting = view.findViewById(R.id.tvProfileSetting);
         TextView logoutBtn = view.findViewById(R.id.tvLogout1);
         TextView passwordChange = view.findViewById(R.id.btnUpdatePassword);
+        TextView tvNotificationSetting = view.findViewById(R.id.tvNotificationSetting);
 
 
         Log.d("SettingsPage", "logoutBtn: " + logoutBtn);
@@ -49,6 +50,14 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UpdatePasswordActivity.class);
                 getActivity().startActivity(intent);
+            }
+        });
+
+        tvNotificationSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NotificationSettingActivity.class);
+                startActivity(intent);
             }
         });
 
