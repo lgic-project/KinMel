@@ -17,7 +17,6 @@
         android:layout_below="@id/cartTemplate"
         android:background="@color/background"/>
 
-
     <include
         android:id="@+id/bottomLayout"
         layout="@layout/my_cart_bottom_template"
