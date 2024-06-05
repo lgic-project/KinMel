@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.activity.OnBackPressedCallback;
+
 public class SettingsPage extends Activity {
 
     @Override
@@ -28,6 +31,12 @@ public class SettingsPage extends Activity {
 //                startActivity(intent);
             }
         });
+
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SettingsPage.this, NavigationBar.class);
+        startActivity(intent);
     }
 
     private void showMessageDialog(String title, String message) {

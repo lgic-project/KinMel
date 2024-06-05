@@ -1,9 +1,13 @@
 package com.example.kinmel;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductPage extends AppCompatActivity {
     private Integer productId;
@@ -40,8 +46,60 @@ public class ProductPage extends AppCompatActivity {
         productId = getIntent().getIntExtra("productId", -1);
         // Use the productId to fetch product details
         Log.d("Product IDsss", String.valueOf(productId));
+        Button btnAddToCart = findViewById(R.id.btnAddToCart);
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addtocart();
+            }
+        });
 //     fetchSlider();
      fetchProductData();
+    }
+    private void addtocart() {
+        // Get the shared preferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
+        // Check if the token exists in shared preferences
+        String token = sharedPreferences.getString("token", "");
+
+        if (token.isEmpty()) {
+            // If the token doesn't exist, navigate to BuyerLoginPage
+            Intent intent = new Intent(ProductPage.this, BuyerLogin.class);
+            startActivity(intent);
+        } else {
+            // If the token exists, send a POST request to the API
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiStatic.ADD_TO_CART_API(productId), null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                String data = response.getString("data");
+                                if (data.contains("Added to cart")) {
+                                    Toast.makeText(ProductPage.this, "Added to cart successful", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(ProductPage.this, "Error when adding to cart ", Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            // Add the request to the RequestQueue.
+            MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+        }
     }
 
 //    private void fetchSlider() {

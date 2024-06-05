@@ -1,6 +1,9 @@
 package com.lagrandee.kinMel.service.implementation;
 
+import com.lagrandee.kinMel.bean.response.CartResponse;
+import com.lagrandee.kinMel.bean.response.CategoryResponse;
 import com.lagrandee.kinMel.security.JwtUtils;
+import com.lagrandee.kinMel.security.LoggedUser;
 import com.lagrandee.kinMel.security.filter.AuthTokenFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -112,6 +116,26 @@ public class CartServiceImplementation {
         }
 
         return resultBuilder.toString();
+    }
+
+    public List<CartResponse> getAllCart(HttpServletRequest request) {
+        Integer buyerId = LoggedUser.findUser().getUserId();
+        String sql = "{CALL GetAllCartByUserId(:buyerId)}";
+
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("buyerId", buyerId);
+
+        return new NamedParameterJdbcTemplate(jdbcTemplate).query(sql, paramSource, (rs, rowNum) -> {
+            CartResponse cartResponse = new CartResponse();
+            cartResponse.setCartId(rs.getInt("cart_id"));
+            cartResponse.setPrice(rs.getInt("price"));
+            cartResponse.setDiscountedPrice(rs.getInt("discounted_price"));
+            cartResponse.setQuantity(rs.getInt("quantity"));
+            cartResponse.setTotal(rs.getInt("total"));
+            cartResponse.setProductName(rs.getString("product_name"));
+            cartResponse.setProductImagePath(rs.getString("product_image_path"));
+            return cartResponse;
+        });
     }
 //@Transactional
 //public String deleteCart(List<Integer> cartIds) {

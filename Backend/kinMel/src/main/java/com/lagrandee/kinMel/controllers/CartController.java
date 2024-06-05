@@ -1,6 +1,8 @@
 package com.lagrandee.kinMel.controllers;
 
+import com.lagrandee.kinMel.bean.response.CartResponse;
 import com.lagrandee.kinMel.bean.response.SingleDataResponse;
+import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.implementation.CartServiceImplementation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +47,25 @@ public class CartController {
         SingleDataResponse<String> response = new SingleDataResponse<>();
         response.setStatus(HttpStatus.OK.value());
         response.setStatusValue(HttpStatus.OK.name());
+
         response.setData(deleteMessage);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('Customer')")
+    @GetMapping("/carts")
+    public ResponseEntity<?> getCartItems(HttpServletRequest request) {
+        List<CartResponse> allCart = cartServiceImplementation.getAllCart(request);
+        if (allCart.isEmpty()){
+            SingleResponseWithStatus r = new SingleResponseWithStatus();
+            r.setStatus(HttpStatus.OK.value());
+            r.setStatusValue(HttpStatus.OK.name());
+            r.setData("No data found");
+            return new ResponseEntity<>(r, HttpStatus.OK);
+        }
+        SingleDataResponse<List<CartResponse>> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(allCart);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

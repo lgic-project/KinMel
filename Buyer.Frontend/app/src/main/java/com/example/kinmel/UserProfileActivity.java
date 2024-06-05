@@ -47,7 +47,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private ImageView ivProfilePicture;
     private String storedProfilePicture;
     private SharedPreferences sharedPreferences;
-    private Boolean imageChanged ;
+    private Boolean imageChanged =false;
     private String token;
     private Button btnUpdate;
     private Uri selectedImageUri;
@@ -81,6 +81,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ivProfilePicture = findViewById(R.id.profileImage);
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", null);
+        Log.d("UserToken", token);
 
         ivProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override

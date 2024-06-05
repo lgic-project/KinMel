@@ -19,6 +19,7 @@ import com.lagrandee.kinMel.helper.StaticPaths;
 import com.lagrandee.kinMel.helper.emailhelper.EmailUtil;
 import com.lagrandee.kinMel.helper.emailhelper.OtpGenerate;
 import com.lagrandee.kinMel.security.JwtUtils;
+import com.lagrandee.kinMel.security.LoggedUser;
 import com.lagrandee.kinMel.security.WebSecurityConfig;
 import com.lagrandee.kinMel.security.filter.AuthTokenFilter;
 import com.lagrandee.kinMel.service.UserService;
@@ -308,8 +309,11 @@ public class UserServiceImplementation implements UserService {
     }
 
     public UserDetail getUserWithRoleByToken(HttpServletRequest request) {
+
         String token = authTokenFilter.parseJwt(request);
-        Integer id = jwtTokenProvider.getUserIdFromJWT(token);
+        System.out.println(token);
+//        Integer id = jwtTokenProvider.getUserIdFromJWT(token);
+        Integer id= LoggedUser.findUser().getUserId();
         List<Object> argumentList =new ArrayList<>();
         StringBuilder sql=new StringBuilder();
         sql.append("SELECT ").append(" users.user_id,users.first_name,users.last_name,users.email,users.address ,users.phone_number,users.profile_photo ");

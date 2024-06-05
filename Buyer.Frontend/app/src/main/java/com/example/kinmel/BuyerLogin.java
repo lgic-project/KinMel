@@ -28,6 +28,7 @@ public class BuyerLogin extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
+    private Button guestButton;
     private RequestQueue requestQueue;
     private SharedPreferences sharedPreferences;
 
@@ -41,6 +42,7 @@ public class BuyerLogin extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailLogin);
         passwordEditText = findViewById(R.id.passwordLogin);
         loginButton = findViewById(R.id.btn_login);
+        guestButton = findViewById(R.id.guestButton);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -55,6 +57,14 @@ public class BuyerLogin extends AppCompatActivity {
         }
         Log.d("SavedToken", "No Token Available" );
 
+
+        guestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BuyerLogin.this, NavigationBar.class);
+                startActivity(intent);
+            }
+        });
 
         gotoSignInPage.setOnClickListener(new View.OnClickListener() {
             @Override
