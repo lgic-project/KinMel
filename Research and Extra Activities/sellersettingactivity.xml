@@ -1,0 +1,64 @@
+<!-- res/layout/activity_seller_setting.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seller Settings"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
+
+        <EditText
+            android:id="@+id/seller_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seller Name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/seller_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seller Email"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/seller_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seller Phone"
+            android:inputType="phone"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/seller_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seller Address"
+            android:inputType="textPostalAddress"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:onClick="saveSellerSettings"/>
+
+    </LinearLayout>
+
+</ScrollView>
