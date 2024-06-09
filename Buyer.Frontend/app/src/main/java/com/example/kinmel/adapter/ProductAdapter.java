@@ -1,27 +1,44 @@
 package com.example.kinmel.adapter;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.kinmel.Interface.OnQuantityChangeListener;
 import com.example.kinmel.Product;
 import com.example.kinmel.R;
+import com.example.kinmel.StaticFiles.ApiStatic;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> productList;
+    private OnQuantityChangeListener onQuantityChangeListener;
 
-    public ProductAdapter(List<Product> productList) {
+    public ProductAdapter(List<Product> productList, OnQuantityChangeListener onQuantityChangeListener) {
         this.productList = productList;
+        this.onQuantityChangeListener = onQuantityChangeListener;
     }
 
     @NonNull
@@ -47,9 +64,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 product.setSelected(isChecked);
+                onQuantityChangeListener.updateTotalPrice();
+                onQuantityChangeListener.updateCheckoutButtonText();
+            }
+        });
+        holder.plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onQuantityChangeListener.onQuantityChange(product.getCartId(), "add");
+            }
+        }); holder.minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (product.getQuantity() > 0) {
+                    onQuantityChangeListener.onQuantityChange(product.getCartId(), "sub");
+                }
+                Log.d("ProductAdapter", "Minus Button Clicked"+product.getCartId()+"Quantity: "+product.getQuantity());
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -60,6 +94,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView productName, productPrice, productDiscountPrice, quantity;
         ImageView productImage;
         CheckBox checkBox;
+        ImageButton plusButton, minusButton;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +104,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             quantity = itemView.findViewById(R.id.quantity);
             productImage = itemView.findViewById(R.id.productImage);
             checkBox = itemView.findViewById(R.id.checkBox);
+            plusButton = itemView.findViewById(R.id.plusButton);
+            minusButton = itemView.findViewById(R.id.minusButton);
         }
     }
 }

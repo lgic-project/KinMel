@@ -1,5 +1,8 @@
 package com.example.kinmel.StaticFiles;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ApiStatic {
     public static final String USER_REGISTRATION_API = "http://10.0.2.2:8080/kinMel/users/register";
     public static final String REGENERATE_OTP_API = "http://10.0.2.2:8080/kinMel/regenerate-otp";
@@ -17,6 +20,17 @@ public class ApiStatic {
     public static final String FETCH_PRODUCT_IMAGE_HOME_API = "http://10.0.2.2:8080/";
     public static String ADD_TO_CART_API(int productId) {
         return String.format("http://10.0.2.2:8080/kinMel/carts?productId=%d", productId);
+    }
+
+    public static String DELETE_ITEMS_FROM_CART(List<Integer> cartIds) {
+        String cartIdsParam = cartIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        return String.format("http://10.0.2.2:8080/kinMel/carts?cartId=%s", cartIdsParam);
+    }
+
+    public static final String CHANGE_QUANTITY_API (int cartId, String changeValue) {
+        return String.format("http://10.0.2.2:8080/kinMel/carts?cartId=%d&quantityChange=%s", cartId, changeValue);
     }
 
     public static final String KHALTI_PRIVATE_KEY="test_secret_key_c75b125dff0f4ee588edc9851a279b23";

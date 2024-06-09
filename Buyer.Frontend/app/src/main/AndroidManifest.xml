@@ -48,6 +48,7 @@
         <activity
             android:name=".ProductPage"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity android:name=".BuyerAddressActivity" />
     </application>
 
 </manifest>

@@ -47,7 +47,6 @@ public class CartController {
         SingleDataResponse<String> response = new SingleDataResponse<>();
         response.setStatus(HttpStatus.OK.value());
         response.setStatusValue(HttpStatus.OK.name());
-
         response.setData(deleteMessage);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

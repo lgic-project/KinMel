@@ -97,7 +97,6 @@ public class CartServiceImplementation {
                 String message = (String) result.get("result");
                 if (message.contains("successfully")) {
                     successCount++;
-                    System.out.println("  - Counted as success");
                 }else {
                     failCount++;
                     resultBuilder.append("Failed to delete cart item ").append(cartId).append(": ")
