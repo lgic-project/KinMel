@@ -37,7 +37,7 @@
             android:paddingRight="8dp">
 
             <EditText
-                android:id="@+id/search_box"
+                android:id="@+id/search_box13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/filter_icon"
@@ -45,6 +45,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="8dp"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:layout_marginLeft="8dp"
                 android:hint="Search..."
                 android:padding="8dp"
@@ -62,18 +64,15 @@
                 android:clickable="true"
                 android:focusable="true" />
         </RelativeLayout>
-
-        <GridView
-            android:id="@+id/gridView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="2"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:padding="10dp"
-            android:background="@color/white"
-            android:stretchMode="columnWidth"
-            android:gravity="center" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:orientation="vertical">
+        </androidx.recyclerview.widget.RecyclerView>
+
+
     </LinearLayout>
 
     <!-- Navigation view for the filter options -->

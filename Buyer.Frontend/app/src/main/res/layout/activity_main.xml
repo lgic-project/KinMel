@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:hint="Search..."
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:drawableStart="@android:drawable/ic_menu_search"
         android:padding="8dp"
         android:background="@drawable/edittext_border"
         android:textColor="@android:color/black" />
-
 <!--    <ScrollView-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->

@@ -34,6 +34,7 @@ import java.util.Map;
 
 public class ProductPage extends AppCompatActivity {
     private Integer productId;
+    private Integer totalPrice;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,9 +54,34 @@ public class ProductPage extends AppCompatActivity {
                 addtocart();
             }
         });
+        Button btnBuyNow = findViewById(R.id.btnBuyNow);
+        btnBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               buyItem();
+            }
+        });
 //     fetchSlider();
      fetchProductData();
     }
+
+    private void buyItem() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        if (token.isEmpty()){
+            Intent intent = new Intent(ProductPage.this, BuyerLogin.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(ProductPage.this, BuyerAddressActivity.class);
+            intent.putExtra("selectedCartIds", productId);
+            intent.putExtra("totalAmount", totalPrice);
+            startActivity(intent);
+
+        }
+
+    }
+
     private void addtocart() {
         // Get the shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -151,6 +177,7 @@ public class ProductPage extends AppCompatActivity {
                                 price.setText("Price: Rs." + data.getInt("price"));
 
                                 TextView discountPrice = findViewById(R.id.discountPrice);
+                                totalPrice=data.getInt("discountedPrice");
                                 discountPrice.setText("Discount Price: Rs." + data.getInt("discountedPrice"));
 
                                 TextView stock = findViewById(R.id.stock);

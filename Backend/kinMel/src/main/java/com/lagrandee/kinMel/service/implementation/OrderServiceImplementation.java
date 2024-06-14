@@ -2,6 +2,7 @@ package com.lagrandee.kinMel.service.implementation;
 
 import com.lagrandee.kinMel.bean.request.CartItem;
 import com.lagrandee.kinMel.bean.request.Order;
+import com.lagrandee.kinMel.bean.response.OrderResponse;
 import com.lagrandee.kinMel.exception.NotInsertedException;
 import com.lagrandee.kinMel.security.LoggedUser;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,6 +63,13 @@ public class OrderServiceImplementation {
                         .addValue("totalPrice", cartItem.getTotal());
                 namedParameterJdbcTemplate.update(insertOrderItemSQL, itemParams);
             }
+            for (CartItem cartItem : cartItems) {
+                String updateProductStockSQL = "UPDATE products SET stock_quantity = stock_quantity - :stock_quantity WHERE product_id = :product_id";
+                namedParameterJdbcTemplate.update(updateProductStockSQL,
+                        new MapSqlParameterSource()
+                                .addValue("stock_quantity", cartItem.getQuantity())
+                                .addValue("product_id", cartItem.getProductId()));
+            }
 
             // Delete cart items from cart table
             String deleteCartItemsSQL = "DELETE FROM cart WHERE cart_id IN (:cartIds)";
@@ -72,6 +80,32 @@ public class OrderServiceImplementation {
             throw new NotInsertedException("Failed to insert");
         }
     }
+
+    public List<OrderResponse> getOrderOfUser(HttpServletRequest request) {
+        try{
+            Integer buyerId=LoggedUser.findUser().getUserId();
+            String fetchOrder="SELECT order_items.order_id,order_items.quantity,order_items.total_price,products.product_name,orders.ordered_at\n" +
+                    ", SUBSTRING(\n" +
+                    "    STRING_AGG(COALESCE(product_images.product_image_path, ''), ', '),\n" +
+                    "    1,\n" +
+                    "    CHARINDEX(',', STRING_AGG(COALESCE(product_images.product_image_path, ''), ', ')) - 1\n" +
+                    "  ) AS product_image_path\n" +
+                    "\n" +
+                    "from orders inner join order_items on orders.order_id=order_items.order_id \n" +
+                    "inner join products on order_items.product_id=products.product_id\n" +
+                    "inner join product_images on products.product_id=product_images.product_id\n" +
+                    "where orders.buyer_id=(:buyerId)\n" +
+                    "group by order_items.order_id,quantity,total_price,product_name,ordered_at";
+            MapSqlParameterSource params = new MapSqlParameterSource().addValue("buyerId", buyerId);
+            List<OrderResponse> orderResponses = namedParameterJdbcTemplate.query(fetchOrder, params, new OrderItemMapper());
+            return orderResponses;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+        return null;
+    }
+
     private static class CartItemMapper implements RowMapper<CartItem> {
         @Override
         public CartItem mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -82,6 +116,23 @@ public class OrderServiceImplementation {
             cartItem.setTotal(rs.getLong("total"));
             return cartItem;
         }
+    }
+
+    private static class OrderItemMapper implements RowMapper<OrderResponse>{
+        @Override
+        public OrderResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
+            OrderResponse orderResponse=new OrderResponse();
+            orderResponse.setOrderId(rs.getInt("order_id"));
+            orderResponse.setQuantity(rs.getInt("quantity"));
+            orderResponse.setTotalPrice(rs.getInt("total_price"));
+            orderResponse.setProductName(rs.getString("product_name"));
+            orderResponse.setOrderedAt(rs.getString("ordered_at"));
+            orderResponse.setImagePath(rs.getString("product_image_path"));
+            return orderResponse;
+        }
+
+
+
     }
 
 }

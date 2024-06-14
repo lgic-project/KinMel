@@ -44,6 +44,7 @@
         <activity android:name=".BuyerSignUp" /> <!-- <activity android:name=".BuyerLogin" /> -->
         <activity android:name=".OTPPage" />
         <activity android:name=".NavigationBar" />
+        <activity android:name=".SearchResultsActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".ThankYouActivity"/>
         <activity

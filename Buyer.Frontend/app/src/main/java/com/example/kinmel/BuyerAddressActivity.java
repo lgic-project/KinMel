@@ -3,6 +3,7 @@ package com.example.kinmel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +20,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.kinmel.StaticFiles.ApiStatic;
 import com.example.kinmel.response.PaymentResponseCallback;
 import com.example.kinmel.utils.KhaltiApiUtil;
 
@@ -42,7 +51,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
 
     private static final int CONTACT_PICKER_RESULT = 1001;
     private CustomEditText mobileNumberEditText;
-    private EditText name,address;
+    private EditText name, address;
     private ArrayList<Integer> selectedCartIds;
 
     @Override
@@ -51,9 +60,9 @@ public class BuyerAddressActivity extends AppCompatActivity {
         setContentView(R.layout.buyeraddressactivity);
 
 
-       Intent intent = getIntent();
-        selectedCartIds=intent.getIntegerArrayListExtra("selectedCartIds");
-       int totalAmount=intent.getIntExtra("totalAmount",0);
+        Intent intent = getIntent();
+        selectedCartIds = intent.getIntegerArrayListExtra("selectedCartIds");
+        int totalAmount = intent.getIntExtra("totalAmount", 0);
 
         mobileNumberEditText = findViewById(R.id.mobile_number);
         name = findViewById(R.id.name);
@@ -61,7 +70,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
 
         Button btnSave = findViewById(R.id.btn_save);
 
-         KhaltiButton kBuy = findViewById(R.id.kb_buy);
+        KhaltiButton kBuy = findViewById(R.id.kb_buy);
         kBuy.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -70,10 +79,9 @@ public class BuyerAddressActivity extends AppCompatActivity {
                 String addressInput = address.getText().toString().trim();
                 String mobileNumberInput = mobileNumberEditText.getText().toString().trim();
 
-                if (!nameInput.isEmpty()|| !addressInput.isEmpty() || !mobileNumberInput.isEmpty()) {
-                khaltiImplement(kBuy,getApplicationContext(),UUID.randomUUID().toString(), "test", Long.valueOf(totalAmount));
-                }
-                else{
+                if (!nameInput.isEmpty() || !addressInput.isEmpty() || !mobileNumberInput.isEmpty()) {
+                    khaltiImplement(kBuy, getApplicationContext(), UUID.randomUUID().toString(), "test", Long.valueOf(totalAmount));
+                } else {
                     Toast.makeText(BuyerAddressActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
 
@@ -184,8 +192,8 @@ public class BuyerAddressActivity extends AppCompatActivity {
     }
 
 
-    public void khaltiImplement(KhaltiButton kBuy,Context mCtx,String productId, String productName, Long price){
-        Long priceInPaisa = price*100;
+    public void khaltiImplement(KhaltiButton kBuy, Context mCtx, String productId, String productName, Long price) {
+        Long priceInPaisa = price * 100;
 
         Config.Builder builder = new Config.Builder("test_public_key_7c837e9b57b94f6284ad8cd3367cf697", productId, productName, priceInPaisa, new OnCheckOutListener() {
             @Override
@@ -210,12 +218,76 @@ public class BuyerAddressActivity extends AppCompatActivity {
         kBuy.setOnClickListener(v -> khaltiCheckOut1.show());
     }
 
-    private void makeRequestPayment(String name, String mobileNumber,String address,String paymentMethod, Integer amount) {
-        Long amount1=Long.valueOf(amount);
-        Log.d("Payment", "Name: " + name + ", Mobile Number: " + mobileNumber + ", Address: " + address + ", Payment Method: " + paymentMethod + ", Amount: " + amount1+", Selected Cart Ids: " + selectedCartIds);
-        Intent intent = new Intent(BuyerAddressActivity.this, ThankYouActivity.class); // Use mCtx instead of getApplicationContext()
-        startActivity(intent);
-        finish();
+    private void makeRequestPayment(String name, String mobileNumber, String address, String paymentMethod, Integer amount) {
+        Long amount1 = Long.valueOf(amount);
+        Log.d("Payment", "Name: " + name + ", Mobile Number: " + mobileNumber + ", Address: " + address + ", Payment Method: " + paymentMethod + ", Amount: " + amount1 + ", Selected Cart Ids: " + selectedCartIds);
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("name", name);
+            jsonBody.put("phoneNumber", mobileNumber);
+            jsonBody.put("address", address);
+            jsonBody.put("paymentMethod", paymentMethod);
+            jsonBody.put("orderTotal", amount1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Get the authorization token from the stored procedure
+        String token = getAuthToken();
+
+        // Create a new request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        // Create a new JsonObjectRequest
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiStatic.PLACE_ORDER_API(selectedCartIds), jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle the response
+                        try {
+                            int status = response.getInt("status");
+                            String data = response.getString("data");
+
+                            if (status == 200 && "Order Placed".equals(data)) {
+                                // Request is successful
+                                Log.d("VolleyResponse", "Order placed successfully");
+                                Intent intent = new Intent(BuyerAddressActivity.this, ThankYouActivity.class); // Use mCtx instead of getApplicationContext()
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // Request is considered a failure
+                                Log.e("VolleyResponse", "Order placement failed");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle the error
+                        Log.e("VolleyResponse", "Error: " + error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        // Add the request to the request queue
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private String getAuthToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        String token = sharedPreferences.getString("token", null);
+        return token;
     }
 
 }

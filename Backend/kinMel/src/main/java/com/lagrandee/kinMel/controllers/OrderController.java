@@ -1,5 +1,6 @@
 package com.lagrandee.kinMel.controllers;
 import com.lagrandee.kinMel.bean.request.Order;
+import com.lagrandee.kinMel.bean.response.OrderResponse;
 import com.lagrandee.kinMel.bean.response.SingleDataResponse;
 import com.lagrandee.kinMel.service.implementation.OrderServiceImplementation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import java.util.List;
 public class OrderController {
     private final OrderServiceImplementation orderServiceImplementation;
 
-    @PreAuthorize("hasAnyRole('Customer')")
+    @PreAuthorize("hasRole('Customer')")
     @PostMapping("/order")
     public ResponseEntity<?> placeOrder(@RequestBody Order order, @RequestParam List<Integer>cartIds, HttpServletRequest request) {
         String message = orderServiceImplementation.placeOrder(order, cartIds, request);
@@ -28,4 +29,23 @@ public class OrderController {
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
+    @PreAuthorize("hasRole('Customer')")
+    @GetMapping("/order")
+    public ResponseEntity<?> getAllOrderOfUser(HttpServletRequest request){
+        List<OrderResponse> orderOfUser = orderServiceImplementation.getOrderOfUser(request);
+        if (orderOfUser.isEmpty()){
+            SingleDataResponse<String> response=new SingleDataResponse<>();
+            response.setStatus(HttpStatus.OK.value());
+            response.setStatusValue(HttpStatus.OK.toString());
+            response.setData("No data found");
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        SingleDataResponse<List<OrderResponse>> response=new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.toString());
+        response.setData(orderOfUser);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+
+    }
+
 }

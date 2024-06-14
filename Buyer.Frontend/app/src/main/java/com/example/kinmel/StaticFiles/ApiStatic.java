@@ -13,9 +13,15 @@ public class ApiStatic {
     public static final String FETCH_USER_CART = "http://10.0.2.2:8080/kinMel/carts";
     public static final String UPDATE_USER_PROFILE = "http://10.0.2.2:8080/kinMel/users";
     public static final String CHANGE_PASSWORD_URL = "http://10.0.2.2:8080/kinMel/users/changepassword";
+    public static final String FETCH_ORDER_HISTORY = "http://10.0.2.2:8080/kinMel/order";
     public static String getProductById(int productId) {
         return String.format("http://10.0.2.2:8080/kinMel/product/%d", productId);
     }
+
+    public static final String FETCH_SEARCH_API(String query) {
+        return String.format("http://10.0.2.2:8080/kinMel/products?productName=%s", query);
+    }
+
     public static final String FETCH_PRODUCT_HOME_API_GRID = "http://10.0.2.2:8080/kinMel/products?sortBy=New";
     public static final String FETCH_PRODUCT_IMAGE_HOME_API = "http://10.0.2.2:8080/";
     public static String ADD_TO_CART_API(int productId) {
@@ -27,6 +33,13 @@ public class ApiStatic {
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
         return String.format("http://10.0.2.2:8080/kinMel/carts?cartId=%s", cartIdsParam);
+    }
+
+    public static String PLACE_ORDER_API (List<Integer> cartIds){
+        String cartIdsParam = cartIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        return String.format("http://10.0.2.2:8080/kinMel/order?cartIds=%s",cartIdsParam);
     }
 
     public static final String CHANGE_QUANTITY_API (int cartId, String changeValue) {

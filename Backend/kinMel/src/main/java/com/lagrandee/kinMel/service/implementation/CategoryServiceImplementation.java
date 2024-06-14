@@ -108,6 +108,7 @@ private final CategoryRepository categoryRepository;
             categoryResponse.setCategory_id(rs.getInt("category_id"));
             categoryResponse.setCategory_name(rs.getString("category_name"));
             categoryResponse.setCategory_description(rs.getString("category_description"));
+            categoryResponse.setImagePath(rs.getString("category_image"));
             return categoryResponse;
         });
     }

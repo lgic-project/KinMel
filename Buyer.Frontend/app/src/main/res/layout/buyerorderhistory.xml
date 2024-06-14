@@ -31,69 +31,13 @@
             android:paddingBottom="@dimen/small"
             android:textAlignment="center"/>
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/order_history_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:padding="@dimen/medium" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/small"
-                android:layout_marginTop="@dimen/small"
-                android:elevation="4dp"
-                android:padding="@dimen/medium">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/images"
-                        android:contentDescription="@string/product_image"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:paddingStart="@dimen/small">
-
-                        <TextView
-                            android:id="@+id/order_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order ID: 123456"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
-
-                        <TextView
-                            android:id="@+id/order_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order Date: 01/01/2024"
-                            android:textColor="@color/black"/>
-
-                        <TextView
-                            android:id="@+id/order_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Status: Delivered"
-                            android:textColor="@color/black"/>
-
-                        <TextView
-                            android:id="@+id/order_total"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total: $123.45"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!-- Repeat the above CardView for each order item -->
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

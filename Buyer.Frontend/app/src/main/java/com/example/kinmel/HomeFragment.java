@@ -15,9 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -57,6 +63,22 @@ public class HomeFragment extends Fragment {
 
         shimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         shimmerViewContainer1 = view.findViewById(R.id.shimmer_view_container1);
+
+        EditText searchBox = view.findViewById(R.id.search_box);
+        searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String query = v.getText().toString();
+                    Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                    intent.putExtra("query", query);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
 
         // Start shimmer effect when page starts
