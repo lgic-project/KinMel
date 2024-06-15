@@ -42,7 +42,6 @@ public class ProductController {
                                             @RequestParam(required = false) String sortBy,
                                             @RequestParam(required = false) String categoryName,
                                             @RequestParam(required = false) Long maxPrice){
-        System.out.println("Entered");
         List<ProductResponse> allProduct = productServiceImplementation.getAllProduct(productName, sortBy, categoryName, maxPrice, brandName);
         if (allProduct.isEmpty()){
             SingleResponseWithStatus r = new SingleResponseWithStatus();

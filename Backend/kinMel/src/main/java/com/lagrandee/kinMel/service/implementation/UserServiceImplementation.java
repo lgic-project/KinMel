@@ -360,4 +360,49 @@ public class UserServiceImplementation implements UserService {
         return "Password Don't Match";
         }
     }
+
+    public List<UserDetail> getUsersWithRole(int roleId) {
+        List<Object> argumentList =new ArrayList<>();
+        StringBuilder sql=new StringBuilder();
+        sql.append("SELECT ").append(" users.user_id,users.first_name,users.last_name,users.email,users.address ,users.phone_number,users.profile_photo ");
+        sql.append(" FROM ").append("  users ")
+                .append(" inner join roles_Assigned on roles_Assigned.user_id=users.user_id ")
+                .append("WHERE roles_Assigned.role_id = ?");
+        argumentList.add(roleId);
+        return jdbcTemplate.query(sql.toString(),(rs,rowName)->{
+            UserDetail usersWithRoles = new UserDetail();
+            usersWithRoles.setUserId(rs.getInt("user_id"));
+            usersWithRoles.setFirst_name(rs.getString("first_name"));
+            usersWithRoles.setLast_name(rs.getString("last_name"));
+            usersWithRoles.setRoles(jdbcTemplate.queryForList("SELECT DISTINCT r.name\n" +
+                    "FROM roles r\n" +
+                    "INNER JOIN roles_Assigned ra ON ra.role_id = r.role_id\n" +
+                    "WHERE ra.role_id =?",String.class,roleId));
+            usersWithRoles.setEmail(rs.getString("email"));
+            usersWithRoles.setAddress(rs.getString("address"));
+            usersWithRoles.setPhoneNumber(rs.getString("phone_number"));
+            String imagePath = rs.getString("profile_photo");
+            String imageBase64 = null;
+            try {
+                imageBase64 = encodeImageToBase64(imagePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            usersWithRoles.setProfilePicture(imageBase64);
+            return usersWithRoles;
+        },argumentList.toArray());
+
+
+    }
+
+    public String blockuser(int userId) {
+        Optional<Users> usersOptional = usersRepository.findById(userId);
+        if (usersOptional.isPresent()){
+            Users users = usersOptional.get();
+            users.setActive(2);
+            usersRepository.save(users);
+            return "Blocked";
+        }
+        return "Failed";
+    }
 }

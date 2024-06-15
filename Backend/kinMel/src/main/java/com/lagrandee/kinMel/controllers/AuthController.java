@@ -40,7 +40,7 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponse(200,jwt, refreshToken, userId, roles));
         }
         else {
-            throw new UserNotVerified("User is not verified");
+            throw new UserNotVerified("User is not verified or blocked");
         }
     }
 }

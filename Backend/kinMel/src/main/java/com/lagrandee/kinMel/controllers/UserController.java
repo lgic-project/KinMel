@@ -49,6 +49,14 @@ public class UserController {
         return userWithRole;
     }
 
+    @PreAuthorize("hasAnyRole()")
+    @GetMapping ("/users/role/{roleId}")
+    public ResponseEntity<?> getAllUserByRole(@PathVariable int roleId){
+        List<UserDetail> usersWithRole = userServiceImplementation.getUsersWithRole(roleId);
+        return new ResponseEntity<>(usersWithRole,HttpStatus.OK);
+    }
+
+
     @GetMapping("/user")
     public UserDetail getUserById(HttpServletRequest request){
 
@@ -62,6 +70,13 @@ public class UserController {
     @PostMapping("/users/register")
     public ResponseEntity<?> register(@RequestBody UsersRegisterDTO usersRegisterDTO){
     return new ResponseEntity<>(userServiceImplementation.registerUser(usersRegisterDTO),HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('Admin')")
+    @PutMapping("/users/block/{userId}")
+    public  ResponseEntity<?> block (@PathVariable int userId){
+        String blockuser = userServiceImplementation.blockuser(userId);
+        return new ResponseEntity<>(blockuser,HttpStatus.OK);
     }
 
 
@@ -95,5 +110,7 @@ public class UserController {
     public ResponseEntity<String> regenerateOTP(@RequestParam String email){
         return new ResponseEntity<>(userServiceImplementation.regenerateOTP(email),HttpStatus.OK);
     }
+
+
 
 }

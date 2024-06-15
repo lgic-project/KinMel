@@ -46,6 +46,21 @@ public class ApiStatic {
         return String.format("http://10.0.2.2:8080/kinMel/carts?cartId=%d&quantityChange=%s", cartId, changeValue);
     }
 
-    public static final String KHALTI_PRIVATE_KEY="test_secret_key_c75b125dff0f4ee588edc9851a279b23";
 
+    public static String FETCH_BRAND_WITH_PRICE_API(String query, String maxPrice) {
+        return String.format("http:////10.0.2.2:8080kinMel/products?brandName=%s&maxPrice=%d", query, maxPrice);
+    }
+
+    public static String FETCH_BRAND_API(String query) {
+        return String.format("http:////10.0.2.2:8080kinMel/products?brandName=%s", query);
+
+    }
+
+    public static String FETCH_PRODUCT_NAME_WITH_PRICE_API(String query, String maxPrice) {
+        return String.format("http:////10.0.2.2:8080kinMel/products?productName=%s&maxPrice=%s", query, maxPrice);
+    }
+
+    public static String FETCH_PRODUCT_NAME_API(String query) {
+        return String.format("http:////10.0.2.2:8080kinMel/products?productName=%s", query);
+    }
 }

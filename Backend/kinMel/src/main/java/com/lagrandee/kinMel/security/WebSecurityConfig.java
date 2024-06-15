@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/kinMel/product/**").permitAll()
 //                .requestMatchers("/kinMel/users/changepassword").permitAll()
                 .requestMatchers("/kinMel/verify-account").permitAll()
+                .requestMatchers("/kinMel/users/role/**").permitAll()
                 .requestMatchers("/images/{id}").permitAll()
                 .requestMatchers("/product_images/{id}").permitAll()
                 .requestMatchers("/category/{id}").permitAll()

@@ -1,13 +1,18 @@
 package com.example.kinmel;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +55,7 @@ public class SearchResultsActivity extends AppCompatActivity {
 
 
         EditText searchBar = findViewById(R.id.search_box13);
+        searchBar.setText(query);
 
         // Remove focus from the search bar
         searchBar.clearFocus();
@@ -66,7 +72,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         int spacingInPixels2 = getResources().getDimensionPixelSize(R.dimen.spacing); // Define your spacing size in dimens.xml
         productContainerForGrid.addItemDecoration(new SpaceItemDecoration(spacingInPixels2));
 
-        fetchProductsForGrid(query);
+        fetchProductsForGrid(query, "", "");
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,6 +80,46 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        RadioGroup radioGroup = headerView.findViewById(R.id.radio_group);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Reset all radio buttons color
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    ((RadioButton) group.getChildAt(i)).setTextColor(Color.BLACK);
+                }
+
+                // Change the color of the selected radio button
+                RadioButton selectedRadioButton = group.findViewById(checkedId);
+                selectedRadioButton.setTextColor(Color.RED); // Change this to your desired color
+            }
+        });
+
+        Button applyButton = headerView.findViewById(R.id.button_apply);
+        EditText maxPriceEditText = headerView.findViewById(R.id.edit_text_max_price);
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                RadioButton selectedRadioButton = headerView.findViewById(selectedId);
+                String selectedFilter = selectedRadioButton.getText().toString();
+
+                String maxPrice = maxPriceEditText.getText().toString();
+                if (!maxPrice.isEmpty()) {
+                    Log.d("FilterSelection", "Selected filter: " + selectedFilter + ", Max price: " + maxPrice);
+                } else {
+                    Log.d("FilterSelection", "Selected filter: " + selectedFilter);
+                }
+                drawerLayout.closeDrawer(navigationView);
+                productListForGrid.clear();
+                fetchProductsForGrid(query, selectedFilter, maxPrice);
+            }
+        });
+
+
         ImageView filterIcon = findViewById(R.id.filter_icon);
 
         filterIcon.setOnClickListener(new View.OnClickListener() {
@@ -100,9 +146,26 @@ public class SearchResultsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void fetchProductsForGrid(String query) {
+    private void fetchProductsForGrid(String query,String filter, String maxPrice) {
+        String url;
+
+        if (filter.equals("Brand")) {
+            if (!maxPrice.isEmpty()) {
+                url = ApiStatic.FETCH_BRAND_WITH_PRICE_API(query, maxPrice);
+            } else {
+                url = ApiStatic.FETCH_BRAND_API(query);
+            }
+        } else if (filter.equals("Product name")) {
+            if (!maxPrice.isEmpty()) {
+                url = ApiStatic.FETCH_PRODUCT_NAME_WITH_PRICE_API(query, maxPrice);
+            } else {
+                url = ApiStatic.FETCH_PRODUCT_NAME_API(query);
+            }
+        } else {
+            url = ApiStatic.FETCH_SEARCH_API(query);
+        }
         JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest
-                (Request.Method.GET, ApiStatic.FETCH_SEARCH_API(query), null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {

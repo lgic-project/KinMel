@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Category</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Update Category</h1>
+        <form id="update-category-form">
+            <input type="hidden" id="update-category-id" value="">
+            <div class="form-group mb-3">
+                <label for="update-category-name">Category Name:</label>
+                <input type="text" class="form-control" id="update-category-name" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="update-category-description">Category Description:</label>
+                <textarea class="form-control" id="update-category-description" required></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label for="update-category-image">Image:</label>
+
+                <div class="rounded-circle overflow-hidden" id="preview"
+                    style="width: 150px; height: 150px; border: 2px solid blue;">
+                    <img id="update-category-image-preview" alt='Image' class="img-fluid rounded-circle"
+                        style="object-fit: cover; width: 100%; height: 100%;">
+                </div>
+            </div>
+            </br>
+            <input type="file" class="form-control-file" id="choosefile" accept="image/*"
+                onchange="getImagePreview(event)" />
+
+            <!-- <img id="update-category-image-preview" style="width: 100px; height: 100px;" /> <input type="file" class="form-control-file" id="update-category-image" accept="image/*"> -->
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left:122px;
+      margin-top: 92px;">
+        Update
+    </button>
+    <button type="button" class="btn btn-secondary" style="margin-left:122px; margin-top: 92px;"
+        onclick="window.history.back()">Cancel</button>
+    </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to Update?Once update it will not reverse.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script>
+        localStorage.getItem('categoryData');
+        const categoryData = JSON.parse(localStorage.getItem('categoryData'));
+
+        document.getElementById('update-category-id').value = categoryData.category_id;
+        document.getElementById('update-category-name').value = categoryData.category_name;
+        document.getElementById('update-category-description').value = categoryData.category_description;
+        document.getElementById('choosefile').src = categoryData.imagePath;
+        const imagePath = categoryData.imagePath;
+        const imageLink = `http://localhost:8080/${imagePath}`;
+
+        fetch(imageLink)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    document.getElementById('update-category-image-preview').src = reader.result;
+                };
+                reader.readAsDataURL(blob);
+            })
+            .catch(error => {
+                console.error('Error fetching image:', error);
+            });
+
+        console.log(categoryData);
+    </script>
+    <script>
+
+        function getImagePreview(event) {
+            var image = URL.createObjectURL(event.target.files[0]);
+            var imagediv = document.getElementById('preview');
+            var newimg = document.createElement('img');
+            imagediv.innerHTML = '';
+            newimg.src = image;
+            newimg.width = "300";
+            newimg.height = "300";
+            newimg.classList.add("round-image");
+            imagediv.appendChild(newimg);
+        }
+
+        function submitForm() {
+            const categoryId = document.getElementById('update-category-id').value;
+            const title = document.getElementById('update-category-name').value;
+            const description = document.getElementById('update-category-description').value;
+            var image = document.getElementById('choosefile').files[0];
+
+            if (image && image.type.startsWith('image/')) {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    var base64Image = reader.result.split(',')[1];
+                    var imageFormat = image.type.split('/')[1]; // Extract image format from MIME type
+
+                    sendData(title, description, base64Image, imageFormat,categoryId);
+                    console.log(imageFormat);
+                    console.log(base64Image);
+                    console.log(title);
+                    console.log(description);
+                };
+                reader.readAsDataURL(image);
+            } else {
+                alert('Please select a valid image file.');
+            }
+
+            if (image && image.type.startsWith('image/')) {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    var base64Image = reader.result.split(',')[1];
+                    sendData(title, description, base64Image);
+                };
+                reader.readAsDataURL(image);
+            } else {
+                alert('Please select a valid image file.');
+            }
+        }
+
+        function sendData(title, description, base64Image, imageFormat,categoryId) {
+            var data = {
+        categoryName: title,
+        categoryDescription: description,
+        categoryImage: base64Image,
+        imageFormat: imageFormat
+    };
+
+    const categoryIdAsInt = parseInt(categoryId);
+                fetch(`http://localhost:8080/kinMel/categories/${categoryIdAsInt}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getCookie('kinmel-token')
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Handle successful response
+                            console.log('Category updated successfully');
+                            window.location.href = 'addcategory.html';
+                        } else {
+                            // Handle error response
+                            console.error('Failed to update category');
+                            window.location.href = 'addcategory.html';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating category:', error);
+                    });
+        }
+
+        function getCookie(name) {
+    var cookieArr = document.cookie.split(';');
+    for (var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split('=');
+        if (name === cookiePair[0].trim()) {
+            console.log(cookiePair[1]);
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

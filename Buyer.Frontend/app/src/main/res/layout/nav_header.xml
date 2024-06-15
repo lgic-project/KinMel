@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brand" />
+
+        <RadioButton
+            android:id="@+id/radio_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product name" />
+
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/edit_text_max_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:hint="Max price" />
+
+    <Button
+        android:id="@+id/button_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply" />
+
+</LinearLayout>
