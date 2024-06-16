@@ -4,6 +4,7 @@ package com.lagrandee.kinMel.controllers;
 import com.lagrandee.kinMel.bean.UserDetail;
 import com.lagrandee.kinMel.bean.request.PasswordRequest;
 import com.lagrandee.kinMel.bean.request.UsersRegisterDTO;
+import com.lagrandee.kinMel.bean.response.SingleDataResponse;
 import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.fileupload.FileUploadService;
 import com.lagrandee.kinMel.service.implementation.UserServiceImplementation;
@@ -53,7 +54,11 @@ public class UserController {
     @GetMapping ("/users/role/{roleId}")
     public ResponseEntity<?> getAllUserByRole(@PathVariable int roleId){
         List<UserDetail> usersWithRole = userServiceImplementation.getUsersWithRole(roleId);
-        return new ResponseEntity<>(usersWithRole,HttpStatus.OK);
+        SingleDataResponse <List<UserDetail>> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(usersWithRole);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
 

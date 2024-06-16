@@ -367,7 +367,8 @@ public class UserServiceImplementation implements UserService {
         sql.append("SELECT ").append(" users.user_id,users.first_name,users.last_name,users.email,users.address ,users.phone_number,users.profile_photo ");
         sql.append(" FROM ").append("  users ")
                 .append(" inner join roles_Assigned on roles_Assigned.user_id=users.user_id ")
-                .append("WHERE roles_Assigned.role_id = ?");
+                .append("WHERE roles_Assigned.role_id = ? ")
+                .append(" and users.active!=2");
         argumentList.add(roleId);
         return jdbcTemplate.query(sql.toString(),(rs,rowName)->{
             UserDetail usersWithRoles = new UserDetail();

@@ -24,9 +24,9 @@ fetch('http://localhost:8080/kinMel/categories')
             row.appendChild(categoryDescriptionCell);
 
             // Create table cell for image path
-            const imagePathCell = document.createElement('td');
-            imagePathCell.textContent = category.imagePath;
-            row.appendChild(imagePathCell);
+            // const imagePathCell = document.createElement('td');
+            // imagePathCell.textContent = category.imagePath;
+            // row.appendChild(imagePathCell);
 
             // Create table cell for image
             // Create table cell for image
