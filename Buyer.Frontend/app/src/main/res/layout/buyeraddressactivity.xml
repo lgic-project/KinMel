@@ -93,13 +93,13 @@
             android:background="@drawable/edittext_border"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
-        <com.khalti.widget.KhaltiButton
-            android:id="@+id/kb_buy"
-            android:layout_gravity="bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Buy"/>
+<!--        <com.khalti.widget.KhaltiButton-->
+<!--            android:id="@+id/kb_buy"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:text="Buy"/>-->
 
         <Button
             android:id="@+id/btn_save"
