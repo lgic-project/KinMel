@@ -51,7 +51,6 @@ public class OrderServiceImplementation {
             String fetchCartItemsSQL = "SELECT cart_id, product_id, quantity, total FROM cart WHERE cart_id IN (:cartIds)";
             MapSqlParameterSource params = new MapSqlParameterSource().addValue("cartIds", cartIds);
             List<CartItem> cartItems = namedParameterJdbcTemplate.query(fetchCartItemsSQL, params, new CartItemMapper());
-            cartItems.forEach(System.out::println);
 
             // Insert order items into order_items table
             String insertOrderItemSQL = "INSERT INTO order_items (order_id, product_id, quantity, total_price) VALUES (:orderId, :productId, :quantity, :totalPrice)";
@@ -95,7 +94,7 @@ public class OrderServiceImplementation {
                     "inner join products on order_items.product_id=products.product_id\n" +
                     "inner join product_images on products.product_id=product_images.product_id\n" +
                     "where orders.buyer_id=(:buyerId)\n" +
-                    "group by order_items.order_id,quantity,total_price,product_name,ordered_at";
+                    "group by order_items.order_id,quantity,total_price,product_name,ordered_at order by order_items.order_id desc";
             MapSqlParameterSource params = new MapSqlParameterSource().addValue("buyerId", buyerId);
             List<OrderResponse> orderResponses = namedParameterJdbcTemplate.query(fetchOrder, params, new OrderItemMapper());
             return orderResponses;

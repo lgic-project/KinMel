@@ -99,14 +99,29 @@
                 android:alpha="0.7"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/passwordLogin"
+<!--            <EditText-->
+<!--                android:id="@+id/passwordLogin"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="textPassword"-->
+<!--                android:hint="Enter your password"-->
+<!--                android:imeOptions="actionDone"-->
+<!--                android:drawableEnd="@drawable/password_icon"/>-->
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Enter your password"
-                android:imeOptions="actionDone"
-                android:drawableEnd="@drawable/password_icon"/>
+                app:boxBackgroundMode="none"
+                app:passwordToggleEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:id="@+id/passwordLogin"
+                    android:hint="Password"
+                    android:imeOptions="actionDone"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <RelativeLayout

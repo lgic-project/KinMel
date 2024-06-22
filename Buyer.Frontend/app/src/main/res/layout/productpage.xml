@@ -168,22 +168,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
-            android:rating="0"
+            android:rating="3"
             android:stepSize="1"
             android:layout_marginTop="8dp" />
 
-        <EditText
-            android:id="@+id/etComment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Write your review here..."
-            android:layout_marginTop="8dp" />
+
 
         <Button
-            android:id="@+id/btnSubmitReview"
+            android:id="@+id/addRatingbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit Review"
+            android:text="Add Rating"
             android:textColor="@android:color/white"
             android:background="@color/my_primary"
             android:layout_marginTop="8dp" />

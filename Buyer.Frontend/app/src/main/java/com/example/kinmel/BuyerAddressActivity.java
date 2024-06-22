@@ -1,6 +1,5 @@
 package com.example.kinmel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,12 +14,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,19 +26,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.kinmel.StaticFiles.ApiStatic;
-import com.example.kinmel.response.PaymentResponseCallback;
-import com.example.kinmel.utils.KhaltiApiUtil;
-
 import com.khalti.checkout.helper.Config;
 import com.khalti.checkout.helper.KhaltiCheckOut;
 import com.khalti.checkout.helper.OnCheckOutListener;
-
 import com.khalti.widget.KhaltiButton;
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +57,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
         mobileNumberEditText = findViewById(R.id.mobile_number);
         name = findViewById(R.id.name);
         address = findViewById(R.id.address);
-
+        fetchUserData();
         Button btnSave = findViewById(R.id.btn_save);
 
         KhaltiButton kBuy = findViewById(R.id.kb_buy);
@@ -228,7 +218,8 @@ public class BuyerAddressActivity extends AppCompatActivity {
             jsonBody.put("phoneNumber", mobileNumber);
             jsonBody.put("address", address);
             jsonBody.put("paymentMethod", paymentMethod);
-            jsonBody.put("orderTotal", amount1);
+            jsonBody.put("orderTotal", (amount1/100))
+            ;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -283,11 +274,53 @@ public class BuyerAddressActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    private void fetchUserData(){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ApiStatic.FETCH_USER_DETAIL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String firstName = response.getString("first_name");
+                            String lastName = response.getString("last_name");
+                            String fullName = firstName + " " + lastName;
+                            name.setText(fullName);
+                            address.setText(response.getString("address"));
+                            mobileNumberEditText.setText(response.getString("phoneNumber"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + getAuthToken());
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+
+
+
     private String getAuthToken() {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         String token = sharedPreferences.getString("token", null);
         return token;
     }
+
+
+
 
 }
