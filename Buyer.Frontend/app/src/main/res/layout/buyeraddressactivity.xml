@@ -21,7 +21,7 @@
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/my_primary"
+            android:background="@color/white"
             android:paddingVertical="16dp">
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_centerVertical="true"
                 android:text="Add Address"
                 android:textSize="24sp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
         </RelativeLayout>
 
