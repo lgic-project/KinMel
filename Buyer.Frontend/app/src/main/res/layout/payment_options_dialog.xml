@@ -29,42 +29,37 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- RadioGroup for payment options -->
-            <RadioGroup
-                android:id="@+id/radioGroupPaymentOptions"
+            <!-- LinearLayout for payment options -->
+            <LinearLayout
+                android:id="@+id/linearLayoutPaymentOptions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
 
-                <!-- MaterialRadioButton for Cash on Delivery -->
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radioCashOnDelivery"
-                    android:layout_width="wrap_content"
+                <!-- Button for Cash on Delivery -->
+                <Button
+                    android:id="@+id/buttonCashOnDelivery"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:text="Cash on Delivery"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_margin="8dp" />
 
-                <!-- MaterialRadioButton for Pay with Khalti -->
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radioPayWithKhalti"
-                    android:layout_width="wrap_content"
+                <!-- Button for Pay with Khalti -->
+                <com.khalti.widget.KhaltiButton
+                    android:id="@+id/kb_buy"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pay with Khalti"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:text="Buy"
+                    android:padding="12dp"/>
 
-            </RadioGroup>
-
-            <!-- KhaltiButton -->
-            <com.khalti.widget.KhaltiButton
-                android:id="@+id/kb_buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Khalti"
-                android:visibility="gone" /> <!-- Initially hidden -->
+            </LinearLayout>
 
         </LinearLayout>
-
 
         <Button
             android:id="@+id/btnConfirmPayment"
@@ -76,7 +71,6 @@
             android:layout_marginTop="16dp"
             android:padding="12dp"
             android:textSize="16sp" />
-
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
