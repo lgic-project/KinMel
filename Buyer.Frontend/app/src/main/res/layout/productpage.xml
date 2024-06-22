@@ -171,7 +171,7 @@
             android:rating="3"
             android:stepSize="1"
             android:layout_marginTop="8dp"
-            style="@style/RatingBarStyle" />
+            android:progressTint="#FFD700"/>
 
 
         <Button

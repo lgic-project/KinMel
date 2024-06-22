@@ -122,7 +122,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
 
         RadioGroup radioGroupPaymentOptions = dialogView.findViewById(R.id.radioGroupPaymentOptions);
         RadioButton radioCashOnDelivery = dialogView.findViewById(R.id.radioCashOnDelivery);
-        RadioButton radioKhalti = dialogView.findViewById(R.id.radioKhalti);
+        RadioButton radioKhalti = dialogView.findViewById(R.id.radioPayWithKhalti);
         Button btnConfirmPayment = dialogView.findViewById(R.id.btnConfirmPayment);
 
         btnConfirmPayment.setOnClickListener(new View.OnClickListener() {
