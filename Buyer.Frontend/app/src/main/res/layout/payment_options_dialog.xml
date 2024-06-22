@@ -23,26 +23,48 @@
             android:textColor="@color/black"
             android:layout_marginBottom="16dp" />
 
-        <RadioGroup
-            android:id="@+id/radioGroupPaymentOptions"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radioCashOnDelivery"
+            <!-- RadioGroup for payment options -->
+            <RadioGroup
+                android:id="@+id/radioGroupPaymentOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- MaterialRadioButton for Cash on Delivery -->
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioCashOnDelivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cash on Delivery"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- MaterialRadioButton for Pay with Khalti -->
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioPayWithKhalti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pay with Khalti"
+                    android:layout_marginBottom="8dp" />
+
+            </RadioGroup>
+
+            <!-- KhaltiButton -->
+            <com.khalti.widget.KhaltiButton
+                android:id="@+id/kb_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cash on Delivery"
-                android:layout_marginBottom="8dp" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radioKhalti"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Khalti"
-                android:layout_marginBottom="16dp" />
+                android:visibility="gone" /> <!-- Initially hidden -->
 
-        </RadioGroup>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnConfirmPayment"

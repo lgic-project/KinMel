@@ -92,12 +92,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:alpha="0.7"
-                android:textStyle="bold"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Password"-->
+<!--                android:alpha="0.7"-->
+<!--                android:textStyle="bold"/>-->
 
 <!--            <EditText-->
 <!--                android:id="@+id/passwordLogin"-->

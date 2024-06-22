@@ -1,0 +1,9 @@
+<!-- res/drawable/custom_rating_bar.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background"
+        android:drawable="@drawable/ic_star_border_yellow" /> <!-- Outline of the star -->
+    <item android:id="@android:id/secondaryProgress"
+        android:drawable="@drawable/ic_star_border_yellow" /> <!-- Outline of the star -->
+    <item android:id="@android:id/progress"
+        android:drawable="@drawable/ic_star_yellow" /> <!-- Filled part of the star -->
+</layer-list>
