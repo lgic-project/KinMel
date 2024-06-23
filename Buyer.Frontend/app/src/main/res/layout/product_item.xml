@@ -60,10 +60,10 @@
                 android:textColor="@color/discountprice"/>
 
             <TextView
-                android:id="@+id/stock"
+                android:id="@+id/productTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Stock: 8"
+                android:text="Total: 8"
                 android:textSize="14sp"
                 android:textColor="@color/black"/>
 

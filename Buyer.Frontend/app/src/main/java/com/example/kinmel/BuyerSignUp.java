@@ -1,6 +1,7 @@
 package com.example.kinmel;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,17 @@ public class BuyerSignUp extends AppCompatActivity {
         termsCheckBox = findViewById(R.id.checkbox_terms);
         signUpButton = findViewById(R.id.signUpButton);
         TextView loginTextView = findViewById(R.id.btn_login);
+        TextView termsTextView = findViewById(R.id.text_view_conditions);
+
+        termsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.termsandconditionsgenerator.com/live.php?token=PnlY9olshEOO1HB1JbJBA7i8Qy9irpa1";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
 
         // Set click listener for the Sign Up button

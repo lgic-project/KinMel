@@ -52,6 +52,22 @@ public class OrderServiceImplementation {
             MapSqlParameterSource params = new MapSqlParameterSource().addValue("cartIds", cartIds);
             List<CartItem> cartItems = namedParameterJdbcTemplate.query(fetchCartItemsSQL, params, new CartItemMapper());
 
+            if(!cartItems.isEmpty()){
+                String insertOrderItemSQL = "INSERT INTO order_items (order_id, product_id, quantity, total_price) VALUES (:orderId, :productId, :quantity, :totalPrice)";
+                for (CartItem cartItem : cartItems) {
+                    MapSqlParameterSource itemParams = new MapSqlParameterSource()
+                            .addValue("orderId", orderId)
+                            .addValue("productId", cartItem.getProductId())
+                            .addValue("quantity", cartItem.getQuantity())
+                            .addValue("totalPrice", cartItem.getTotal());
+                    namedParameterJdbcTemplate.update(insertOrderItemSQL, itemParams);
+                }
+            }
+            else{
+                String insertOrderItemSQL = "INSERT INTO order_items (order_id, product_id, quantity, total_price) VALUES (?, ?, ?, ?)";
+                jdbcTemplate.update(insertOrderItemSQL, orderId, cartIds.get(0), 1, order.getOrderTotal());
+            }
+
             // Insert order items into order_items table
             String insertOrderItemSQL = "INSERT INTO order_items (order_id, product_id, quantity, total_price) VALUES (:orderId, :productId, :quantity, :totalPrice)";
             for (CartItem cartItem : cartItems) {
@@ -83,7 +99,7 @@ public class OrderServiceImplementation {
     public List<OrderResponse> getOrderOfUser(HttpServletRequest request) {
         try{
             Integer buyerId=LoggedUser.findUser().getUserId();
-            String fetchOrder="SELECT order_items.order_id,order_items.quantity,order_items.total_price,products.product_name,orders.ordered_at\n" +
+            String fetchOrder="SELECT order_items.order_id,order_items.quantity,order_items.total_price,order_items.order_Status,products.product_name,orders.ordered_at\n" +
                     ", SUBSTRING(\n" +
                     "    STRING_AGG(COALESCE(product_images.product_image_path, ''), ', '),\n" +
                     "    1,\n" +
@@ -94,7 +110,7 @@ public class OrderServiceImplementation {
                     "inner join products on order_items.product_id=products.product_id\n" +
                     "inner join product_images on products.product_id=product_images.product_id\n" +
                     "where orders.buyer_id=(:buyerId)\n" +
-                    "group by order_items.order_id,quantity,total_price,product_name,ordered_at order by order_items.order_id desc";
+                    "group by order_items.order_id,quantity,total_price,order_Status,product_name,ordered_at order by order_items.order_id desc";
             MapSqlParameterSource params = new MapSqlParameterSource().addValue("buyerId", buyerId);
             List<OrderResponse> orderResponses = namedParameterJdbcTemplate.query(fetchOrder, params, new OrderItemMapper());
             return orderResponses;
@@ -124,6 +140,7 @@ public class OrderServiceImplementation {
             orderResponse.setOrderId(rs.getInt("order_id"));
             orderResponse.setQuantity(rs.getInt("quantity"));
             orderResponse.setTotalPrice(rs.getInt("total_price"));
+            orderResponse.setOrderStatus(rs.getString("order_Status"));
             orderResponse.setProductName(rs.getString("product_name"));
             orderResponse.setOrderedAt(rs.getString("ordered_at"));
             orderResponse.setImagePath(rs.getString("product_image_path"));

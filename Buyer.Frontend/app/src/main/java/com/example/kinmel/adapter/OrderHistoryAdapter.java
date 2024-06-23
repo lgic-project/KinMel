@@ -58,6 +58,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }
         holder.orderProductName.setText( order.getProductName());
         holder.orderTotal.setText("Rs. " + order.getTotalPrice());
+        holder.orderStatus.setText(order.getOrderStatus());
         holder.orderQuantity.setText(order.getQuantity());
 
         // Load the image from the URL
@@ -75,6 +76,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         public TextView orderProductName;
         public TextView orderQuantity;
         public TextView orderTotal;
+        public TextView orderStatus;
         public ImageView orderImage;
 
         public ViewHolder(View itemView) {
@@ -83,6 +85,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             orderDate = itemView.findViewById(R.id.order_date);
             orderProductName = itemView.findViewById(R.id.order_name);
             orderTotal = itemView.findViewById(R.id.order_total);
+            orderStatus = itemView.findViewById(R.id.order_Status);
             orderQuantity = itemView.findViewById(R.id.order_quantity);
             orderImage = itemView.findViewById(R.id.order_image);
         }

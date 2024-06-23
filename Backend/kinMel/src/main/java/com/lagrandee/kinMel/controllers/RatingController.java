@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +19,7 @@ public class RatingController {
     @PostMapping
     @PreAuthorize("hasRole('Customer')")
     public ResponseEntity<?> addRating(@RequestBody RatingRequest request) {
+        System.out.println("Rating");
         String result = ratingServiceImplementation.addRating(request);
         SingleDataResponse<String> response = new SingleDataResponse<>();
         response.setStatus(HttpStatus.OK.value());
@@ -29,4 +27,5 @@ public class RatingController {
         response.setData(result);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 }

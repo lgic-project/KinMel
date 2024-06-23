@@ -43,6 +43,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
     private CustomEditText mobileNumberEditText;
     private EditText name, address;
     private ArrayList<Integer> selectedCartIds;
+    Integer totalAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,32 +53,15 @@ public class BuyerAddressActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         selectedCartIds = intent.getIntegerArrayListExtra("selectedCartIds");
-        int totalAmount = intent.getIntExtra("totalAmount", 0);
+         totalAmount = intent.getIntExtra("totalAmount", 0);
+         Log.d("Selected Cart Ids", selectedCartIds.toString());
+            Log.d("Total Amount", totalAmount.toString());
 
         mobileNumberEditText = findViewById(R.id.mobile_number);
         name = findViewById(R.id.name);
         address = findViewById(R.id.address);
         fetchUserData();
         Button btnSave = findViewById(R.id.btn_save);
-
-        KhaltiButton kBuy = findViewById(R.id.kb_buy);
-        kBuy.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String nameInput = name.getText().toString().trim();
-                String addressInput = address.getText().toString().trim();
-                String mobileNumberInput = mobileNumberEditText.getText().toString().trim();
-
-                if (!nameInput.isEmpty() || !addressInput.isEmpty() || !mobileNumberInput.isEmpty()) {
-                    khaltiImplement(kBuy, getApplicationContext(), UUID.randomUUID().toString(), "test", Long.valueOf(totalAmount));
-                } else {
-                    Toast.makeText(BuyerAddressActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
         mobileNumberEditText.setOnDrawableClickListener(new CustomEditText.OnDrawableClickListener() {
             @Override
             public void onDrawableClick() {
@@ -89,7 +73,17 @@ public class BuyerAddressActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPaymentOptionsDialog();
+
+                String nameInput = name.getText().toString().trim();
+                String addressInput = address.getText().toString().trim();
+                String mobileNumberInput = mobileNumberEditText.getText().toString().trim();
+
+                if (!nameInput.isEmpty() || !addressInput.isEmpty() || !mobileNumberInput.isEmpty()) {
+                    showPaymentOptionsDialog();
+                } else {
+                    Toast.makeText(BuyerAddressActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -120,63 +114,38 @@ public class BuyerAddressActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        RadioGroup radioGroupPaymentOptions = dialogView.findViewById(R.id.radioGroupPaymentOptions);
-        RadioButton radioCashOnDelivery = dialogView.findViewById(R.id.radioCashOnDelivery);
-        RadioButton radioKhalti = dialogView.findViewById(R.id.radioPayWithKhalti);
-        Button btnConfirmPayment = dialogView.findViewById(R.id.btnConfirmPayment);
+       Button cashOnDelivery = dialogView.findViewById(R.id.buttonCashOnDelivery);
+        KhaltiButton kBuy = dialogView.findViewById(R.id.kb_buy);
 
-        btnConfirmPayment.setOnClickListener(new View.OnClickListener() {
+        kBuy.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                int selectedId = radioGroupPaymentOptions.getCheckedRadioButtonId();
+                String nameInput = name.getText().toString().trim();
+                String addressInput = address.getText().toString().trim();
+                String mobileNumberInput = mobileNumberEditText.getText().toString().trim();
 
-                if (selectedId == radioCashOnDelivery.getId()) {
-                    Toast.makeText(BuyerAddressActivity.this, "Cash on Delivery selected", Toast.LENGTH_SHORT).show();
-                    // Cash on Delivery
-                } else if (selectedId == radioKhalti.getId()) {
-                    Toast.makeText(BuyerAddressActivity.this, "Khalti selected", Toast.LENGTH_SHORT).show();
-                    // Khalti Payment
-//                    khaltiImplement(btnConfirmPayment,getApplicationContext(),UUID.randomUUID().toString(), "test", 13000L);
-//                    try {
-//                        JSONObject jsonBody = new JSONObject();
-//                        JSONObject customer_info = new JSONObject();
-//                        KhaltiApiUtil.makePaymentRequest(
-//                                BuyerAddressActivity.this,
-//                                "https://example.com/payment/",
-//                                "https://example.com/",
-//                                13000,
-//                                "test12",
-//                                "test",
-//                                "Sajit Gurung",
-//                                "suman@gmail.com",
-//                                "9816140639",
-//                                "live_secret_key_68791341fdd94846a146f0457ff7b455",
-//                                jsonBody,
-//                                customer_info,
-//                                new PaymentResponseCallback() {
-//                                    @Override
-//                                    public void onResponse(String pidx, String payment_url) {
-//                                        // Use pidx and payment_url here
-//                                        // For example, you can start a new activity and pass these values as extras in the intent
-//                                    Log.d("Payment Response", "pidx: " + pidx + ", payment_url: " + payment_url);
-////                                    khaltiPayment(pidx);
-//
-//                                    }
-//
-//                                    @Override
-//                                    public void onError(VolleyError error) {
-//                                        // Handle error here
-//                                        Log.d("Payment Error", error.toString());
-//                                    }
-//                                }
-//                        );
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-
+                if (!nameInput.isEmpty() || !addressInput.isEmpty() || !mobileNumberInput.isEmpty()) {
+                    khaltiImplement(kBuy, getApplicationContext(), UUID.randomUUID().toString(), "test", Long.valueOf(totalAmount));
+                } else {
+                    Toast.makeText(BuyerAddressActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
 
-                dialog.dismiss();
+            }
+        });
+
+        cashOnDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameInput = name.getText().toString().trim();
+                String addressInput = address.getText().toString().trim();
+                String mobileNumberInput = mobileNumberEditText.getText().toString().trim();
+
+                if (!nameInput.isEmpty() || !addressInput.isEmpty() || !mobileNumberInput.isEmpty()) {
+                    makeRequestPayment(nameInput, mobileNumberInput, addressInput, "COD", totalAmount);
+                } else {
+                    Toast.makeText(BuyerAddressActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -198,7 +167,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
                 String nameInput = name.getText().toString().trim();
                 String addressInput = address.getText().toString().trim();
                 String mobileNumberInput = mobileNumberEditText.getText().toString().trim();
-                makeRequestPayment(nameInput, mobileNumberInput, addressInput, "Khalti", amount);
+                makeRequestPayment(nameInput, mobileNumberInput, addressInput, "Khalti", (amount/100));
             }
         });
 
@@ -218,7 +187,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
             jsonBody.put("phoneNumber", mobileNumber);
             jsonBody.put("address", address);
             jsonBody.put("paymentMethod", paymentMethod);
-            jsonBody.put("orderTotal", (amount1/100))
+            jsonBody.put("orderTotal", amount1)
             ;
         } catch (JSONException e) {
             e.printStackTrace();

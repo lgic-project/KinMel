@@ -9,5 +9,6 @@ public class OrderResponse {
     private String productName;
     private Integer quantity;
     private Integer totalPrice;
+    private String orderStatus;
     private String orderedAt;
 }

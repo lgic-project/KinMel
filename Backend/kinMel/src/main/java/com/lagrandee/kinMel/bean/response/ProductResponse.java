@@ -21,4 +21,6 @@ public class ProductResponse {
     private Date updatedAt;
     private int featured;
     private List<String> productImages;
+    private float averageRating;
+    private int ratingCount;
 }

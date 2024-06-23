@@ -56,6 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productPrice.setText("Price: Rs." + product.getPrice());
         holder.productDiscountPrice.setText("Discount: Rs." + product.getDiscountedPrice());
         holder.quantity.setText(String.valueOf(product.getQuantity()));
+        holder.productTotalPrice.setText("Total: Rs." + product.getTotal());
         Picasso.get().load(product.getImage()).into(holder.productImage);
         holder.checkBox.setOnCheckedChangeListener(null);
         holder.checkBox.setChecked(product.isSelected());
@@ -91,7 +92,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productPrice, productDiscountPrice, quantity;
+        TextView productName, productPrice, productDiscountPrice, quantity,productTotalPrice;
         ImageView productImage;
         CheckBox checkBox;
         ImageButton plusButton, minusButton;
@@ -102,6 +103,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productPrice = itemView.findViewById(R.id.productPrice);
             productDiscountPrice = itemView.findViewById(R.id.productDiscountPrice);
             quantity = itemView.findViewById(R.id.quantity);
+            productTotalPrice = itemView.findViewById(R.id.productTotalPrice);
             productImage = itemView.findViewById(R.id.productImage);
             checkBox = itemView.findViewById(R.id.checkBox);
             plusButton = itemView.findViewById(R.id.plusButton);

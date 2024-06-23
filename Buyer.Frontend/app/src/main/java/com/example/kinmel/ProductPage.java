@@ -26,6 +26,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.kinmel.StaticFiles.ApiStatic;
 import com.example.kinmel.adapter.MySingleton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,6 +112,60 @@ public class ProductPage extends AppCompatActivity {
             public void onClick(View v) {
                 float rating = ratingBar.getRating();
                 Log.d("Rating", "User rating: " + rating);
+                Log.d("Rating", "Product ID: " + productId);
+
+                JSONObject params = new JSONObject();
+                try {
+                    params.put("productId", productId);
+                    params.put("rating", rating);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                // Get the token from shared preferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                String token = sharedPreferences.getString("token", "");
+                Log.d("Rating", "Token: " + token);
+                Log.d("Rating", "Params: " + params.toString());
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                        (Request.Method.POST, ApiStatic.GIVE_RATING_API, params, new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    int status = response.getInt("status");
+                                    String statusValue = response.getString("statusValue");
+                                    String data = response.getString("data");
+                                    if (status==200){
+                                         View view = findViewById(R.id.product_page_layout);  // Fixed line
+                                        Snackbar.make(view, data, Snackbar.LENGTH_SHORT).show();
+                                        fetchProductData();
+                                    }
+                                    else {
+                                        Toast.makeText(ProductPage.this, "Data: " + data, Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    Toast.makeText(ProductPage.this, "Data: " + "Something went wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Handle error
+                                Toast.makeText(ProductPage.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Authorization", "Bearer " + token);
+                        return headers;
+                    }
+                };
+
+                // Add the request to the RequestQueue.
+                MySingleton.getInstance(ProductPage.this).addToRequestQueue(jsonObjectRequest);
+
                 dialog.dismiss();
             }
         });
@@ -138,9 +193,13 @@ public class ProductPage extends AppCompatActivity {
             startActivity(intent);
         }
         else{
+            ArrayList<Integer> selectedCartIds = new ArrayList<>();
+            selectedCartIds.add(productId);
             Intent intent = new Intent(ProductPage.this, BuyerAddressActivity.class);
-            intent.putExtra("selectedCartIds", productId);
+            intent.putIntegerArrayListExtra("selectedCartIds", selectedCartIds);
             intent.putExtra("totalAmount", totalPrice);
+            Log.d("ProductTotalPrice", String.valueOf(totalPrice));
+            Log.d("ProductProductID", String.valueOf(selectedCartIds));
             startActivity(intent);
 
         }
@@ -250,6 +309,27 @@ public class ProductPage extends AppCompatActivity {
 
                                 TextView productDescription = findViewById(R.id.productDescription);
                                 productDescription.setText(data.getString("productDescription"));
+
+                                double averageRating = data.getDouble("averageRating");
+                                int ratingCount = data.getInt("ratingCount");
+
+                                RatingBar ratingBar = findViewById(R.id.ratingBar1);
+                                TextView productRating = findViewById(R.id.tvRating);
+                                if (averageRating>=1){
+                                ratingBar.setRating((float) averageRating);
+                                }
+                                else {
+                                    ratingBar.setVisibility(View.GONE);
+                                    productRating.setText("No ratings yet");
+                                }
+
+
+                                if (averageRating != 0 && ratingCount != 0) {
+                                    String ratingShow = averageRating + "⭐" + "(" + ratingCount + ")";
+
+                                    productRating.setText(ratingShow);
+                                }
+
                             } else {
                                 // handle error status
                                 Toast.makeText(ProductPage.this, "Unable to show data", Toast.LENGTH_SHORT).show();

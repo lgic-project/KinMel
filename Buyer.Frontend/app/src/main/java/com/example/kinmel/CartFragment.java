@@ -70,12 +70,15 @@ public class CartFragment extends Fragment implements OnQuantityChangeListener {
         radioButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Product product : productList) {
-                    product.setSelected(true);
+                if (!productList.isEmpty()){
+                    for (Product product : productList) {
+                        product.setSelected(true);
+                    }
+                    productAdapter.notifyDataSetChanged();
+                    updateTotalPrice();
+                    updateCheckoutButtonText();
                 }
-                productAdapter.notifyDataSetChanged();
-                updateTotalPrice();
-                updateCheckoutButtonText();
+
             }
         });
 

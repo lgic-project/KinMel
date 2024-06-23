@@ -157,6 +157,8 @@ public class ProductServiceImplementation {
             productResponse.setSellerId(rs.getInt("seller_id"));
             productResponse.setCreatedAt(rs.getDate("created_at"));
             productResponse.setUpdatedAt(rs.getDate("updated_at"));
+            productResponse.setAverageRating(rs.getFloat("average_rating"));
+            productResponse.setRatingCount(rs.getInt("rating_count"));
             String imageString= rs.getString("product_Images");
 
             String[] imagePaths = imageString.split(",");

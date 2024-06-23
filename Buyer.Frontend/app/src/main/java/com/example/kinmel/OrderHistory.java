@@ -84,6 +84,7 @@ public class OrderHistory extends Fragment {
                                 order.setProductName(orderObject.getString("productName"));
                                 order.setQuantity(orderObject.getString("quantity"));
                                 order.setTotalPrice(orderObject.getString("totalPrice"));
+                                order.setOrderStatus(orderObject.getString("orderStatus"));
                                 order.setOrderedAt(orderObject.getString("orderedAt"));
                                 orderList.add(order);
                                 Log.d("Order", order.toString());

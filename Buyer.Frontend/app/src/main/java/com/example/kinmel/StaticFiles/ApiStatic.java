@@ -24,6 +24,8 @@ public class ApiStatic {
 
     public static final String FETCH_PRODUCT_HOME_API_GRID = "http://10.0.2.2:8080/kinMel/products?sortBy=New";
     public static final String FETCH_PRODUCT_IMAGE_HOME_API = "http://10.0.2.2:8080/";
+
+    public static final String GIVE_RATING_API = "http://10.0.2.2:8080/kinMel/ratings";
     public static String ADD_TO_CART_API(int productId) {
         return String.format("http://10.0.2.2:8080/kinMel/carts?productId=%d", productId);
     }
