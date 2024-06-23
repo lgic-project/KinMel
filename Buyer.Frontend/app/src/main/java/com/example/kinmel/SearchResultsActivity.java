@@ -178,10 +178,12 @@ public class SearchResultsActivity extends AppCompatActivity {
                                 String productDescription1 = productObject1.getString("productDescription");
                                 double price1 = productObject1.getDouble("price");
                                 double discountedPrice1 = productObject1.getDouble("discountedPrice");
+                                double averageRating = productObject1.getDouble("averageRating");
+                                int ratingCount = productObject1.getInt("ratingCount");
                                 JSONArray productImages1 = productObject1.getJSONArray("productImages");
                                 String imageUrl1 =ApiStatic.FETCH_PRODUCT_IMAGE_HOME_API+ productImages1.getString(0); // Assuming the first image is the main image
 
-                                ProductResponse product = new ProductResponse(productId1,productName1,productDescription1, price1, discountedPrice1, imageUrl1);
+                                ProductResponse product = new ProductResponse(productId1,productName1,productDescription1, price1, discountedPrice1,averageRating,ratingCount, imageUrl1);
 
                                 Log.d("SearchProduct", product.getProductName());
                                 Log.d("SearchProduct", product.getProductDescription());

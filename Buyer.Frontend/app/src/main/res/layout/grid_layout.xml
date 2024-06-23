@@ -84,5 +84,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/productRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xsmall"
+            android:textColor="@color/orange"
+            android:textSize="13sp"
+            />
     </LinearLayout>
 </LinearLayout>

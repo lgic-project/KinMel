@@ -19,9 +19,11 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.*;
 
@@ -95,6 +97,12 @@ public class ProductServiceImplementation {
 
 
     public List<ProductResponse> getAllProduct(String productName,String sortBy, String categoryName,Long maxPrice, String brandName) {
+        StopWatch stopWatch =new StopWatch();
+        stopWatch.start();
+        stopWatch.stop();
+        System.out.println("Time 0: "+ stopWatch.getTotalTimeMillis());
+        StopWatch stopWatch1 =new StopWatch();
+        stopWatch1.start();
 
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("SP_SortProducts")
@@ -105,17 +113,26 @@ public class ProductServiceImplementation {
                         new SqlParameter("CategoryName", Types.VARCHAR),
                         new SqlParameter("MaxPrice", Types.BIGINT)
                 );
-
+        stopWatch1.stop();
+        System.out.println("Time 1: "+ stopWatch1.getTotalTimeMillis());
+        StopWatch stopWatch2 =new StopWatch();
+        stopWatch2.start();
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("ProductName", productName)
                 .addValue("BrandName", brandName)
                 .addValue("SortBy", sortBy)
                 .addValue("CategoryName", categoryName)
                 .addValue("MaxPrice", maxPrice);
-
-
+        stopWatch2.stop();
+        System.out.println("Time 2: "+ stopWatch2.getTotalTimeMillis());
+        StopWatch stopWatch3 =new StopWatch();
+        stopWatch3.start();
         Map<String, Object> resultMap = jdbcCall.execute(parameters);
         List<Map<String, Object>> resultList = (List<Map<String, Object>>) resultMap.get("#result-set-1");
+        stopWatch3.stop();
+        System.out.println("Time 3: "+ stopWatch3.getTotalTimeMillis());
+        StopWatch stopWatch4 =new StopWatch();
+        stopWatch4.start();
         List<ProductResponse> products = new ArrayList<>();
         for (Map<String, Object> row : resultList) {
             ProductResponse product = new ProductResponse();
@@ -132,11 +149,15 @@ public class ProductServiceImplementation {
             product.setFeatured((Integer) row.get("featured"));
             product.setCreatedAt((Date) row.get("created_at"));
             product.setUpdatedAt((Date) row.get("updated_at"));
+            product.setAverageRating((BigDecimal) row.get("average_rating"));
+            product.setRatingCount((int) row.get("rating_count"));
             String imagePaths = (String) row.get("product_images");
             List<String> imagePathList = Arrays.asList(imagePaths.split(", "));
             product.setProductImages(imagePathList);
             products.add(product);
         }
+        stopWatch4.stop();
+        System.out.println("Time 4: "+ stopWatch4.getTotalTimeMillis());
         return products;
     }
 
@@ -157,7 +178,7 @@ public class ProductServiceImplementation {
             productResponse.setSellerId(rs.getInt("seller_id"));
             productResponse.setCreatedAt(rs.getDate("created_at"));
             productResponse.setUpdatedAt(rs.getDate("updated_at"));
-            productResponse.setAverageRating(rs.getFloat("average_rating"));
+            productResponse.setAverageRating(rs.getBigDecimal("average_rating"));
             productResponse.setRatingCount(rs.getInt("rating_count"));
             String imageString= rs.getString("product_Images");
 

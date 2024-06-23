@@ -16,6 +16,25 @@ public class ProductResponse {
     private String createdAt;
     private String updatedAt;
     private int featured;
+    private double averageRating;
+    private int ratingCount;
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
     private List<String> productImages;
 
     private String imagepath;
@@ -154,6 +173,17 @@ public class ProductResponse {
         this.productDescription = productDescription;
         this.price = price;
         this.discountedPrice = discountedPrice;
+        this.imagepath = imagepath;
+    }
+
+    public ProductResponse(int productId, String productName, String productDescription, double price, double discountedPrice, double averageRating, int ratingCount, String imagepath) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+        this.discountedPrice = discountedPrice;
+        this.averageRating = averageRating;
+        this.ratingCount = ratingCount;
         this.imagepath = imagepath;
     }
 }

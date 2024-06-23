@@ -42,6 +42,16 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         holder.productPrice.setText("Rs. " +String.valueOf((int)product.getPrice()));
         holder.productDescription.setText(product.getProductDescription());
         holder.productDiscountedPrice.setText("Rs. " +String.valueOf((int)product.getDiscountedPrice()));
+        double averageRating = product.getAverageRating();
+        int ratingCount = product.getRatingCount();
+        TextView productRating = holder.productRating;
+
+        if (averageRating != 0 && ratingCount != 0) {
+            String ratingShow = averageRating + "⭐" + "(" + ratingCount + ")";
+            productRating.setText(ratingShow);
+        } else {
+            productRating.setText("");
+        }
         Picasso.get().load(product.getImagepath()).into(holder.productImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +79,14 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         TextView productPrice;
         TextView productDiscountedPrice;
         ImageView productImage;
+        TextView productRating;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.product_name1);
             productDescription = itemView.findViewById(R.id.product_description1);
             productPrice = itemView.findViewById(R.id.product_price1);
             productDiscountedPrice = itemView.findViewById(R.id.product_discounted_price1);
+            productRating=itemView.findViewById(R.id.productRating);
             productImage = itemView.findViewById(R.id.product_image1);
         }
     }

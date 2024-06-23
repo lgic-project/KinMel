@@ -2,6 +2,7 @@ package com.lagrandee.kinMel.bean.response;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 @Data
@@ -21,6 +22,6 @@ public class ProductResponse {
     private Date updatedAt;
     private int featured;
     private List<String> productImages;
-    private float averageRating;
+    private BigDecimal averageRating;
     private int ratingCount;
 }

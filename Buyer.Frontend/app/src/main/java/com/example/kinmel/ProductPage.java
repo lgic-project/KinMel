@@ -113,6 +113,11 @@ public class ProductPage extends AppCompatActivity {
                 float rating = ratingBar.getRating();
                 Log.d("Rating", "User rating: " + rating);
                 Log.d("Rating", "Product ID: " + productId);
+                if (rating==0){
+                    Toast.makeText(ProductPage.this, "Rating should be least 1 star", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    return;
+                }
 
                 JSONObject params = new JSONObject();
                 try {

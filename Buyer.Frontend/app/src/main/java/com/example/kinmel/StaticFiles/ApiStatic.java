@@ -50,19 +50,19 @@ public class ApiStatic {
 
 
     public static String FETCH_BRAND_WITH_PRICE_API(String query, String maxPrice) {
-        return String.format("http:////10.0.2.2:8080kinMel/products?brandName=%s&maxPrice=%d", query, maxPrice);
+        return String.format("http://10.0.2.2:8080/kinMel/products?brandName=%s&maxPrice=%d", query, maxPrice);
     }
 
     public static String FETCH_BRAND_API(String query) {
-        return String.format("http:////10.0.2.2:8080kinMel/products?brandName=%s", query);
+        return String.format("http://10.0.2.2:8080/kinMel/products?brandName=%s", query);
 
     }
 
     public static String FETCH_PRODUCT_NAME_WITH_PRICE_API(String query, String maxPrice) {
-        return String.format("http:////10.0.2.2:8080kinMel/products?productName=%s&maxPrice=%s", query, maxPrice);
+        return String.format("http://10.0.2.2:8080/kinMel/products?productName=%s&maxPrice=%s", query, maxPrice);
     }
 
     public static String FETCH_PRODUCT_NAME_API(String query) {
-        return String.format("http:////10.0.2.2:8080kinMel/products?productName=%s", query);
+        return String.format("http://10.0.2.2:8080/kinMel/products?productName=%s", query);
     }
 }
