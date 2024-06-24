@@ -37,4 +37,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.khalti:khalti-android:2.01.00")
+    implementation("com.google.android.material:material:1.7.0")
+    implementation ("com.android.volley:volley:1.2.1")
+    implementation("com.squareup.picasso:picasso:2.71828")
 }
