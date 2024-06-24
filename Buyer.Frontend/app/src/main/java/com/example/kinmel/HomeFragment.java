@@ -32,10 +32,12 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.kinmel.StaticFiles.ApiStatic;
+import com.example.kinmel.adapter.CategoryAdapter;
 import com.example.kinmel.adapter.MySingleton;
 import com.example.kinmel.adapter.ProductAdapterMain;
 import com.example.kinmel.adapter.ProductGridAdapter;
 import com.example.kinmel.adapter.SpaceItemDecoration;
+import com.example.kinmel.response.CategoryResponse;
 import com.example.kinmel.response.ProductResponse;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -48,13 +50,17 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private RecyclerView productContainer,productContainerForGrid;
+    private RecyclerView productContainer,productContainerForGrid,categoryContainer;
     private List<ProductResponse> productList = new ArrayList<>();
     private List<ProductResponse> productListForGrid = new ArrayList<>();
+    private List<CategoryResponse> categoryList = new ArrayList<>();
     private ProductAdapterMain productAdapter;
     private ProductGridAdapter productGridAdapter;
+
+    private CategoryAdapter categoryAdapter;
     private ShimmerFrameLayout shimmerViewContainer;
     private ShimmerFrameLayout shimmerViewContainer1;
+    private ShimmerFrameLayout shimmerViewContainer2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +69,7 @@ public class HomeFragment extends Fragment {
 
         shimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         shimmerViewContainer1 = view.findViewById(R.id.shimmer_view_container1);
+        shimmerViewContainer2 = view.findViewById(R.id.shimmer_view_category);
 
         EditText searchBox = view.findViewById(R.id.search_box);
         searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -84,11 +91,20 @@ public class HomeFragment extends Fragment {
         // Start shimmer effect when page starts
         shimmerViewContainer.startShimmer();
         shimmerViewContainer1.startShimmer();
+        shimmerViewContainer2.startShimmer();
+
+        categoryContainer=view.findViewById(R.id.categoryContainer);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        categoryContainer.setLayoutManager(layoutManager1);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        categoryContainer.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        categoryAdapter = new CategoryAdapter(getActivity(), categoryList);
+        categoryContainer.setAdapter(categoryAdapter);
 
         productContainer = view.findViewById(R.id.product_container);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         productContainer.setLayoutManager(layoutManager);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         productContainer.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
         productAdapter = new ProductAdapterMain(getActivity(), productList);
@@ -107,6 +123,7 @@ public class HomeFragment extends Fragment {
         fetchProducts();
         fetchSlider(view);
         fetchProductsForGrid();
+        fetchCategory();
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -133,6 +150,46 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void fetchCategory() {
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, ApiStatic.FETCH_ALL_CATEGORY_API, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray data = response.getJSONArray("data");
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject categoryObject = data.getJSONObject(i);
+                                int categoryId = categoryObject.getInt("category_id");
+                                String categoryName = categoryObject.getString("category_name");
+                                String categoryDescription = categoryObject.getString("category_description");
+                                String imagePath = ApiStatic.FETCH_PRODUCT_IMAGE_HOME_API+categoryObject.getString("imagePath");
+
+                                CategoryResponse category = new CategoryResponse(categoryId,categoryName,categoryDescription, imagePath);
+                                    Log.d("Category Name", imagePath);
+                                categoryList.add(category);
+                            }
+                            shimmerViewContainer2.stopShimmer();
+                            shimmerViewContainer2.setVisibility(View.GONE);
+                            categoryAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                    }
+                });
+
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void fetchProductsForGrid() {

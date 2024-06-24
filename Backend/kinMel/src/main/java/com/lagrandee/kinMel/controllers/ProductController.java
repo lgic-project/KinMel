@@ -74,4 +74,16 @@ public class ProductController {
         response.setData(specificProduct);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PreAuthorize("")
+    @GetMapping ("/product")
+    public  ResponseEntity<?> getProductByCategory(@RequestParam int categoryId){
+        List<ProductResponse> productByCategoryId = productServiceImplementation.getProductByCategoryId(categoryId);
+        SingleDataResponse<List<ProductResponse>> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(productByCategoryId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

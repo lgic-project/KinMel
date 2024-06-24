@@ -1,6 +1,5 @@
 package com.lagrandee.kinMel.service.implementation;
 
-
 import com.lagrandee.kinMel.KinMelCustomMessage;
 import com.lagrandee.kinMel.Repository.CategoryRepository;
 import com.lagrandee.kinMel.bean.request.CategoryRequest;
@@ -67,8 +66,6 @@ private final CategoryRepository categoryRepository;
             String imageUploadPath = null;
             String savedImagePath = null;
             if(categoryRequest.getCategoryImage()!=null) {
-
-
                 try {
                     try {
                         imageUploadPath = StaticPaths.getCategoryPath();

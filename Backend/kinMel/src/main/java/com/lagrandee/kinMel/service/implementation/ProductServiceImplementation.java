@@ -192,5 +192,35 @@ public class ProductServiceImplementation {
         });
     }
 
+    public List<ProductResponse> getProductByCategoryId(int categoryId) {
+        String sql = "{CALL GetProductByCategory(?)}";
+       return jdbcTemplate.query(sql,new Object[]{categoryId},(rs,rowName)->{
+           ProductResponse productResponse = new ProductResponse();
+           productResponse.setProductId(rs.getInt("product_id"));
+           productResponse.setProductName(rs.getString("product_name"));
+           productResponse.setProductDescription(rs.getString("product_description"));
+           productResponse.setCategoryName(rs.getString("category_name"));
+           productResponse.setBrand(rs.getString("brand"));
+           productResponse.setPrice( rs.getLong("price"));
+           productResponse.setDiscountedPrice(rs.getLong("discounted_price"));
+           productResponse.setStockQuantity(rs.getInt("stock_quantity"));
+           productResponse.setProductStatus(rs.getInt("product_status"));
+           productResponse.setFeatured(rs.getInt("featured"));
+           productResponse.setSellerId(rs.getInt("seller_id"));
+           productResponse.setCreatedAt(rs.getDate("created_at"));
+           productResponse.setUpdatedAt(rs.getDate("updated_at"));
+           productResponse.setAverageRating(rs.getBigDecimal("average_rating"));
+           productResponse.setRatingCount(rs.getInt("rating_count"));
+           String imageString= rs.getString("product_Images");
+
+           String[] imagePaths = imageString.split(",");
+
+           List<String> productImages = new ArrayList<>(Arrays.asList(imagePaths));
+
+           // Set the productImages list in productResponse
+           productResponse.setProductImages(productImages);
+           return productResponse;
+       });
+    }
 }
 

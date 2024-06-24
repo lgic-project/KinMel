@@ -109,6 +109,7 @@
             newimg.height = "300";
             newimg.classList.add("round-image");
             imagediv.appendChild(newimg);
+            console.log(image);
         }
 
         function submitForm() {
@@ -134,16 +135,16 @@
                 alert('Please select a valid image file.');
             }
 
-            if (image && image.type.startsWith('image/')) {
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                    var base64Image = reader.result.split(',')[1];
-                    sendData(title, description, base64Image);
-                };
-                reader.readAsDataURL(image);
-            } else {
-                alert('Please select a valid image file.');
-            }
+            // if (image && image.type.startsWith('image/')) {
+            //     var reader = new FileReader();
+            //     reader.onloadend = function () {
+            //         var base64Image = reader.result.split(',')[1];
+            //         sendData(title, description, base64Image);
+            //     };
+            //     reader.readAsDataURL(image);
+            // } else {
+            //     alert('Please select a valid image file.');
+            // }
         }
 
         function sendData(title, description, base64Image, imageFormat,categoryId) {
@@ -168,6 +169,7 @@
                             // Handle successful response
                             console.log('Category updated successfully');
                             window.location.href = 'addcategory.html';
+                            
                         } else {
                             // Handle error response
                             console.error('Failed to update category');

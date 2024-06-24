@@ -39,7 +39,7 @@ document.getElementById('signin-form').addEventListener('submit', function (even
         var xhr = new XMLHttpRequest();
         console.log(email);
         console.log(password);
-        xhr.open('GET', 'http://192.168.1.67:8080/kinMel/login?username=' + email + '&password=' + password);
+        xhr.open('GET', 'http://localhost:8080/kinMel/login?username=' + email + '&password=' + password);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {

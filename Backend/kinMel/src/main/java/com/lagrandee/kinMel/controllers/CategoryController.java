@@ -49,4 +49,5 @@ public class CategoryController {
         response.setData(categories);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 }

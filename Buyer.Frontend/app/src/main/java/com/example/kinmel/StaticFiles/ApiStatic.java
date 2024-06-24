@@ -18,11 +18,17 @@ public class ApiStatic {
         return String.format("http://10.0.2.2:8080/kinMel/product/%d", productId);
     }
 
+    public static String getProductByCategory(int categoryId) {
+        return String.format("http://10.0.2.2:8080/kinMel/product?categoryId=%d", categoryId);
+    }
+
+
     public static final String FETCH_SEARCH_API(String query) {
         return String.format("http://10.0.2.2:8080/kinMel/products?productName=%s", query);
     }
 
     public static final String FETCH_PRODUCT_HOME_API_GRID = "http://10.0.2.2:8080/kinMel/products?sortBy=New";
+    public static final String FETCH_ALL_CATEGORY_API = "http://10.0.2.2:8080/kinMel/categories";
     public static final String FETCH_PRODUCT_IMAGE_HOME_API = "http://10.0.2.2:8080/";
 
     public static final String GIVE_RATING_API = "http://10.0.2.2:8080/kinMel/ratings";
