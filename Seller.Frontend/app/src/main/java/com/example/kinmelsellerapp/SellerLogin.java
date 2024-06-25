@@ -10,7 +10,7 @@ public class SellerLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sellersignin);
+        setContentView(R.layout.sellerlogin);
 
         TextView gotoSignUpPage = findViewById(R.id.sign_up);
         gotoSignUpPage.setOnClickListener(new View.OnClickListener(){

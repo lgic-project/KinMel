@@ -65,8 +65,11 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/company_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
                 android:hint="Enter company name" />
 
 
@@ -83,9 +86,34 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/company_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPostalAddress"
                 android:hint="Enter address" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp" />
+
+            <!-- Address input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:alpha="0.7"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/company_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:hint="Enter email" />
+
+
 
             <!-- Space between elements -->
             <View
@@ -97,13 +125,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone Number"
+                android:inputType="phone"
                 android:alpha="0.7"
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/company_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
+                android:imeOptions="actionNext"
                 android:hint="Enter phone number" />
 
 
@@ -118,52 +149,39 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                >
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:id="@+id/passwordEditText"
-                    android:hint="Password" />
-
+                    android:imeOptions="actionNext"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="15dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Confirm Password"
-                android:alpha="0.7"
-                android:textStyle="bold" />
-
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/retypePasswordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                >
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/retype_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:id="@+id/passwordEditText"
-                    android:hint="Re-enter Password" />
-
+                    android:hint="Retype Password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Payment Method input -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Method"
-                android:alpha="0.7"
-                android:textStyle="bold" />
 
 <!--            <Spinner-->
 <!--                android:id="@+id/payment_method_spinner"-->
@@ -219,12 +237,12 @@
                 android:layout_height="15dp" />
 
             <!-- Sign Up button -->
-            <com.google.android.material.button.MaterialButton
+            <com.khalti.widget.KhaltiButton
+                android:id="@+id/kb_buy"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:backgroundTint="@color/my_primary"
-                android:text="Sign Up as Seller"
-                app:cornerRadius="32dp" />
+                app:text="Sign Up" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

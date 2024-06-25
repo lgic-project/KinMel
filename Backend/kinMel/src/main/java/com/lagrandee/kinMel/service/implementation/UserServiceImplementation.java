@@ -148,23 +148,6 @@ public class UserServiceImplementation implements UserService {
         roles.add(role);
         users.setRoles(roles);
         usersRepository.save(users);
-        if (usersRegisterDTO.getRole()==3) {
-
-            KhaltiPaymentRequest khaltiRequest = new KhaltiPaymentRequest();
-            khaltiRequest.setReturn_url("https://devkotasuman.com.np");
-            khaltiRequest.setWebsite_url("https://devkotasuman.com.np");
-            khaltiRequest.setAmount(1000);
-            khaltiRequest.setPurchase_order_id(String.valueOf(users.getId()));
-            khaltiRequest.setPurchase_order_name(users.getFirstName());
-            khaltiRequest.setCustomer_info(new KhaltiPaymentRequest.CustomerInfo(users.getFirstName(), "suman.yhhits@gmail.com", users.getPhoneNumber().toString()));
-            try {
-                KhaltiResponse khaltiResponse = khaltiPaymentService.initiatePayment(khaltiRequest);
-                return new ResponseEntity<>(khaltiResponse, HttpStatus.OK);
-            } catch (KhaltiPaymentException e) {
-                System.out.println("Khalti payment error: " + e.getMessage());
-                // Handle Khalti payment error
-            }
-        }
         KinMelCustomMessage customMessage=new KinMelCustomMessage(HttpStatus.OK.value(),"User Registration successful",System.currentTimeMillis());
         return new ResponseEntity<>(customMessage, HttpStatus.OK);
 
