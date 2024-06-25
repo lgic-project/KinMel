@@ -80,10 +80,5 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/navigation_bar"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>
