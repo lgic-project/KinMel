@@ -7,4 +7,5 @@ public class AppStatic {
     public static final String USER_REGISTRATION_API = "http://10.0.2.2:8080/kinMel/users/register";
     public static final String REGENERATE_OTP_API = "http://10.0.2.2:8080/kinMel/regenerate-otp";
     public static final String VERIFY_ACCOUNT_API = "http://10.0.2.2:8080/kinMel/verify-account";
+    public static final String LOGIN_ACCOUNT_API = "http://10.0.2.2:8080/kinMel/login";
 }

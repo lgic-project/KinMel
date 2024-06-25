@@ -79,6 +79,7 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/emailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -88,18 +89,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:alpha="0.7"
-                android:textStyle="bold"/>
-
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/password_icon"/>
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <RelativeLayout
@@ -107,18 +112,13 @@
                 android:layout_height="wrap_content">
 
                 <CheckBox
+                    android:id="@+id/rememberMe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Remember me"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I forgot my password?"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View
@@ -126,6 +126,7 @@
                 android:layout_height="10dp"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:backgroundTint="@color/my_primary"

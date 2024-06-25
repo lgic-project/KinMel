@@ -3,6 +3,7 @@ import com.lagrandee.kinMel.Repository.UsersRepository;
 import com.lagrandee.kinMel.bean.request.LoginRequest;
 import com.lagrandee.kinMel.bean.response.JwtResponse;
 import com.lagrandee.kinMel.entity.Users;
+import com.lagrandee.kinMel.exception.NotInsertedException;
 import com.lagrandee.kinMel.exception.UserNotVerified;
 import com.lagrandee.kinMel.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,10 @@ public class AuthController {
     @GetMapping("/kinMel/login")
     public ResponseEntity<?> authenticateUser(@RequestParam  String username,String password ) {
         Users users=usersRepository.findByEmail(username);
+        if (users==null){
+            throw new NotInsertedException("User not found");
+        }
+
         if (users.getActive()==1) {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             Users userDetails = (Users) authentication.getPrincipal();

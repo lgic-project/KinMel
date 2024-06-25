@@ -28,67 +28,92 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tvProfileSetting"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Profile Setting"
-                android:textSize="18sp"
-                android:clickable="true"
-                android:textStyle="bold"
-                android:padding="8dp"/>
-            <TextView
-                android:id="@+id/tvUpdatePassword"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_1"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/baseline_account_box_24"
+                android:textAlignment="viewStart"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUpdatePassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Update Password"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"/>
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_1"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/baseline_key_24"
+                android:textAlignment="viewStart"/>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tvNotificationSetting"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Notification Setting"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"/>
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_1"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/settings_24dp"
+                android:textAlignment="viewStart"/>
 
-            <TextView
-                android:id="@+id/tvPolicies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Policies"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"/>
-
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tvHelp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Help"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"/>
-
-            <TextView
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_1"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/sharp_approval_24"
+                android:textAlignment="viewStart"/>
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tvRequestAccountDeletion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Request Account Deletion"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"/>
-            <TextView
-                android:id="@+id/tvLogout"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_1"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/outline_auto_delete_24"
+                android:textAlignment="viewStart"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/tvLogout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Logout"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"/>
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_1"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/logout_24dp"
+                android:textAlignment="viewStart"/>
 
         </LinearLayout>
     </ScrollView>
