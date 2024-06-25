@@ -59,10 +59,6 @@ public class UserServiceImplementation implements UserService {
     private final JwtUtils jwtTokenProvider;
 
     private final AuthTokenFilter authTokenFilter;
-    private final KhaltiPaymentService khaltiPaymentService;
-
-
-
 
     @Override
     public Users getSpecificUserById(int id) {

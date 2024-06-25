@@ -51,6 +51,15 @@
                 android:text="Create a new seller account"
                 android:alpha="0.7" />
 
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/company_logo"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/bg_ebanking" />
+
+
             <!-- Space between elements -->
             <View
                 android:layout_width="wrap_content"
