@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".FragmentRequestCategory">
 
-    <!-- Title Section -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
@@ -16,9 +15,8 @@
         android:gravity="center"
         android:padding="16dp"
         android:background="@color/my_primary"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
-    <!-- Content Layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +28,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Field to Enter Category Name -->
             <EditText
                 android:id="@+id/etCategoryName"
                 android:layout_width="match_parent"
@@ -42,18 +39,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Purpose"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/btnSelectImage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Select Image"
+                    android:textColor="@color/white"
+                    android:background="@color/my_primary"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"/>
+
+                <ImageView
+                    android:id="@+id/ivSelectedImage"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/camera"
+                    android:contentDescription="Selected Image"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSubmitRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit Request"
-                android:backgroundTint="@color/my_secondary"
-                android:layout_marginTop="16dp"/>
-
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/gradient_button_background"
+                android:paddingVertical="14dp"
+                android:elevation="4dp"
+                android:layout_marginTop="16dp" />
         </LinearLayout>
     </ScrollView>
-
 
 </RelativeLayout>
