@@ -1,84 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/updateProfileLayout"
     android:layout_height="match_parent"
-    tools:context=".UpdateProfileActivity">
-
-    <RelativeLayout
-        android:id="@+id/headerLayout"
+    tools:context=".UpdateProfileActivity"
+    android:background="#ececec">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/my_secondary">
-
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/facebook"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/circle_background"/>
-
-
-        <Button
-            android:id="@+id/btnUpdateProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Update Profile"
-            android:layout_below="@id/profileImage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"/>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/profileDetailsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headerLayout"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:clickable="true"
-        android:focusable="true">
-
-        <EditText
-            android:id="@+id/etName"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"/>
-
-        <EditText
-            android:id="@+id/etBio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address"/>
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"/>
-
-        <EditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"/>
-
-        <EditText
-            android:id="@+id/etWebsite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Website"/>
-
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Update"/>
-
-    </LinearLayout>
+            android:orientation="vertical">
 
 
-</RelativeLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="409dp"
+                    android:layout_height="249dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/top_background" />
+                <View
+                    android:id="@+id/profileImage"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    android:scaleType="centerCrop"/>
+                <TextView
+                    android:id="@+id/tvName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading"
+                    android:layout_marginTop="16dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                    app:layout_constraintStart_toStartOf="@+id/profileImage"
+                    app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading..."
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvName1"
+                    app:layout_constraintStart_toStartOf="@+id/tvName1"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/profileDetailsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                <EditText
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:imeOptions="actionNext"
+                    android:hint="Name"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <EditText
+                    android:id="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPostalAddress"
+                    android:layout_height="wrap_content"
+                    android:hint="Address"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+                <EditText
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:inputType="phone"
+                    android:imeOptions="actionDone"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"/>
+
+                <Button
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Update"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

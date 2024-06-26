@@ -171,10 +171,12 @@ public class HomeFragment extends Fragment {
 
                                 CategoryResponse category = new CategoryResponse(categoryId,categoryName,categoryDescription, imagePath);
                                     Log.d("Category Name", imagePath);
-                                categoryList.add(category);
+                                // Add the category to the list
+                                    categoryList.add(category);
                             }
                             shimmerViewContainer2.stopShimmer();
                             shimmerViewContainer2.setVisibility(View.GONE);
+                            // Notify the adapter that the data has been fetched
                             categoryAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
 

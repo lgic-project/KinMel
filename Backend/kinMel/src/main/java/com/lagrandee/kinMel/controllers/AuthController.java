@@ -32,7 +32,6 @@ public class AuthController {
         if (users==null){
             throw new NotInsertedException("User not found");
         }
-
         if (users.getActive()==1) {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             Users userDetails = (Users) authentication.getPrincipal();

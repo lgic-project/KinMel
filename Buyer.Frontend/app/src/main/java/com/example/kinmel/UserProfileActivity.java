@@ -190,7 +190,6 @@ public class UserProfileActivity extends AppCompatActivity {
                             tvEmail.setText(response.getString("email"));
                             tvAddress.setText(response.getString("address"));
                             tvPhoneNumber.setText(response.getString("phoneNumber"));
-
                             String profilePicture = response.getString("profilePicture");
                             Log.d("ProfilePicture", profilePicture);
                             storedProfilePicture = profilePicture;

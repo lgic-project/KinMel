@@ -12,12 +12,10 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_help);
-
         CardView cardContactUs = findViewById(R.id.cardContactUs);
         CardView cardEmailUs = findViewById(R.id.cardEmailUs);
         CardView cardFAQ = findViewById(R.id.cardFAQ);
         CardView cardFeedback = findViewById(R.id.cardFeedback);
-
         cardContactUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
