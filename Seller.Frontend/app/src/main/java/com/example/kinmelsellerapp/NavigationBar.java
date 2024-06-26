@@ -29,14 +29,14 @@ public class NavigationBar extends AppCompatActivity {
 
                 int itemId = item.getItemId();
 
-                if (itemId == R.id.navAddProduct) {
-                    loadFragment(new FragmentAdd_Product(), false);
+                if (itemId == R.id.navListProduct) {
+                    loadFragment(new FragmentProductList(), false);
 
                 } else if (itemId == R.id.navAddCategory) {
                     loadFragment(new FragmentRequestCategory(), false);
 
-                } else if (itemId == R.id.navListProduct) {
-                    loadFragment(new FragmentProductList(), false);
+                } else if (itemId == R.id.navAddProduct) {
+                    loadFragment(new FragmentAdd_Product(), false);
 
                 } else { //nav Profile
                     loadFragment(new FragmentSettingsPage(), false);
@@ -47,7 +47,7 @@ public class NavigationBar extends AppCompatActivity {
             }
         });
 
-        loadFragment(new FragmentAdd_Product(), true);
+        loadFragment(new FragmentProductList(), true);
 
     }
 
