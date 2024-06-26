@@ -19,17 +19,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.example.kinmelsellerapp.Static.AppStatic;
 import com.example.kinmelsellerapp.Static.SharedPrefManager;
 import com.example.kinmelsellerapp.adapter.ViewPagerAdapter;
 import com.example.kinmelsellerapp.utils.CategoriesBottomSheetDialogFragment;
-import com.example.kinmelsellerapp.utils.DataPart;
-import com.example.kinmelsellerapp.utils.VolleyMultipartRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,9 +30,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -201,6 +191,7 @@ public class FragmentAdd_Product extends Fragment {
                             @Override
                             public void run() {
                                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                resetForm();
                             }
                         });
                     } catch (JSONException e) {
@@ -216,6 +207,19 @@ public class FragmentAdd_Product extends Fragment {
                 // Handle error
             }
         });
+    }
+
+    private void resetForm() {
+        productName.setText("");
+        productDescription.setText("");
+        productBrand.setText("");
+        productPrice.setText("");
+        productDiscountedPrice.setText("");
+        productStockQuantity.setText("");
+        categoryText.setText("");
+        categoryId = null;
+        chooseImageList.clear();
+        viewPager.setAdapter(null);
     }
 
 
