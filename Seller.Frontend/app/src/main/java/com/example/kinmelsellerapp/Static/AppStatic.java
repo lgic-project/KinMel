@@ -11,5 +11,6 @@ public class AppStatic {
     public static final String UPDATE_USER_PROFILE = "http://10.0.2.2:8080/kinMel/users";
     public static final String CHANGE_PASSWORD_URL = "http://10.0.2.2:8080/kinMel/users/changepassword";
     public static final String FETCH_CATEGORIES = "http://10.0.2.2:8080/kinMel/categories";
+    public static final String ADD_PRODUCTS = "http://10.0.2.2:8080/kinMel/products";
 
 }
