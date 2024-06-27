@@ -3,6 +3,7 @@ package com.lagrandee.kinMel.controllers;
 import com.lagrandee.kinMel.bean.request.CategoryRequest;
 import com.lagrandee.kinMel.bean.response.CategoryResponse;
 import com.lagrandee.kinMel.bean.response.ResponseWithStatus;
+import com.lagrandee.kinMel.bean.response.SingleDataResponse;
 import com.lagrandee.kinMel.bean.response.SingleResponseWithStatus;
 import com.lagrandee.kinMel.service.implementation.CategoryServiceImplementation;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,20 @@ public class CategoryController {
     public ResponseEntity<?> createCategory(@RequestBody CategoryRequest categoryRequest) {
         return categoryServiceImplementation.insertNewCategory(categoryRequest.getCategoryName(), categoryRequest.getCategoryDescription(),categoryRequest.getCategoryImage(),categoryRequest.getImageFormat());
     }
+
+
+    @PreAuthorize("hasRole('Seller')")
+    @PostMapping("/categories/request")
+    public ResponseEntity<?> requestCategory(@RequestBody CategoryRequest categoryRequest){
+        String result = categoryServiceImplementation.requestNewCategory(categoryRequest.getCategoryName(), categoryRequest.getCategoryDescription(), categoryRequest.getCategoryImage(), categoryRequest.getImageFormat());
+        SingleDataResponse<String> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(result);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
 
     @PreAuthorize("hasRole('Admin')")
     @PutMapping("/categories/{categoryId}")

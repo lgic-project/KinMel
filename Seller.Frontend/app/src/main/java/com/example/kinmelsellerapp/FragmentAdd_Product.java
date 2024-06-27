@@ -85,6 +85,7 @@ public class FragmentAdd_Product extends Fragment {
                 CategoriesBottomSheetDialogFragment bottomSheet = new CategoriesBottomSheetDialogFragment();
                 bottomSheet.setOnCategorySelectedListener(selectedCategory -> {
                     categoryText.setText(selectedCategory.getName());
+                    categoryText.setVisibility(View.VISIBLE);
                     Log.d("CategorySelection", "Selected category id: " + selectedCategory.getId());
                     categoryId = selectedCategory.getId();
                 });

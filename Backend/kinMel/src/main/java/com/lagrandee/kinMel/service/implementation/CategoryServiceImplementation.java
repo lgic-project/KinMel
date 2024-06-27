@@ -109,5 +109,41 @@ private final CategoryRepository categoryRepository;
             return categoryResponse;
         });
     }
+
+    public String requestNewCategory(String categoryName, String categoryDescription, String categoryImage, String imageFormat) {
+
+        String imageUploadPath= null;
+        String savedImagePath=null;
+
+        try {
+            try {
+                imageUploadPath = StaticPaths.getCategoryPath();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (categoryImage != null && !categoryImage.isEmpty()) {
+                try {
+                    savedImagePath = ImageUtils.saveDecodedImage(categoryImage, imageUploadPath,imageFormat,"category/");
+                } catch (IOException e) {
+                    throw new RuntimeException("Image cannot be saved");
+                }
+            }
+            if (savedImagePath == null) {
+                savedImagePath=StaticPaths.getProfileDefaultPath();
+            }
+
+            String categoryRequestQuery = "INSERT INTO category_request(category_request_name,category_request_description,category_request_image_path) VALUES (?, ?, ?)";
+            int insert = jdbcTemplate.update(categoryRequestQuery, categoryName, categoryDescription, savedImagePath);
+//            String categoryRequestQuery = categoryRepository.insertNewCategory(categoryName, categoryDescription,savedImagePath);
+            if (insert > 0) {
+                return "Category Requested Sucessfully";
+            } else {
+                throw new NotInsertedException("Category insertion failed");
+            }
+        } catch (Exception e) {
+            throw new NotInsertedException("Category insertion failed: "+ e.getMessage());
+        }
     }
+}
 
