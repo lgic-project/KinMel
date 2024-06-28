@@ -34,9 +34,9 @@ public class FragmentProductList extends Fragment {
 
     private List<Order> getOrders() {
        List<Order> orders = new ArrayList<>();
-         orders.add(new Order("1", "Product 1", 1, "Person 1", "Address 1", "1234567890", "imagePath1", 100, "Khalti"));
-         orders.add(new Order("2", "Product 2", 2, "Person 2", "Address 2", "1234567890", "imagePath2", 200, "Cash On Delivery"));
-            orders.add(new Order("3", "Product 3", 3, "Person 3", "Address 3", "1234567890", "imagePath3", 300, "Khalti"));
+         orders.add(new Order("1", "hello","Product 1", 1, "Person 1", "Address 1", "1234567890", "imagePath1", 100, "Khalti"));
+         orders.add(new Order("2", "hello","Product 2", 2, "Person 2", "Address 2", "1234567890", "imagePath2", 200, "Cash On Delivery"));
+            orders.add(new Order("3","hello","Product 3", 3, "Person 3", "Address 3", "1234567890", "imagePath3", 300, "Khalti"));
             return orders;
     }
 }

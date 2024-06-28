@@ -3,6 +3,7 @@ package com.example.kinmelsellerapp.request;
 public class Order {
 
         private String orderId;
+        private String address1;
         private String productName;
         private int quantity;
         private String personName;
@@ -13,8 +14,9 @@ public class Order {
         private int  Price;
         private String paymentStatus;
 
-    public Order(String orderId, String productName, int quantity, String personName, String address, String phoneNumber, String imagePath, int price, String paymentStatus) {
+    public Order(String orderId, String address1, String productName, int quantity, String personName, String address, String phoneNumber, String imagePath, int price, String paymentStatus) {
         this.orderId = orderId;
+        this.address1 = address1;
         this.productName = productName;
         this.quantity = quantity;
         this.personName = personName;
@@ -23,6 +25,14 @@ public class Order {
         this.imagePath = imagePath;
         Price = price;
         this.paymentStatus = paymentStatus;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
     }
 
     public String getOrderId() {

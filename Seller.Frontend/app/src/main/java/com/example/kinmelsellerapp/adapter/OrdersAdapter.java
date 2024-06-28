@@ -40,12 +40,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
                 TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
                 discLayout.setVisibility(View.VISIBLE);
                 motherLayout.setBackgroundColor(Color.parseColor("#724CAF50"));
-                arrowImg.setImageResource(R.drawable.baseline_key_24);
+                arrowImg.setImageResource(R.drawable.down);
             } else {
                 TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
                 discLayout.setVisibility(View.GONE);
                 motherLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                arrowImg.setImageResource(R.drawable.camera);
+                arrowImg.setImageResource(R.drawable.up);
             }
         });
 
@@ -59,6 +59,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = orders.get(position);
         // Set the data to the views here
         // For example:
+        holder.address1.setText(order.getAddress1());
          holder.orderProductName.setText(order.getProductName());
          holder.orderProductQuantity.setText(String.valueOf(order.getQuantity()));
          holder.orderProductImage.setImageResource(R.drawable.ic_launcher_background);
@@ -76,11 +77,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView orderProductImage;
         TextView orderProductName,orderProductName1;
+        TextView address1;
         TextView orderProductQuantity;
         Button orderAccept;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            address1 = itemView.findViewById(R.id.address1);
             orderProductImage = itemView.findViewById(R.id.orderProductImage);
             orderProductName = itemView.findViewById(R.id.orderProductName);
             orderProductName1 = itemView.findViewById(R.id.orderProductName1);

@@ -1,92 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/motherLayout"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:padding="16dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    tools:context=".OrderDetailsActivity">
 
-
-<!--    heading-->
-    <RelativeLayout
-        android:id="@+id/itemClicked"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/orderProductImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/logout_24dp" />
-
-        <LinearLayout
-            android:id="@+id/titleLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@id/arrowImg"
-            android:layout_toEndOf="@+id/orderProductImage"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/orderProductName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Order Name:....."
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/orderProductQuantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="12"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/arrowImg"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/done_icon" />
-
-    </RelativeLayout>
-
-<!--    body-->
     <LinearLayout
-
-        android:id="@+id/discLayout"
+        android:id="@+id/motherLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/orderProductName1"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:id="@+id/itemClicked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Suman Devkota"
-            android:layout_marginTop="5dp"
-            android:textColor="@android:color/black"
-            android:fontFamily="serif"
-            android:textAlignment="center"
-            android:padding="5dp"
-            android:textSize="16sp"
-            />
-        <Button
-            android:layout_width="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/orderProductImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                app:srcCompat="@drawable/logout_24dp" />
+
+            <LinearLayout
+                android:id="@+id/titleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/orderProductImage"
+                android:layout_toStartOf="@id/arrowImg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/orderProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Name:..."
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orderProductQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="12"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrowImg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/down" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/discLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Accept"
-            android:id="@+id/acceptButton"
-            android:layout_marginTop="5dp"/>
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/orderProductName1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+
+                    android:fontFamily="serif" />
+
+                <TextView
+                    android:id="@+id/orderHelloAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:fontFamily="serif" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:id="@+id/orderProductAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:fontFamily="serif" />
+
+                <TextView
+                    android:id="@+id/orderProductQuantityDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quantity: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:fontFamily="serif" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/orderProductPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Phone Number:"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:fontFamily="serif" />
+
+
+                <TextView
+                    android:id="@+id/address1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:fontFamily="serif" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/orderProductQuantityDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quantity: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:fontFamily="serif" />
+
+
+                <TextView
+                    android:id="@+id/address1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:fontFamily="serif" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/orderProductAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Amount: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:fontFamily="serif" />
+
+
+                <TextView
+                    android:id="@+id/address1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:fontFamily="serif" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/orderProductPaymentMethod"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Payment Method:"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:fontFamily="serif" />
+
+
+                <TextView
+                    android:id="@+id/address1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address: "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:fontFamily="serif" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/acceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deliver"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:backgroundTint="@color/my_primary"
+                android:textColor="@android:color/white"
+                android:elevation="4dp"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
