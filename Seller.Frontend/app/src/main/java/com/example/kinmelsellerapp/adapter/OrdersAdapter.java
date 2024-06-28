@@ -1,62 +1,91 @@
 package com.example.kinmelsellerapp.adapter;
-
-import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.transition.TransitionManager;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import android.transition.AutoTransition;
+import com.example.kinmelsellerapp.R;
+import com.example.kinmelsellerapp.request.Order;
 
 import java.util.List;
 
-public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
+public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Order> ordersList;
+    private List<Order> orders;
 
-    public OrdersAdapter(Context context, List<Order> ordersList) {
-        this.context = context;
-        this.ordersList = ordersList;
+    public OrdersAdapter(List<Order> orders) {
+        this.orders = orders;
     }
 
     @NonNull
     @Override
-    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.orders_item_order, parent, false);
-        return new OrderViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.incoming_orders, parent, false);
+        LinearLayout motherLayout = view.findViewById(R.id.motherLayout);
+        RelativeLayout itemClicked = view.findViewById(R.id.itemClicked);
+        ImageView arrowImg = view.findViewById(R.id.arrowImg);
+        LinearLayout discLayout = view.findViewById(R.id.discLayout);
+
+        itemClicked.setOnClickListener(v -> {
+            if (discLayout.getVisibility() == View.GONE){
+                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
+                discLayout.setVisibility(View.VISIBLE);
+                motherLayout.setBackgroundColor(Color.parseColor("#724CAF50"));
+                arrowImg.setImageResource(R.drawable.baseline_key_24);
+            } else {
+                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
+                discLayout.setVisibility(View.GONE);
+                motherLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                arrowImg.setImageResource(R.drawable.camera);
+            }
+        });
+
+
+        return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = ordersList.get(position);
-        holder.textOrderId.setText("Order ID: " + order.getId());
-        holder.textCustomerName.setText("Customer: " + order.getCustomerName());
-        holder.textOrderDate.setText("Date: " + order.getOrderDate());
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, OrderDetailsActivity.class);
-            intent.putExtra("ORDER_ID", order.getId());
-            context.startActivity(intent);
-        });
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Order order = orders.get(position);
+        // Set the data to the views here
+        // For example:
+         holder.orderProductName.setText(order.getProductName());
+         holder.orderProductQuantity.setText(String.valueOf(order.getQuantity()));
+         holder.orderProductImage.setImageResource(R.drawable.ic_launcher_background);
+         holder.orderProductName1.setText(order.getProductName());
+         holder.orderAccept.setOnClickListener(v -> {
+             Log.d("Order", "Order Accepted"+order.getOrderId());
+         });
     }
 
     @Override
     public int getItemCount() {
-        return ordersList.size();
+        return orders.size();
     }
 
-    public static class OrderViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView orderProductImage;
+        TextView orderProductName,orderProductName1;
+        TextView orderProductQuantity;
+        Button orderAccept;
 
-        TextView textOrderId, textCustomerName, textOrderDate;
-
-        public OrderViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textOrderId = itemView.findViewById(R.id.text_order_id);
-            textCustomerName = itemView.findViewById(R.id.text_customer_name);
-            textOrderDate = itemView.findViewById(R.id.text_order_date);
+            orderProductImage = itemView.findViewById(R.id.orderProductImage);
+            orderProductName = itemView.findViewById(R.id.orderProductName);
+            orderProductName1 = itemView.findViewById(R.id.orderProductName1);
+            orderProductQuantity = itemView.findViewById(R.id.orderProductQuantity);
+            orderAccept = itemView.findViewById(R.id.acceptButton);
         }
     }
 }
