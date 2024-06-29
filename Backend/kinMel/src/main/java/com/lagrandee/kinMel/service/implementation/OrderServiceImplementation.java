@@ -2,6 +2,7 @@ package com.lagrandee.kinMel.service.implementation;
 
 import com.lagrandee.kinMel.bean.request.CartItem;
 import com.lagrandee.kinMel.bean.request.Order;
+import com.lagrandee.kinMel.bean.response.OrderDeliverResponse;
 import com.lagrandee.kinMel.bean.response.OrderResponse;
 import com.lagrandee.kinMel.exception.NotInsertedException;
 import com.lagrandee.kinMel.security.LoggedUser;
@@ -121,6 +122,39 @@ public class OrderServiceImplementation {
         return null;
     }
 
+    public List<OrderDeliverResponse> getUnDeliverOrderOfSellerById(HttpServletRequest request) {
+        try{
+            Integer sellerId=LoggedUser.findUser().getUserId();
+            String query= """
+                    SELECT oi.order_item_id,oi.order_id,p.product_name,oi.quantity,
+                        oi.total_price,oi.order_Status,o.name,o.address,o.phone_number,
+                        o.payment_method,
+                        SUBSTRING(
+                            STRING_AGG(COALESCE(pi.product_image_path, ''), ', '),
+                            1,
+                            CHARINDEX(',', STRING_AGG(COALESCE(pi.product_image_path, ''), ', ')) - 1
+                        ) AS product_image_path
+                    FROM\s
+                        order_items oi
+                        INNER JOIN ORDERS o ON oi.order_id = o.order_id
+                        INNER JOIN products p ON p.product_id = oi.product_id
+                        INNER JOIN product_images pi ON pi.product_id = oi.product_id
+                    WHERE\s
+                        oi.order_Status = 'Pending' AND p.seller_id = (:sellerId)
+                    GROUP BY oi.order_item_id,oi.order_id,p.product_name,oi.quantity,oi.total_price,
+                        oi.order_Status, o.name, o.address, o.phone_number, o.payment_method
+                    """;
+            MapSqlParameterSource params = new MapSqlParameterSource().addValue("sellerId", sellerId);
+            List<OrderDeliverResponse> orderDeliverResponses = namedParameterJdbcTemplate.query(query, params, new OrderDeliveryResponseMapper());
+            return orderDeliverResponses;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+        return null;
+
+    }
+
     private static class CartItemMapper implements RowMapper<CartItem> {
         @Override
         public CartItem mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -146,9 +180,25 @@ public class OrderServiceImplementation {
             orderResponse.setImagePath(rs.getString("product_image_path"));
             return orderResponse;
         }
+    }
+    private static  class OrderDeliveryResponseMapper implements RowMapper<OrderDeliverResponse>{
 
-
-
+        @Override
+        public OrderDeliverResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
+            OrderDeliverResponse orderDeliverResponse=new OrderDeliverResponse();
+            orderDeliverResponse.setEachItemOrderId(rs.getInt("order_item_id"));
+            orderDeliverResponse.setGroupOrderId(rs.getInt("order_id"));
+            orderDeliverResponse.setProductName(rs.getString("product_name"));
+            orderDeliverResponse.setQuantity(rs.getInt("quantity"));
+            orderDeliverResponse.setTotalPrice(rs.getInt("total_price"));
+            orderDeliverResponse.setOrderStatus(rs.getString("order_Status"));
+            orderDeliverResponse.setOrderPersonName(rs.getString("name"));
+            orderDeliverResponse.setOrderPersonAddress(rs.getString("address"));
+            orderDeliverResponse.setOrderPersonPhoneNumber(rs.getString("phone_number"));
+            orderDeliverResponse.setPaymentMethod(rs.getString("payment_method"));
+            orderDeliverResponse.setImagePath(rs.getString("product_image_path"));
+            return orderDeliverResponse;
+        }
     }
 
 }

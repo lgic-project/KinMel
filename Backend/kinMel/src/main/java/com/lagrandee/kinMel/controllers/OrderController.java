@@ -1,5 +1,6 @@
 package com.lagrandee.kinMel.controllers;
 import com.lagrandee.kinMel.bean.request.Order;
+import com.lagrandee.kinMel.bean.response.OrderDeliverResponse;
 import com.lagrandee.kinMel.bean.response.OrderResponse;
 import com.lagrandee.kinMel.bean.response.SingleDataResponse;
 import com.lagrandee.kinMel.service.implementation.OrderServiceImplementation;
@@ -47,5 +48,17 @@ public class OrderController {
         return new ResponseEntity<>(response,HttpStatus.OK);
 
     }
+
+    @PreAuthorize("hasRole('Seller')")
+    @GetMapping("/orders")
+    public ResponseEntity<?> getUnDeliveredOrderOfSeller(HttpServletRequest request){
+        List<OrderDeliverResponse> unDeliverOrderOfSellerById = orderServiceImplementation.getUnDeliverOrderOfSellerById(request);
+        SingleDataResponse<List<OrderDeliverResponse>> response=new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.toString());
+        response.setData(unDeliverOrderOfSellerById);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
 
 }
