@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +38,7 @@ public class FragmentProductList extends Fragment {
    private OrdersAdapter ordersAdapter;
     private SharedPrefManager sharedPrefManager;
     private String token;
+    private  TextView empty_view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +48,7 @@ public class FragmentProductList extends Fragment {
         RecyclerView rvOrders = view.findViewById(R.id.orderContainer);
         rvOrders.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         sharedPrefManager = SharedPrefManager.getInstance(getActivity().getApplicationContext());
+         empty_view= view.findViewById(R.id.empty_view);
         token = sharedPrefManager.getToken();
        orders = new ArrayList<>();
        ordersAdapter = new OrdersAdapter(orders);
@@ -101,6 +104,9 @@ public class FragmentProductList extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         // Display a simple toast message
+
+                      empty_view.setVisibility(View.VISIBLE);
+
                         Toast.makeText(getActivity().getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

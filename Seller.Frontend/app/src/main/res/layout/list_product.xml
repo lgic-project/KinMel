@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentProductList">
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Failed to fetch orders"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -26,6 +34,7 @@
             android:id="@+id/orderContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </ScrollView>
 
 
