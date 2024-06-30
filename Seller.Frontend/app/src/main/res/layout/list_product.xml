@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Product List"
+        android:text="Order List"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"

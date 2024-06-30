@@ -2,45 +2,47 @@ package com.example.kinmelsellerapp.request;
 
 public class Order {
 
-        private String orderId;
-        private String address1;
+        private int orderId;
+        private int groupOrderId;
         private String productName;
         private int quantity;
+        private int  price;
         private String personName;
-
-        private String address;
-        private String phoneNumber;
+        private String personAddress;
+        private String personPhoneNumber;
+        private String paymentMethod;
         private String imagePath;
-        private int  Price;
-        private String paymentStatus;
 
-    public Order(String orderId, String address1, String productName, int quantity, String personName, String address, String phoneNumber, String imagePath, int price, String paymentStatus) {
+    public Order() {
+    }
+
+    public Order(int orderId, int groupOrderId, String productName, int quantity, int price, String personName, String personAddress, String personPhoneNumber, String paymentMethod, String imagePath) {
         this.orderId = orderId;
-        this.address1 = address1;
+        this.groupOrderId = groupOrderId;
         this.productName = productName;
         this.quantity = quantity;
+        this.price = price;
         this.personName = personName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+        this.personAddress = personAddress;
+        this.personPhoneNumber = personPhoneNumber;
+        this.paymentMethod = paymentMethod;
         this.imagePath = imagePath;
-        Price = price;
-        this.paymentStatus = paymentStatus;
     }
 
-    public String getAddress1() {
-        return address1;
-    }
-
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public int getGroupOrderId() {
+        return groupOrderId;
+    }
+
+    public void setGroupOrderId(int groupOrderId) {
+        this.groupOrderId = groupOrderId;
     }
 
     public String getProductName() {
@@ -59,6 +61,14 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public String getPersonName() {
         return personName;
     }
@@ -67,20 +77,28 @@ public class Order {
         this.personName = personName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPersonAddress() {
+        return personAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPersonAddress(String personAddress) {
+        this.personAddress = personAddress;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPersonPhoneNumber() {
+        return personPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPersonPhoneNumber(String personPhoneNumber) {
+        this.personPhoneNumber = personPhoneNumber;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public String getImagePath() {
@@ -90,23 +108,4 @@ public class Order {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-
-    public int getPrice() {
-        return Price;
-    }
-
-    public void setPrice(int price) {
-        Price = price;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-    // Add more fields as needed
-
-        // Constructor, getters and setters
 }

@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.transition.AutoTransition;
 import com.example.kinmelsellerapp.R;
+import com.example.kinmelsellerapp.Static.AppStatic;
 import com.example.kinmelsellerapp.request.Order;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,15 +39,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
         itemClicked.setOnClickListener(v -> {
             if (discLayout.getVisibility() == View.GONE){
-                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
-                discLayout.setVisibility(View.VISIBLE);
-                motherLayout.setBackgroundColor(Color.parseColor("#724CAF50"));
-                arrowImg.setImageResource(R.drawable.down);
-            } else {
-                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
-                discLayout.setVisibility(View.GONE);
-                motherLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 arrowImg.setImageResource(R.drawable.up);
+//                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
+                discLayout.setVisibility(View.VISIBLE);
+//                motherLayout.setBackgroundColor(Color.parseColor("#724CAF50"));
+            } else {
+                arrowImg.setImageResource(R.drawable.down);
+//                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
+                discLayout.setVisibility(View.GONE);
+//                motherLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
         });
 
@@ -59,11 +61,17 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = orders.get(position);
         // Set the data to the views here
         // For example:
-        holder.address1.setText(order.getAddress1());
-         holder.orderProductName.setText(order.getProductName());
-         holder.orderProductQuantity.setText(String.valueOf(order.getQuantity()));
-         holder.orderProductImage.setImageResource(R.drawable.ic_launcher_background);
-         holder.orderProductName1.setText(order.getProductName());
+        holder.orderHeadingProductQuantity.setText(String.valueOf(order.getQuantity()));
+        holder.orderProductHeadingName.setText(order.getProductName());
+        Picasso.get().load(AppStatic.FETCH_PRODUCT_IMAGE_HOME_API + order.getImagePath()).into(holder.orderProductImage);
+        holder.orderProductNameValue.setText(order.getProductName());
+        holder.orderIdValue.setText(String.valueOf(order.getGroupOrderId()));
+        holder.orderPersonNameValue.setText(order.getPersonName());
+        holder.orderAddressValue.setText(order.getPersonAddress());
+        holder.orderProductPhoneValue.setText(order.getPersonPhoneNumber());
+        holder.orderProductQuantityValue.setText(String.valueOf(order.getQuantity()));
+        holder.orderProductAmountValue.setText("Rs. "+String.valueOf(order.getPrice()));
+        holder.orderProductPaymentMethodValue.setText(order.getPaymentMethod());
          holder.orderAccept.setOnClickListener(v -> {
              Log.d("Order", "Order Accepted"+order.getOrderId());
          });
@@ -75,19 +83,26 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView orderHeadingProductQuantity,orderProductHeadingName;
         ImageView orderProductImage;
-        TextView orderProductName,orderProductName1;
-        TextView address1;
-        TextView orderProductQuantity;
+       TextView orderProductNameValue,orderIdValue,orderPersonNameValue,orderAddressValue,orderProductPhoneValue;
+        TextView orderProductQuantityValue,orderProductAmountValue,orderProductPaymentMethodValue;
         Button orderAccept;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            address1 = itemView.findViewById(R.id.address1);
+            orderHeadingProductQuantity = itemView.findViewById(R.id.orderHeadingProductQuantity);
+            orderProductHeadingName = itemView.findViewById(R.id.orderProductHeadingName);
             orderProductImage = itemView.findViewById(R.id.orderProductImage);
-            orderProductName = itemView.findViewById(R.id.orderProductName);
-            orderProductName1 = itemView.findViewById(R.id.orderProductName1);
-            orderProductQuantity = itemView.findViewById(R.id.orderProductQuantity);
+            orderProductNameValue = itemView.findViewById(R.id.orderProductNameValue);
+            orderIdValue = itemView.findViewById(R.id.orderIdValue);
+            orderPersonNameValue = itemView.findViewById(R.id.orderPersonNameValue);
+            orderAddressValue = itemView.findViewById(R.id.orderAddressValue);
+            orderProductPhoneValue = itemView.findViewById(R.id.orderProductPhoneValue);
+            orderProductQuantityValue = itemView.findViewById(R.id.orderProductQuantityValue);
+            orderProductAmountValue = itemView.findViewById(R.id.orderProductAmountValue);
+            orderProductPaymentMethodValue = itemView.findViewById(R.id.orderProductPaymentMethodValue);
             orderAccept = itemView.findViewById(R.id.acceptButton);
         }
     }
