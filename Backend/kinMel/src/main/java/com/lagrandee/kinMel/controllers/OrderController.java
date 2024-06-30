@@ -60,5 +60,16 @@ public class OrderController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('Seller')")
+    @PutMapping ("/orders")
+    public ResponseEntity<?> markOrderDelivery(@RequestParam Integer orderItemId){
+        String result = orderServiceImplementation.markOrderAsDeliver(orderItemId);
+        SingleDataResponse<String> response=new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.toString());
+        response.setData(result);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
 
 }

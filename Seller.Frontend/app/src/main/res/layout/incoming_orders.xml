@@ -123,7 +123,8 @@
                     android:textColor="@color/my_primary"
                     android:textSize="14sp"
                     android:padding="4dp"
-                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:textAlignment="textStart"
                     android:fontFamily="serif" />
 
             </LinearLayout>
@@ -186,8 +187,9 @@
                     android:text="Address: "
                     android:textColor="@color/my_primary"
                     android:textSize="14sp"
+                    android:layout_marginLeft="20dp"
                     android:padding="4dp"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:fontFamily="serif" />
 
             </LinearLayout>
@@ -251,7 +253,8 @@
                     android:textColor="@color/my_primary"
                     android:textSize="14sp"
                     android:padding="4dp"
-                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:textAlignment="textStart"
                     android:fontFamily="serif" />
 
             </LinearLayout>
@@ -310,7 +313,8 @@
                     android:textColor="@color/my_primary"
                     android:textSize="14sp"
                     android:padding="4dp"
-                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:textAlignment="textStart"
                     android:fontFamily="serif" />
 
             </LinearLayout>

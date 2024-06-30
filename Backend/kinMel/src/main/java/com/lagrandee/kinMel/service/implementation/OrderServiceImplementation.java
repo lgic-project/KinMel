@@ -155,6 +155,17 @@ public class OrderServiceImplementation {
 
     }
 
+    public String markOrderAsDeliver(Integer orderItemId) {
+        String query= """
+                update order_items set order_Status='Delivered' where order_item_id=?
+                """;
+        int update = jdbcTemplate.update(query, orderItemId);
+        if (update>0){
+            return "Delivered Successfully";
+        }
+        return "Failed to update";
+    }
+
     private static class CartItemMapper implements RowMapper<CartItem> {
         @Override
         public CartItem mapRow(ResultSet rs, int rowNum) throws SQLException {

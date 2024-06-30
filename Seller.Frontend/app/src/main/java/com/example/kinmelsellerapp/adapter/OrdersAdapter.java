@@ -1,4 +1,5 @@
 package com.example.kinmelsellerapp.adapter;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.transition.TransitionManager;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import android.transition.AutoTransition;
 import com.example.kinmelsellerapp.R;
@@ -59,8 +61,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orders.get(position);
-        // Set the data to the views here
-        // For example:
         holder.orderHeadingProductQuantity.setText(String.valueOf(order.getQuantity()));
         holder.orderProductHeadingName.setText(order.getProductName());
         Picasso.get().load(AppStatic.FETCH_PRODUCT_IMAGE_HOME_API + order.getImagePath()).into(holder.orderProductImage);
@@ -73,7 +73,26 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         holder.orderProductAmountValue.setText("Rs. "+String.valueOf(order.getPrice()));
         holder.orderProductPaymentMethodValue.setText(order.getPaymentMethod());
          holder.orderAccept.setOnClickListener(v -> {
-             Log.d("Order", "Order Accepted"+order.getOrderId());
+
+             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+             builder.setTitle("Delivery Confirmation");
+             builder.setMessage("Do you want to deliver the product?");
+             builder.setPositiveButton("Deliver", new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                     Log.d("Order", "Product Delivered: " + order.getOrderId());
+                 }
+             });
+             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                     // Dismiss the dialog
+                     dialog.dismiss();
+                 }
+             });
+             AlertDialog dialog = builder.create();
+             dialog.show();
          });
     }
 
