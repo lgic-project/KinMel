@@ -92,9 +92,14 @@ public class FragmentProductList extends Fragment {
 
                                 orders.add(order);
                             }
-
-                            // Notify the adapter that the data set has changed
+                            if (orders.isEmpty()) {
+                                empty_view.setText("No Orders Found");
+                                empty_view.setVisibility(View.VISIBLE);
+                            }
+                            else{
                             ordersAdapter.notifyDataSetChanged();
+                            }
+                            // Notify the adapter that the data set has changed
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -104,7 +109,7 @@ public class FragmentProductList extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         // Display a simple toast message
-
+                        empty_view.setText("Error fetching orders");
                       empty_view.setVisibility(View.VISIBLE);
 
                         Toast.makeText(getActivity().getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();

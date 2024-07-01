@@ -1,12 +1,13 @@
 package com.example.kinmelsellerapp;
 
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -17,9 +18,9 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.example.kinmelsellerapp.Static.AppStatic;
 import com.example.kinmelsellerapp.Static.SharedPrefManager;
 import com.example.kinmelsellerapp.adapter.ViewPagerAdapter;
@@ -52,7 +53,7 @@ public class FragmentAdd_Product extends Fragment {
     private Integer categoryId;
     private  String token;
     private SharedPrefManager sharedPrefManager;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private EditText productName, productDescription,productBrand,productPrice,productDiscountedPrice, productStockQuantity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +74,7 @@ public class FragmentAdd_Product extends Fragment {
         addProduct= view.findViewById(R.id.addProduct);
         sharedPrefManager = SharedPrefManager.getInstance(getContext());
          token = sharedPrefManager.getToken();
-        progressDialog = new ProgressDialog(getActivity().getApplicationContext());
-        progressDialog.setMessage("Adding Product...");
+        progressBar = view.findViewById(R.id.progressBar);
         chooseImageList = new ArrayList<>();
         pickImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +100,7 @@ public class FragmentAdd_Product extends Fragment {
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               addProductWithValidation();
+                addProductWithValidation();
             }
         });
 
@@ -112,16 +112,18 @@ public class FragmentAdd_Product extends Fragment {
                 productBrand.getText().toString().isEmpty() || productPrice.getText().toString().isEmpty() ||
                 productDiscountedPrice.getText().toString().isEmpty() || productStockQuantity.getText().toString().isEmpty() ||
                 categoryText.getText().toString().isEmpty() || chooseImageList.isEmpty()){
-            Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show();
+        showMessageDialog("Please fill all the fields");
         }
         else {
-            makeVolleyRequest(); // Add product
+            makeVolleyRequest();
         }
 
     }
 
     private void makeVolleyRequest() {
-        progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
+        addProduct.setEnabled(false);
         // Create a JSON object for productDetails
         JSONObject productDetails = new JSONObject();
         try {
@@ -135,7 +137,8 @@ public class FragmentAdd_Product extends Fragment {
         } catch (JSONException e) {
             Log.d("AddProduct", "Failed to create JSON object");
             Log.d("AddProduct", e.getMessage());
-            progressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
+            addProduct.setEnabled(true);
             e.printStackTrace();
         }
 
@@ -167,7 +170,8 @@ public class FragmentAdd_Product extends Fragment {
             } catch (IOException e) {
                 Log.d("AddProduct", "Failed to add image");
                 Log.d("AddProduct", e.getMessage());
-                progressDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
+                addProduct.setEnabled(true);
                 e.printStackTrace();
             }
         }
@@ -193,18 +197,19 @@ public class FragmentAdd_Product extends Fragment {
                     try {
                         JSONObject json = new JSONObject(responseData);
                         String message = json.getString("message");
-                        progressDialog.dismiss();
-
                         // Show toast on the main thread
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
-                                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                addProduct.setEnabled(true);
+                                showMessageDialog("Product added successfully");
                                 resetForm();
                             }
                         });
                     } catch (JSONException e) {
+                        progressBar.setVisibility(View.GONE);
+                        addProduct.setEnabled(true);
                         e.printStackTrace();
                     }
                 }
@@ -212,9 +217,13 @@ public class FragmentAdd_Product extends Fragment {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
-                Log.d("AddProduct", "Failed to add product");
-                Log.d("AddProduct", e.getMessage());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        addProduct.setEnabled(true);
+                    }
+                });
                 // Handle error
             }
         });
@@ -231,6 +240,19 @@ public class FragmentAdd_Product extends Fragment {
         categoryId = null;
         chooseImageList.clear();
         viewPager.setAdapter(null);
+    }
+    private void showMessageDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Added Successfully");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

@@ -12,6 +12,7 @@
     app:cardElevation="8dp"
     tools:context=".FragmentAdd_Product">
 
+
     <LinearLayout
         android:id="@+id/motherLayout"
         android:layout_width="match_parent"

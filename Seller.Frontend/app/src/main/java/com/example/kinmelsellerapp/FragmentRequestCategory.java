@@ -19,6 +19,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -45,7 +46,7 @@ public class FragmentRequestCategory extends Fragment {
     private Uri selectedImageUri;
     private Button requestCategoryButton;
     private SharedPrefManager sharedPrefManager;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,8 +58,7 @@ public class FragmentRequestCategory extends Fragment {
         categoryImage= view.findViewById(R.id.reqCategoryImage);
         requestCategoryButton= view.findViewById(R.id.btnRequestCategory);
         sharedPrefManager = SharedPrefManager.getInstance(getContext());
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Requesting Category...");
+      progressBar = view.findViewById(R.id.progressBar1);
         categoryImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +87,7 @@ public class FragmentRequestCategory extends Fragment {
             Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
         try {
             InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImageUri);
              encodedImage = ImageUtils.encodeImageToBase64(inputStream);
@@ -98,7 +98,7 @@ public class FragmentRequestCategory extends Fragment {
         } catch (Exception e) {
             Log.d("ImageError", e.getMessage());
             e.printStackTrace();
-            progressDialog.dismiss();
+         progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "Error in image ", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -112,7 +112,8 @@ public class FragmentRequestCategory extends Fragment {
             requestBody.put("imageFormat", imageFormat);
         } catch (JSONException e) {
             e.printStackTrace();
-            progressDialog.dismiss();
+           progressBar.setVisibility(View.GONE);
+            return;
         }
 
 
@@ -126,7 +127,7 @@ public class FragmentRequestCategory extends Fragment {
                             if (status == 200) {
                                 String message = response.getString("data");
                                 resetForm();
-                                progressDialog.dismiss();
+                                progressBar.setVisibility(View.GONE);
                                 alertMessage(message);
                             }
                         } catch (JSONException e) {
@@ -138,7 +139,7 @@ public class FragmentRequestCategory extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        progressBar.setVisibility(View.GONE);
                         resetForm();
                     }
                 })
@@ -152,7 +153,6 @@ public class FragmentRequestCategory extends Fragment {
         };
         requestQueue.add(jsonObjectRequest);
 
-        progressDialog.dismiss();
 
 
     }

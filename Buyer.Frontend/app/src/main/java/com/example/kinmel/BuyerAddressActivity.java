@@ -2,6 +2,7 @@ package com.example.kinmel;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -216,12 +217,13 @@ public class BuyerAddressActivity extends AppCompatActivity {
                             if (status == 200 && "Order Placed".equals(data)) {
                                 // Request is successful
                                 Log.d("VolleyResponse", "Order placed successfully");
+                                progressDialog.dismiss();
                                 Intent intent = new Intent(BuyerAddressActivity.this, ThankYouActivity.class); // Use mCtx instead of getApplicationContext()
                                 startActivity(intent);
-                                progressDialog.dismiss();
                                 finish();
                             } else {
                                 progressDialog.dismiss();
+                                showMessageDialog("Order placement failed,Please try again later");
                                 Intent intent = new Intent(BuyerAddressActivity.this, HomeFragment.class); // Use mCtx instead of getApplicationContext()
                                 startActivity(intent);
                                 finish();
@@ -287,7 +289,22 @@ public class BuyerAddressActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
+    private void showMessageDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuyerAddressActivity.this);
+        builder.setTitle("Order Failed");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(BuyerAddressActivity.this, HomeFragment.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 
 
