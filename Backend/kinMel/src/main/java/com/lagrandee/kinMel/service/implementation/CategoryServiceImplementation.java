@@ -10,10 +10,12 @@ import com.lagrandee.kinMel.helper.StaticPaths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,6 +159,50 @@ private final CategoryRepository categoryRepository;
             categoryResponse.setImagePath(rs.getString("category_request_image_path"));
         return categoryResponse;
         });
+    }
+
+    public String approveCategoryRequest(Integer requestId) {
+        try {
+            String query = "select category_request_id,category_request_name, category_request_description, category_request_image_path from category_request where category_request_id=?";
+            CategoryResponse categoryResponse = jdbcTemplate.queryForObject(query,(rs,rowName)->{
+                CategoryResponse categoryResponse1 =new CategoryResponse();
+                categoryResponse1.setCategory_id(rs.getInt("category_request_id"));
+                categoryResponse1.setCategory_name(rs.getString("category_request_name"));
+                categoryResponse1.setCategory_description(rs.getString("category_request_description"));
+                categoryResponse1.setImagePath(rs.getString("category_request_image_path"));
+                return categoryResponse1;
+            }, requestId);
+            String insertQuery="insert into category(category_name,category_description,category_image,category_created) values (?,?,?,?)";
+            int insertSuccess = jdbcTemplate.update(insertQuery, categoryResponse.getCategory_name(), categoryResponse.getCategory_description(), categoryResponse.getImagePath(), LocalDateTime.now());
+
+       String deleteQuery="delete from category_request where category_request_id=?";
+       jdbcTemplate.update(deleteQuery,requestId);
+
+
+        if (insertSuccess>0){
+            return "Successfully approved";
+        }
+        return  "Failed to approve";
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        return "Failed to approve";
+        }
+    }
+
+    public String rejectRequestForAddingCategory(Integer requestId) {
+        try {
+            String deleteQuery="delete from category_request where category_request_id=?";
+            int update = jdbcTemplate.update(deleteQuery, requestId);
+            if (update>0){
+                return "Rejected the category";
+            }
+            return "Service Failure";
+        }
+        catch (Exception e){
+            return "Server error";
+        }
+
     }
 }
 

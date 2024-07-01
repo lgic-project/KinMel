@@ -52,6 +52,28 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasRole('Admin')")
+    @PostMapping("categories/approve/{requestId}")
+    public ResponseEntity<?> approveCategoryRequest(@PathVariable Integer requestId){
+        String s = categoryServiceImplementation.approveCategoryRequest(requestId);
+        SingleDataResponse<String> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(s);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('Admin')")
+    @PostMapping("/categories/reject/{requestId}")
+        public ResponseEntity<?> rejectCategoryRequest(@PathVariable Integer requestId){
+        String s = categoryServiceImplementation.rejectRequestForAddingCategory(requestId);
+        SingleDataResponse<String> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(s);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('Admin')")
     @PutMapping("/categories/{categoryId}")
     public ResponseEntity<?> updateCategory(@PathVariable int categoryId,@RequestBody CategoryRequest categoryRequest) {
         return categoryServiceImplementation.updateCategory(categoryId,categoryRequest);

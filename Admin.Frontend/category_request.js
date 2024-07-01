@@ -100,14 +100,84 @@ function deleteForm() {
     const sellerId = modal.getAttribute('data-seller-id');
     console.log(`Deleting customer with ID ${sellerId}`);
     // Implement your delete seller logic here
+    fetch(`http://localhost:8080/kinMel/categories/reject/${sellerId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('kinmel-token')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 200 && data.data === 'Rejected the category') {
+            console.log(data.statusValue);
+            alert(data.data); // Show the success message
+            // Optionally, remove the approved row from the table
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            bootstrapModal.hide();
+
+            // Remove the backdrop manually
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.parentNode.removeChild(backdrop);
+            }
+            const row = document.getElementById(`catreq-${sellerId}`);
+            if (row) {
+                row.remove();
+            }
+        } else {
+            console.error('Failed to remove');
+            alert('Failed to remove category request');
+        }
+    })
+    .catch(error => {
+        console.error('Error rejecting category request:', error);
+        alert('Error rejecting category request');
+    });
+
 }
 
 function approveForm() {
     const modal = document.getElementById('approveModal');
-    const sellerId = modal.getAttribute('data-seller-id');
+    const sellerId = parseInt(modal.getAttribute('data-seller-id'), 10);
     console.log(`Approving customer with ID ${sellerId}`);
-    // Implement your approve seller logic here
+
+    fetch(`http://localhost:8080/kinMel/categories/approve/${sellerId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('kinmel-token')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 200 && data.data === 'Successfully approved') {
+            console.log(data.statusValue);
+            alert(data.data); // Show the success message
+            // Optionally, remove the approved row from the table
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            bootstrapModal.hide();
+
+            // Remove the backdrop manually
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.parentNode.removeChild(backdrop);
+            }
+            const row = document.getElementById(`catreq-${sellerId}`);
+            if (row) {
+                row.remove();
+            }
+        } else {
+            console.error('Failed to approve category request');
+            alert('Failed to approve category request');
+        }
+    })
+    .catch(error => {
+        console.error('Error approving category request:', error);
+        alert('Error approving category request');
+    });
 }
+
 
 function getCookie(name) {
     var cookieArr = document.cookie.split(';');
