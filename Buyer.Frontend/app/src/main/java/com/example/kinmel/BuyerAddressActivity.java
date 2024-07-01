@@ -1,5 +1,6 @@
 package com.example.kinmel;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,12 +45,14 @@ public class BuyerAddressActivity extends AppCompatActivity {
     private EditText name, address;
     private ArrayList<Integer> selectedCartIds;
     Integer totalAmount;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buyeraddressactivity);
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
 
         Intent intent = getIntent();
         selectedCartIds = intent.getIntegerArrayListExtra("selectedCartIds");
@@ -178,6 +181,7 @@ public class BuyerAddressActivity extends AppCompatActivity {
     }
 
     private void makeRequestPayment(String name, String mobileNumber, String address, String paymentMethod, Integer amount) {
+       progressDialog.show();
         Long amount1 = Long.valueOf(amount);
         Log.d("Payment", "Name: " + name + ", Mobile Number: " + mobileNumber + ", Address: " + address + ", Payment Method: " + paymentMethod + ", Amount: " + amount1 + ", Selected Cart Ids: " + selectedCartIds);
 
@@ -214,8 +218,13 @@ public class BuyerAddressActivity extends AppCompatActivity {
                                 Log.d("VolleyResponse", "Order placed successfully");
                                 Intent intent = new Intent(BuyerAddressActivity.this, ThankYouActivity.class); // Use mCtx instead of getApplicationContext()
                                 startActivity(intent);
+                                progressDialog.dismiss();
                                 finish();
                             } else {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(BuyerAddressActivity.this, HomeFragment.class); // Use mCtx instead of getApplicationContext()
+                                startActivity(intent);
+                                finish();
                                 // Request is considered a failure
                                 Log.e("VolleyResponse", "Order placement failed");
                             }

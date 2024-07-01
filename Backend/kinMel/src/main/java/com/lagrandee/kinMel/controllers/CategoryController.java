@@ -40,6 +40,16 @@ public class CategoryController {
 
     }
 
+    @PreAuthorize("hasRole('Admin')")
+   @GetMapping("/categories/request")
+    public  ResponseEntity<?> getCategoryRequest(){
+        List<CategoryResponse> requestCategory = categoryServiceImplementation.getRequestCategory();
+        SingleDataResponse<List<CategoryResponse>> response = new SingleDataResponse<>();
+        response.setStatus(HttpStatus.OK.value());
+        response.setStatusValue(HttpStatus.OK.name());
+        response.setData(requestCategory);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @PreAuthorize("hasRole('Admin')")
     @PutMapping("/categories/{categoryId}")

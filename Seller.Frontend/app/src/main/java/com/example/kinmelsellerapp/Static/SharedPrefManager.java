@@ -26,6 +26,7 @@ public class SharedPrefManager {
     }
 
     public String getToken() {
+
         return sharedPreferences.getString("sellerToken", null);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.kinmelsellerapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class FragmentAdd_Product extends Fragment {
     private Integer categoryId;
     private  String token;
     private SharedPrefManager sharedPrefManager;
+    private ProgressDialog progressDialog;
     private EditText productName, productDescription,productBrand,productPrice,productDiscountedPrice, productStockQuantity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +73,8 @@ public class FragmentAdd_Product extends Fragment {
         addProduct= view.findViewById(R.id.addProduct);
         sharedPrefManager = SharedPrefManager.getInstance(getContext());
          token = sharedPrefManager.getToken();
+        progressDialog = new ProgressDialog(getActivity().getApplicationContext());
+        progressDialog.setMessage("Adding Product...");
         chooseImageList = new ArrayList<>();
         pickImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +121,7 @@ public class FragmentAdd_Product extends Fragment {
     }
 
     private void makeVolleyRequest() {
+        progressDialog.show();
         // Create a JSON object for productDetails
         JSONObject productDetails = new JSONObject();
         try {
@@ -130,6 +135,7 @@ public class FragmentAdd_Product extends Fragment {
         } catch (JSONException e) {
             Log.d("AddProduct", "Failed to create JSON object");
             Log.d("AddProduct", e.getMessage());
+            progressDialog.dismiss();
             e.printStackTrace();
         }
 
@@ -161,6 +167,7 @@ public class FragmentAdd_Product extends Fragment {
             } catch (IOException e) {
                 Log.d("AddProduct", "Failed to add image");
                 Log.d("AddProduct", e.getMessage());
+                progressDialog.dismiss();
                 e.printStackTrace();
             }
         }
@@ -186,11 +193,13 @@ public class FragmentAdd_Product extends Fragment {
                     try {
                         JSONObject json = new JSONObject(responseData);
                         String message = json.getString("message");
+                        progressDialog.dismiss();
 
                         // Show toast on the main thread
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                                 resetForm();
                             }
@@ -203,6 +212,7 @@ public class FragmentAdd_Product extends Fragment {
 
             @Override
             public void onFailure(Call call, IOException e) {
+                progressDialog.dismiss();
                 Log.d("AddProduct", "Failed to add product");
                 Log.d("AddProduct", e.getMessage());
                 // Handle error

@@ -15,12 +15,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import android.transition.AutoTransition;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.kinmelsellerapp.R;
 import com.example.kinmelsellerapp.Static.AppStatic;
+import com.example.kinmelsellerapp.Static.SharedPrefManager;
 import com.example.kinmelsellerapp.request.Order;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 
@@ -81,6 +92,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
              builder.setPositiveButton("Deliver", new DialogInterface.OnClickListener() {
                  @Override
                  public void onClick(DialogInterface dialog, int which) {
+                     sendDeliveryRequest(order.getOrderId(),v);
                      Log.d("Order", "Product Delivered: " + order.getOrderId());
                  }
              });
@@ -94,6 +106,40 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
              AlertDialog dialog = builder.create();
              dialog.show();
          });
+    }
+
+    private void sendDeliveryRequest(int orderId, View view) {
+        String url = "http://localhost:8080/kinMel/orders?orderItemId=" + orderId;
+
+        SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(view.getContext());
+        String token = sharedPrefManager.getToken();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Handle the response here
+                        Snackbar.make(view, "Delivery Successful", Snackbar.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle the error here
+                        Snackbar.make(view, " Server time out ", Snackbar.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                // Add your Authorization header here
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(view.getContext()).add(stringRequest);
     }
 
     @Override

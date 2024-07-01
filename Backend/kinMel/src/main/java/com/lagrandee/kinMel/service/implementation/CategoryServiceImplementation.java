@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -144,6 +145,18 @@ private final CategoryRepository categoryRepository;
         } catch (Exception e) {
             throw new NotInsertedException("Category insertion failed: "+ e.getMessage());
         }
+    }
+
+    public List<CategoryResponse> getRequestCategory() {
+        String query="select * from category_request";
+     return jdbcTemplate.query(query,(rs,rowNum)->{
+            CategoryResponse categoryResponse=new CategoryResponse();
+            categoryResponse.setCategory_id(rs.getInt("category_request_id"));
+            categoryResponse.setCategory_name(rs.getString("category_request_name"));
+            categoryResponse.setCategory_description(rs.getString("category_request_description"));
+            categoryResponse.setImagePath(rs.getString("category_request_image_path"));
+        return categoryResponse;
+        });
     }
 }
 
