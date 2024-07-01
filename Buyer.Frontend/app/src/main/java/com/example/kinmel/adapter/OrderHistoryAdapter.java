@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,22 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_item, parent, false);
+        RelativeLayout itemClicked = view.findViewById(R.id.itemClicked);
+        ImageView arrowImg = view.findViewById(R.id.arrowImg);
+        LinearLayout discLayout = view.findViewById(R.id.discLayout);
+        itemClicked.setOnClickListener(v -> {
+            if (discLayout.getVisibility() == View.GONE){
+                arrowImg.setImageResource(R.drawable.up);
+//                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
+                discLayout.setVisibility(View.VISIBLE);
+//                motherLayout.setBackgroundColor(Color.parseColor("#724CAF50"));
+            } else {
+                arrowImg.setImageResource(R.drawable.down);
+//                TransitionManager.beginDelayedTransition(motherLayout, new AutoTransition());
+                discLayout.setVisibility(View.GONE);
+//                motherLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        });
         return new ViewHolder(view);
     }
 
@@ -56,6 +74,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             String formattedDate = newFormat.format(orderDate);
             holder.orderDate.setText(formattedDate); // "Jun 09, 2024, 11:47 AM"
         }
+        holder.orderHeadingProductQuantity.setText(order.getQuantity());
+        holder.orderProductHeadingName.setText(order.getProductName());
         holder.orderProductName.setText( order.getProductName());
         holder.orderTotal.setText("Rs. " + order.getTotalPrice());
         holder.orderStatus.setText(order.getOrderStatus());
@@ -71,6 +91,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
+       public TextView orderHeadingProductQuantity,orderProductHeadingName;
         public TextView orderId;
         public TextView orderDate;
         public TextView orderProductName;
@@ -81,6 +103,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
+            orderHeadingProductQuantity = itemView.findViewById(R.id.orderHeadingProductQuantity);
+            orderProductHeadingName = itemView.findViewById(R.id.orderProductHeadingName);
             orderId = itemView.findViewById(R.id.order_id);
             orderDate = itemView.findViewById(R.id.order_date);
             orderProductName = itemView.findViewById(R.id.order_name);
