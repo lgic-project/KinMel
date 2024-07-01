@@ -189,7 +189,6 @@ private final CategoryRepository categoryRepository;
         return "Failed to approve";
         }
     }
-
     public String rejectRequestForAddingCategory(Integer requestId) {
         try {
             String deleteQuery="delete from category_request where category_request_id=?";

@@ -9,8 +9,9 @@ fetch('http://localhost:8080/kinMel/category/details', {
         console.log(data);
 
         const categoryNames = data.data.map(item => item.categoryName);
-        const totalOrders = data.data.map(item => item.totalOrdersInEachCategory);
-
+        // const totalOrders = data.data.map(item => item.totalOrdersInEachCategory);
+        const totalOrders = data.data.map(item => Number(item.totalOrdersInEachCategory));
+        console.log('Total Orders:', totalOrders);
         const ctx = document.getElementById('categoryChart').getContext('2d');
         const categoryChart = new Chart(ctx, {
             type: 'bar', // or 'pie' for a pie chart
@@ -40,8 +41,8 @@ fetch('http://localhost:8080/kinMel/category/details', {
             },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true
+                    y: {    
+                        beginAtZero: true  
                     }
                 }
             }
@@ -50,6 +51,50 @@ fetch('http://localhost:8080/kinMel/category/details', {
     .catch(error => {
         console.error('Error:', error);
     });
+
+
+
+    fetch('http://localhost:8080/kinMel/entity', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('kinmel-token')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 200) {
+            const stats = data.data;
+
+            // Update the DOM elements with the fetched data
+            document.getElementById('salesValue').textContent = 'Rs. '+ stats.totalSales;
+            document.getElementById('totalProducts').textContent = stats.totalProducts;
+            document.getElementById('totalCustomer').textContent = stats.totalCustomer;
+            document.getElementById('totalCategory').textContent = stats.totalCategory;
+            document.getElementById('uniqueProducts').textContent = stats.uniqueProducts;
+            document.getElementById('totalAdmin').textContent = stats.totalAdmin;
+            document.getElementById('totalSeller').textContent = stats.totalSeller;
+            document.getElementById('totalOrders').textContent = stats.totalOrders;
+        } else {
+            console.error('Failed to fetch stats:', data.statusValue);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching stats:', error);
+    });
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+
+
+
+
+
+
 
 function getCookie(name) {
     var cookieArr = document.cookie.split(';');
